@@ -50,7 +50,13 @@
                                     $solution.problemId - $problems.get($solution.solutionId).title
                                 </a>
                             </td>
-                            <td class="text-center"><a href="#">$solution.language.toString()</a></td>
+                            <td class="text-center">
+                                #if($solution.userId == $userId)
+                                    <a href="$root/viewcode/$solution.solutionId">$solution.language.toString()</a>
+                                #else
+                                    $solution.language.toString()
+                                #end
+                            </td>
                             <td class="text-center">
                                 #if($result == "Queue")
                                     <span class="glyphicon glyphicon-hourglass"></span>

@@ -70,11 +70,10 @@ public class StatusController {
     @RequestMapping(value = "global")
     public String globalStatus(HttpServletRequest request, Model model) {
         if (request.getSession().getAttribute("currentUser") != null) {
+            UserModel user = (UserModel)request.getSession().getAttribute("currentUser");
             model.addAttribute("hasLogined", true);
-            model.addAttribute("nikename", ((UserModel) request
-                    .getSession()
-                    .getAttribute("currentUser"))
-                    .getNikeName());
+            model.addAttribute("nikename", user.getNikeName());
+            model.addAttribute("userId", user.getUserId());
         }
 
         List<SolutionModel> solutions = solutionService.queryAllSolutions();
