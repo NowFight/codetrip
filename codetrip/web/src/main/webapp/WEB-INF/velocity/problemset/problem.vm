@@ -1,0 +1,128 @@
+#set($contest = false)
+
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
+
+    #parse("/common/head.vm")
+
+<body>
+<!-- navigator -->
+    #set($nav_active_item = "ProblemSet")
+    #parse("/common/navigator.vm")
+
+<div class="container">
+
+    #parse("/common/spacebar.vm")
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-3">
+            <!-- title -->
+            <div class="page-header">
+                <h1>$problem.title</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">属性</div>
+                <div class="panel-body">
+                    <p><span class="label label-info">时间限制 : $problem.timeLimit MS</span></p>
+                    <p><span class="label label-info">内存限制 : $problem.memoryLimit KB</span></p>
+                    #if($problem.specialJudge == "YES")
+                        <p><span class="label label-danger">Special Judge</span></p>
+                    #else
+                        <p><span class="label label-info">Normal Judge</span></p>
+                    #end
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6">统计</div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p><span class="label label-default">总提交数 : $statistic.submissions</span></p>
+                    <p><span class="label label-primary">通过提交数 : $statistic.accept</span></p>
+                    <p><span class="label label-danger">Wrong Answer : $statistic.wrongAnswer</span></p>
+                    <p><span class="label label-success">Compile Error : $statistic.compileError</span></p>
+                    <p><span class="label label-success">Time Limit Error : $statistic.timeLimitError</span></p>
+                    <p><span class="label label-success">Memory Limit Error : $statistic.memLimitError</span></p>
+                    <p><span class="label label-warning">Presentation Error : $statistic.presentationError</span></p>
+                    <p><span class="label label-success">Runtime Error : $statistic.runtimeError</span></p>
+                    <p><span class="label label-success">Output Limit Error : $statistic.outputLimitError</span></p>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">文件提交</div>
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <!-- problem description -->
+            <div class="panel panel-default">
+                <div class="panel-heading">描述</div>
+                <div class="panel-body">
+                    #foreach($line in $problem.description.split("\n"))
+                        <p class="form-control-static">$line</p>
+                    #end
+                </div>
+            </div>
+
+            <!-- input description -->
+            <div class="panel panel-default">
+                <div class="panel-heading">输入描述</div>
+                <div class="panel-body">
+                    #foreach($line in $problem.inputDescription.split("\n"))
+                        <p class="form-control-static">$line</p>
+                    #end
+                </div>
+            </div>
+
+            <!-- ouput description -->
+            <div class="panel panel-default">
+                <div class="panel-heading">输出描述</div>
+                <div class="panel-body">
+                    #foreach($line in $problem.outputDescription.split("\n"))
+                        <p class="form-control-static">$line</p>
+                    #end
+                </div>
+            </div>
+
+            <!-- Sample input -->
+            <div class="panel panel-default">
+                <div class="panel-heading">输入例子</div>
+                <div class="panel-body">
+                    <pre>$problem.sampleInput</pre>
+                </div>
+            </div>
+
+            <!-- Sample output -->
+            <div class="panel panel-default">
+                <div class="panel-heading">输出例子</div>
+                <div class="panel-body">
+                    <pre>$problem.sampleOutput</pre>
+                </div>
+            </div>
+
+            #if($hasLogined == true)
+                <!-- submit -->
+                <div class="row">
+                    <p class="text-center">
+                        <a href="$root/commit/problem/$problem.problemId" class="btn btn-default btn-md" role="button">Commit</a>
+                    </p>
+                </div>
+            #end
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

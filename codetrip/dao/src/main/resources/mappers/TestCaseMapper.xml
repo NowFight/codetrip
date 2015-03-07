@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.codetrip.dao.testcase.TestCaseDao">
+
+    <!-- result map -->
+    <resultMap id="TestCaseResultMap" type="TestCaseModel">
+        <result property="caseNumber" column="case_number"/>
+        <result property="problemId" column="problem_id"/>
+        <result property="testData" column="test_data"/>
+        <result property="standardOutput" column="standard_output"/>
+    </resultMap>
+
+    <!-- insert -->
+    <insert id="insertTestCase" parameterType="TestCaseModel">
+        INSERT INTO testcase
+        (
+          case_number,
+          problem_id,
+          test_data,
+          standard_output
+        )
+        VALUES
+        (
+          #{caseNumber},
+          #{problemId},
+          #{testData},
+          #{standardOutput}
+        );
+    </insert>
+
+    <!-- select -->
+    <select id="queryTestCaseByProblemId" parameterType="map" resultMap="TestCaseResultMap">
+        SELECT * FROM testcase WHERE problem_id = #{problemId};
+    </select>
+
+    <!-- delete -->
+    <delete id="deleteTestCaseByProblemIdAndCaseId" parameterType="map">
+        DELETE FROM testcase WHERE case_number = #{caseId} AND problem_id = #{problemId};
+    </delete>
+
+    <!-- update -->
+    <update id="updateTestCaseByProblemIdAndCaseId" parameterType="TestCaseModel">
+        UPDATE testcase
+        <set>
+            <if test="testData != null">test_data = #{testData},</if>
+            <if test="standardOutput != null">standard_output = #{standardOutput}</if>
+        </set>
+        WHERE problem_id = #{problemId} AND case_number = #{caseNumber};
+    </update>
+
+</mapper>

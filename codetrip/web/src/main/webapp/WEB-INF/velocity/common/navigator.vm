@@ -1,0 +1,61 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="$root/index">CodeTrip</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                #if($nav_active_item == "Home")
+                    <li class="active"><a href="$root/index">主页</a></li>
+                #else
+                    <li><a href="$root/index">主页</a></li>
+                #end
+
+                #if($nav_active_item == "ProblemSet")
+                    <li class="active"><a href="$root/problemset/view/0">题目</a></li>
+                #else
+                    <li><a href="$root/problemset/view/0">题目</a></li>
+                #end
+
+                #if($nav_active_item == "Contests")
+                    <li class="active"><a href="$root/contests">比赛</a></li>
+                #else
+                    <li><a href="#">比赛 <span class="badge">4</span></a></li>
+                #end
+                #if($nav_active_item == "Status")
+                    <li class="active"><a href="$root/status/global">STATUS</a></li>
+                #else
+                    <li><a href="$root/status/global">STATUS</a></li>
+                #end
+            </ul>
+
+            #if($hasLogined == true)
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> $nikename<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="$root/profile/sidebar/overview"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 个人中心 </a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 设置 </a></li>
+                            <li class="divider"></li>
+                            <li><a href="$root/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> 退出 </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            #end
+            #if (!$hasLogined)
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">登录</a></li>
+                    <li><a href="$root/register">注册</a></li>
+                </ul>
+            #end
+        </div>
+    </div>
+</nav>

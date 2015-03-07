@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.codetrip.dao.statistic.ProblemStatisticDao">
+    <!-- result map -->
+    <resultMap id="statisticResultMap" type="ProblemStatisticModel">
+        <result property="problemId" column="problem_id"/>
+        <result property="submissions" column="submissions"/>
+        <result property="accept" column="accept"/>
+        <result property="compileError" column="compile_error"/>
+        <result property="wrongAnswer" column="wrong_answer"/>
+        <result property="timeLimitError" column="time_limit_error"/>
+        <result property="memLimitError" column="mem_limit_error"/>
+        <result property="presentationError" column="presentation_error"/>
+        <result property="runtimeError" column="runtime_error"/>
+        <result property="outputLimitError" column="output_limit_error"/>
+    </resultMap>
+
+    <!-- insert -->
+    <insert id="insertStatistic" parameterType="ProblemStatisticModel">
+        INSERT INTO problemstatistic
+        (
+          problem_id,
+          submissions,
+          accept,
+          compile_error,
+          wrong_answer,
+          time_limit_error,
+          mem_limit_error,
+          presentation_error,
+          runtime_error,
+          output_limit_error,
+          system_error
+        )
+        VALUES
+        (
+          #{problemId},
+          #{submissions},
+          #{accept},
+          #{compileError},
+          #{wrongAnswer},
+          #{timeLimitError},
+          #{memLimitError},
+          #{presentationError},
+          #{runtimeError},
+          #{outputLimitError},
+          #{systemError}
+        );
+    </insert>
+
+    <!-- update -->
+    <update id="updateStatisticByProblemId" parameterType="ProblemStatisticModel">
+        UPDATE problemstatistic
+        <set>
+            <if test="problemId != null">problem_id = #{problemId},</if>
+            <if test="submissions != null">submissions = #{submissions},</if>
+            <if test="accept != null">accept = #{accept},</if>
+            <if test="compileError != null">compile_error = #{compileError},</if>
+            <if test="wrongAnswer != null">wrong_answer = #{wrongAnswer},</if>
+            <if test="timeLimitError != null">time_limit_error = #{timeLimitError},</if>
+            <if test="memLimitError != null">mem_limit_error = #{memLimitError},</if>
+            <if test="presentationError != null">presentation_error = #{presentationError},</if>
+            <if test="runtimeError != null">runtime_error = #{runtimeError},</if>
+            <if test="outputLimitError != null">output_limit_error = #{outputLimitError}</if>
+        </set>
+        WHERE problem_id = #{problemId};
+    </update>
+
+    <!-- select -->
+    <select id="queryStatisticByProblemId" parameterType="int" resultMap="statisticResultMap">
+        SELECT * FROM problemstatistic WHERE problem_id = #{problemId};
+    </select>
+
+    <!-- delete -->
+    <delete id="deleteStatisticByProblemId" parameterType="int">
+        DELETE FROM problemstatistic WHERE problem_id = #{problemId};
+    </delete>
+</mapper>

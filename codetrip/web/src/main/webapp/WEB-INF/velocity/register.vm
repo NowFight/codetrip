@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+    #parse("common/head.vm")
+
+<body>
+
+#parse("common/navigator.vm")
+
+<div class="container">
+
+    #parse("common/spacebar.vm")
+    #if($registefault)
+        <div class="row">
+            <div class="alert alert-danger" role="alert">
+                用户名已存在，请重新注册!
+            </div>
+        </div>
+    #end
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="well">
+                <form class="form-horizontal" action="$root/register" method="post">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Email</label>
+                        <div class="col-md-9">
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Password</label>
+
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Nikename</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="nikename" placeholder="Nikename">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Sex</label>
+                        <div class="col-md-4 col-md-offset-1">
+                            <div class="radio-inline">
+                                <label><input type="radio" name="sex" id="sex" value="male" checked>male</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="radio-inline">
+                                <label><input type="radio" name="sex" id="sex" value="female" checked>female</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Birthday</label>
+                        <div class="col-md-5">
+                            <select class="form-control" name="year">
+                                #foreach($year in [1900..2015])
+                                    <option value="$year">$year</option>
+                                #end
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" name="month">
+                                #foreach($month in [1..12])
+                                    <option value="$month">$month</option>
+                                #end
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">nationality</label>
+                        <div class="col-md-9">
+                            <select class="form-control" name = "nationality">
+                                <option value="china">China</option>
+                                <option value="america">America</option>
+                                <option value="europe">Europe</option>
+                                <option value="japan">Japan</option>
+                                <option value="england">England</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="publicinfo" value="YES"> 公开个人信息
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success"> 注册 </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    #parse("common/footer")
+</div> <!-- /container -->
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

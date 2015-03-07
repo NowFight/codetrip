@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    #parse("/common/head.vm")
+
+<body>
+<!-- navigator -->
+    #parse("/common/navigator.vm")
+
+<div class="container">
+    #parse("/common/spacebar.vm")
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    Status
+                </div>
+                <table class="table table-hover table-condensed">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">When</th>
+                        <th class="text-center">Who</th>
+                        <th class="text-center">Problem</th>
+                        <th class="text-center">Language</th>
+                        <th class="text-center">Result</th>
+                        <th class="text-center">Time</th>
+                        <th class="text-center">Memory</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        #foreach($solution in $solutions)
+                        #if($solution.result)
+                            #set($result = $solution.result.toString())
+                        #else
+                            #set($result = "Queue")
+                        #end
+                        <tr>
+                            <td class="text-center">$solution.solutionId</td>
+                            <td class="text-center">$solution.date</td>
+                            #if($global == true)
+                                <td class="text-center">$nikenames.get($solution.solutionId)</td>
+                            #else
+                                <td class="text-center">$nikename</td>
+                            #end
+                            <td class="text-center">
+                                <a href="$root/problemset/problem/$solution.problemId">
+                                    $solution.problemId - $problems.get($solution.solutionId).title
+                                </a>
+                            </td>
+                            <td class="text-center"><a href="#">$solution.language.toString()</a></td>
+                            <td class="text-center">
+                                #if($result == "Queue")
+                                    <span class="glyphicon glyphicon-hourglass"></span>
+                                #else
+                                    $result
+                                #end
+                            </td>
+                            <td class="text-center">$!solution.useTime ms</td>
+                            <td class="text-center">$!solution.useMemory KB</td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

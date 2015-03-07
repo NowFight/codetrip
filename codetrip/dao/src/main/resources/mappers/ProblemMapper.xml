@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.codetrip.dao.problem.ProblemDao">
+
+    <!-- result map -->
+    <resultMap id="problemResultMap" type="ProblemModel">
+        <id property="problemId" column="problem_id"/>
+        <result property="title" column="title"/>
+        <result property="userId" column="user_id"/>
+        <result property="contestId" column="contest_id"/>
+        <result property="description" column="description"/>
+        <result property="inputDescription" column="input_description"/>
+        <result property="outputDescription" column="output_description"/>
+        <result property="sampleInput" column="sample_input"/>
+        <result property="sampleOutput" column="sample_output"/>
+        <result property="hint" column="hint"/>
+        <result property="source" column="source"/>
+        <result property="specialJudge" column="special_judge"/>
+        <result property="visiable" column="visiable"/>
+        <result property="timeLimit" column="time_limit"/>
+        <result property="memoryLimit" column="memory_limit"/>
+    </resultMap>
+
+    <!-- insert -->
+    <insert id="insertProblem" parameterType="ProblemModel" useGeneratedKeys="true" keyProperty="problemId">
+        INSERT INTO problem
+        (
+          title,
+          user_id,
+          contest_id,
+          description,
+          input_description,
+          output_description,
+          sample_input,
+          sample_output,
+          hint,
+          source,
+          special_judge,
+          visiable,
+          time_limit,
+          memory_limit
+        )
+        VALUES
+        (
+          #{title},
+          #{userId},
+          #{contestId},
+          #{description},
+          #{inputDescription},
+          #{outputDescription},
+          #{sampleInput},
+          #{sampleOutput},
+          #{hint},
+          #{source},
+          #{specialJudge},
+          #{visiable},
+          #{timeLimit},
+          #{memoryLimit}
+        );
+    </insert>
+
+    <!-- select -->
+    <select id="queryProblemsByUserId" parameterType="int" resultMap="problemResultMap">
+        SELECT * FROM problem WHERE user_id = #{userId};
+    </select>
+
+    <select id="queryProblemsByProblemId" parameterType="int" resultMap="problemResultMap">
+        SELECT * FROM problem WHERE problem_id = #{problemId};
+    </select>
+
+    <select id="queryProblemsByContestId" parameterType="int" resultMap="problemResultMap">
+        SELECT * FROM problem WHERE contest_id = #{contestId};
+    </select>
+
+    <select id="listAllPublicProblem" resultMap="problemResultMap">
+        SELECT * FROM problem WHERE visiable = "YES";
+    </select>
+
+    <!-- update -->
+    <update id="updateProblemByProblemId" parameterType="ProblemModel">
+        UPDATE problem
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="contestId != null">contest_id = #{contestId},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="inputDescription != null">input_description = #{inputDescription},</if>
+            <if test="outputDescription != null">output_description = #{outputDescription},</if>
+            <if test="sampleInput != null">sample_input = #{sampleInput},</if>
+            <if test="sampleOutput != null">sample_output = #{sampleOutput},</if>
+            <if test="hint != null">hint = #{hint},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="specialJudge != null">special_judge = #{specialJudge},</if>
+            <if test="visiable != null">visiable = #{visiable},</if>
+            <if test="timeLimit != null">time_limit = #{timeLimit},</if>
+            <if test="memoryLimit != null">memory_limit = #{memoryLimit}</if>
+        </set>
+        WHERE
+          problem_id = #{problemId};
+    </update>
+</mapper>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    #parse("/common/head.vm")
+
+<body>
+<!-- navigator -->
+#set($nav_active_item = "ProblemSet")
+#parse("/common/navigator.vm")
+
+<div class="container">
+    <!-- page -->
+    #parse("/common/spacebar.vm")
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills" role="tablist">
+                #foreach($i in [0 .. $pages])
+                    #set($start = $i * $pagediv + 1)
+                    #set($end = ($i + 1) * $pagediv)
+                    <li role="presentation" #if($i == $currentPage) class="active"#end><a href="$root/problemset/view/$i">$start ~ $end</a></li>
+                #end
+            </ul>
+        </div>
+    </div>
+
+    #parse("/common/spacebar.vm")
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Quick</th>
+                    <th class="text-center">Ratio</th>
+                </tr>
+                </thead>
+                <tbody>
+                #foreach($problem in $problems)
+                <tr>
+                    <td class="text-center">$problem.problemId</td>
+                    <td class="text-center"><a href="$root/problemset/problem/$problem.problemId">$problem.title</a></td>
+                    <td class="text-center"><a href="$root/commit/problem/$problem.problemId" class="black-icon"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></a></td>
+                    <td class="text-center">
+                        $statistics.get($problem.problemId).accept / $statistics.get($problem.problemId).submissions
+                    </td>
+                </tr>
+                #end
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    #parse("/common/head.vm")
+
+<body>
+
+<!-- navigator -->
+
+    #parse("/common/navigator.vm")
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li #if($sidebarItem == "description") class="active" #end>
+                    <a href="$root/profile/addproblem/edit/sidebar/description">描述</a>
+                </li>
+                <li #if($sidebarItem == "metainfo") class="active" #end>
+                    <a href="$root/profile/addproblem/edit/sidebar/metainfo">元数据</a>
+                </li>
+                <li #if($sidebarItem == "testcase") class="active"#end>
+                    <a href="$root/profile/addproblem/edit/sidebar/testcase">测试数据</a>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a href="$root/profile/addproblem/exit">退出</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+            #parse("/common/spacebar.vm")
+
+            <!-- 添加元数据 -->
+            #if($sidebarItem == "metainfo")
+                <div class="row">
+                    <form class="form" action="$root/profile/addproblem/edit/metainfo/update" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    #if($editItem == "timelimit")
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">时间限制 (MS)</div>
+                                                <div class="col-md-2 col-md-offset-4">
+                                                    <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1">C/C++</span>
+                                                    <input type="text" class="form-control" name="timeLimit" placeholder="$problem.timeLimit MS">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1">Java</span>
+                                                    <input type="text" class="form-control" name="timeLimit" placeholder="$problem.timeLimit MS">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    #else
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">时间限制 (MS)</div>
+                                                <div class="col-md-2 col-md-offset-4">
+                                                    <a href="$root/profile/addproblem/edit/metainfo/timelimit" class="btn btn-success btn-xs" role="button">编辑</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p><span class="label label-default">C/C++</span> $problem.timeLimit MS</p>
+                                            <p><span class="label label-default">Java</span> $problem.timeLimit MS</p>
+                                        </div>
+                                    #end
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    #if($editItem == "memorylimit")
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">内存限制 (KB)</div>
+                                                <div class="col-md-2 col-md-offset-4">
+                                                    <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1">C/C++</span>
+                                                    <input type="text" class="form-control" name="memoryLimit" placeholder="$problem.memoryLimit KB">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1">Java</span>
+                                                    <input type="text" class="form-control" name="memoryLimit" placeholder="$problem.memoryLimit KB">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    #else
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">内存限制 (KB)</div>
+                                                <div class="col-md-2 col-md-offset-4">
+                                                    <a href="$root/profile/addproblem/edit/metainfo/memorylimit" class="btn btn-success btn-xs" role="button">编辑</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p><span class="label label-default">C/C++</span> $problem.memoryLimit KB</p>
+                                            <p><span class="label label-default">Java</span> $problem.memoryLimit KB</p>
+                                        </div>
+                                    #end
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    #if($editItem == "specialjudge")
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">Special Judge</div>
+                                                <div class="col-md-2 col-md-offset-4">
+                                                    <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="specialJudge" value="NO" #if($problem.specialJudge == "NO")checked#end>
+                                                        <span class="label label-info">Normal Judge</span>
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="specialJudge" value="YES" #if($problem.specialJudge == "YES")checked#end>
+                                                        <span class="label label-danger">Special Judge</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    #else
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">Special Judge</div>
+                                                <div class="col-md-2 col-md-offset-4">
+                                                    <a href="$root/profile/addproblem/edit/metainfo/specialjudge" class="btn btn-success btn-xs" role="button">编辑</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            #if($problem.specialJudge == "NO")
+                                                <span class="label label-info">Normal Judge</span>
+                                            #else
+                                                <span class="label label-danger">Special Judge</span>
+                                            #end
+                                        </div>
+                                    #end
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    #if($editItem == "visiable")
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">可访问性</div>
+                                                <div class="col-md-2 col-md-offset-4">
+                                                    <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="visiable" value="YES" #if($problem.visiable == "YES")checked#end>
+                                                        <span class="label label-info">Public</span>
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="visiable" value="NO" #if($problem.visiable == "NO")checked#end>
+                                                        <span class="label label-danger">Private</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    #else
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">可访问性</div>
+                                                <div class="col-md-2 col-md-offset-4">
+                                                    <a href="$root/profile/addproblem/edit/metainfo/visiable" class="btn btn-success btn-xs" role="button">编辑</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            #if($problem.visiable == "YES")
+                                                <span class="label label-info">Public</span>
+                                            #else
+                                                <span class="label label-danger">Private</span>
+                                            #end
+                                        </div>
+                                    #end
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    #if($editItem == "hint")
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">提示</div>
+                                                <div class="col-md-1 col-md-offset-5">
+                                                    <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="5" name="hint">$!problem.hint</textarea>
+                                            </div>
+                                        </div>
+                                    #else
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">提示</div>
+                                                <div class="col-md-1 col-md-offset-5">
+                                                    <a href="$root/profile/addproblem/edit/metainfo/hint" class="btn btn-success btn-xs" role="button">编辑</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="form-control-static">$!problem.hint</p>
+                                        </div>
+                                    #end
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            #end
+
+            <!-- 添加描述 -->
+            #if($sidebarItem == "description")
+                <div class="row">
+                    <form action="$root/profile/addproblem/edit/description/update" method="post">
+                        <!-- title -->
+                        <div class="panel panel-default">
+                            #if($editItem == "title")
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">标题</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="problemtitle" name ="title" placeholder="$problem.title">
+                                    </div>
+                                </div>
+                            #else
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">标题</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <a href="$root/profile/addproblem/edit/description/title" class="btn btn-success btn-xs" role="button">编辑</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="form-control-static">$problem.title</p>
+                                </div>
+                            #end
+                        </div>
+
+                        <!-- problem description -->
+                        <div class="panel panel-default">
+                            #if($editItem == "description")
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">描述</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="10" name="description" required>$problem.description</textarea>
+                                    </div>
+                                </div>
+                            #else
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">描述</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <a href="$root/profile/addproblem/edit/description/description" class="btn btn-success btn-xs" role="button">编辑</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    #foreach($line in $problem.description.split("\n"))
+                                        <p class="form-control-static">$line</p>
+                                    #end
+                                </div>
+                            #end
+                        </div>
+
+                        <!-- input description -->
+                        <div class="panel panel-default">
+                            #if($editItem == "inputdescription")
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">输入描述</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                    <textarea class="form-control" rows="5" name="inputdescription" required>$problem.inputDescription</textarea>
+                                    </div>
+                                </div>
+                            #else
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">输入描述</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <a href="$root/profile/addproblem/edit/description/inputdescription" class="btn btn-success btn-xs" role="button">编辑</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    #foreach($line in $problem.inputDescription.split("\n"))
+                                        <p class="form-control-static">$line</p>
+                                    #end
+                                </div>
+                            #end
+                        </div>
+
+                        <!-- ouput description -->
+                        <div class="panel panel-default">
+                            #if($editItem == "outputdescription")
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">输出描述</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="5" name="outputdescription" required>$problem.outputDescription</textarea>
+                                    </div>
+                                </div>
+                            #else
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">输出描述</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <a href="$root/profile/addproblem/edit/description/outputdescription" class="btn btn-success btn-xs" role="button">编辑</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    #foreach($line in $problem.outputDescription.split("\n"))
+                                        <p class="form-control-static">$line</p>
+                                    #end
+                                </div>
+                            #end
+                        </div>
+
+                        <!-- Sample input -->
+                        <div class="panel panel-default">
+                            #if($editItem == "sampleinput")
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">输入例子</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="5" name="sampleinput" required>$problem.sampleInput</textarea>
+                                    </div>
+                                </div>
+                            #else
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">输入例子</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <a href="$root/profile/addproblem/edit/description/sampleinput" class="btn btn-success btn-xs" role="button">编辑</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <pre>$problem.sampleInput</pre>
+                                </div>
+                            #end
+                        </div>
+
+                        <!-- Sample output -->
+                        <div class="panel panel-default">
+                            #if($editItem == "sampleoutput")
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">输出例子</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="5" name="sampleoutput" required>$problem.sampleOutput</textarea>
+                                    </div>
+                                </div>
+                            #else
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">输出例子</div>
+                                        <div class="col-md-1 col-md-offset-5">
+                                            <a href="$root/profile/addproblem/edit/description/sampleoutput" class="btn btn-success btn-xs" role="button">编辑</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <pre>$problem.sampleOutput</pre>
+                                </div>
+                            #end
+                        </div>
+                    </form>
+                </div>
+            #end
+
+            <!-- 添加测试数据 -->
+            #if($sidebarItem == "testcase")
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            #set($case = $col + $row * 3)
+                            <div class="panel-heading">添加测试用例</div>
+                            <div class="panel-body">
+                                <form action="$root/profile/addproblem/edit/testcase/add" method="post">
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="4" name="testData" placeholder="请输入测试数据" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="4" name="standardOutput" placeholder="请输入标准输出" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                #set($caseNumber = 0)
+                #foreach($case in $testcases)
+                    #set($caseNumber = $caseNumber + 1)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                #if ($editItem != "testcase_$case.caseNumber")
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <span class="label label-info">TEST $caseNumber</span>
+                                            </div>
+                                            <div class="col-md-2 col-md-offset-4">
+                                                <a href="$root//profile/addproblem/edit/testcase/$case.caseNumber" class="btn btn-success btn-xs" role="button">编辑</a>
+                                                <a href="$root/profile/addproblem/edit/testcase/remove/$case.caseNumber" class="btn btn-danger btn-xs" role="button">删除</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <span class="label label-default">测试数据:</span>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <pre>$case.testData</pre>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <span class="label label-default">标准输出:</span>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <pre>$case.standardOutput</pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                #else
+                                    <form action="$root/profile/addproblem/edit/testcase/update/$case.caseNumber" method="post">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <span class="label label-info">TEST $caseNumber</span>
+                                                    #set($caseNumber = $caseNumber + 1)
+                                                </div>
+                                                <div class="col-md-2 col-md-offset-4">
+                                                    <button type="submit" class="btn btn-success btn-xs">提交</button>
+                                                    <a href="$root/profile/addproblem/edit/testcase/remove/$case.caseNumber" class="btn btn-danger btn-xs" role="button">删除</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <span class="label label-default">测试数据:</span>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="4" name="testData" placeholder="请输入测试数据">$case.testData</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <span class="label label-default">标准输出:</span>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="4" name="standardOutput" placeholder="请输入标准输出">$case.standardOutput</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                #end
+                            </div>
+                        </div>
+                    </div>
+                #end
+            #end
+        </div>
+    </div>
+    #parse("/common/footer")
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

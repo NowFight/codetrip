@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.codetrip.dao.solution.SolutionDao">
+    <!-- result map-->
+    <resultMap id="solutionResultMap" type="SolutionModel">
+        <id property="solutionId" column="solution_id"/>
+        <result property="teamId" column="team_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="problemId" column="problem_id"/>
+        <result property="useTime" column="use_time"/>
+        <result property="useMemory" column="use_memory"/>
+        <result property="date" column="date"/>
+        <result property="language" column="language"/>
+        <result property="result" column="result"/>
+        <result property="compileOutput" column="compile_output"/>
+        <result property="codeContext" column="code_context"/>
+    </resultMap>
+    
+    <!-- insert -->
+    <insert id="insertSolution" parameterType="SolutionModel" useGeneratedKeys="true" keyProperty="solution_id">        
+        INSERT INTO solution
+        (
+          team_id, 
+          user_id, 
+          problem_id, 
+          contest_id, 
+          use_time, 
+          use_memory, 
+          date, 
+          language, 
+          result, 
+          compile_output, 
+          code_context
+        )
+        VALUES 
+        (
+          #{teamId},
+          #{userId},
+          #{problemId},
+          #{contestId},
+          #{useTime},
+          #{useMemory},
+          #{date},
+          #{language},
+          #{result},
+          #{compileOutput},
+          #{codeContext}
+        );
+    </insert>
+    
+    <!-- select -->
+    <select id="querySolutionBySolutionId" parameterType="int" resultMap="solutionResultMap">
+        SELECT * FROM solution WHERE solution_id = #{solutionId};
+    </select>
+
+    <select id="querySolutionByUserId" parameterType="int" resultMap="solutionResultMap">
+        SELECT * FROM solution WHERE user_id = #{userId};
+    </select>
+
+    <select id="querySolutionByProblemId" parameterType="int" resultMap="solutionResultMap">
+        SELECT * FROM solution WHERE problem_id = #{problemId};
+    </select>
+
+    <select id="querySolutionByTeamId" parameterType="int" resultMap="solutionResultMap">
+        SELECT * FROM solution WHERE team_id = #{teamId};
+    </select>
+    
+    <!-- update -->
+    <update id="updateSolutionBySolutionId" parameterType="SolutionModel">
+        UPDATE solution
+        <set>
+            <if test="solutionId != null">solution_id = #{solutionId},</if>
+            <if test="teamId != null">team_id = #{teamId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="problemId != null">problem_id = #{problemId},</if>
+            <if test="contestId != null">contest_id = #{contestId},</if>
+            <if test="useTime != null">use_time = #{useTime},</if>
+            <if test="useMemory != null">use_memory = #{useMemory},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="language != null">language = #{language},</if>
+            <if test="result != null">result = #{result},</if>
+            <if test="compileOutput != null">compile_output = #{compileOutput},</if>
+            <if test="codeContext != null">code_context = #{codeContext}</if>
+        </set>
+        WHERE solution_id = #{solutionId};
+    </update>
+</mapper>
