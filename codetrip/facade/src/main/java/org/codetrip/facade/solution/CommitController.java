@@ -78,7 +78,7 @@ public class CommitController {
         map.put("G++", Language.CPP);
         map.put("Java", Language.JAVA);
         solution.setLanguage(map.get(request.getParameter("language")));
-        solution.setDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis()));
+        solution.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
         solution.setUserId(((UserModel) request.getSession().getAttribute("currentUser")).getUserId());
         solution.setCodeContext(request.getParameter("codecontext"));
         if (solutionService.insertSolution(solution)) {
