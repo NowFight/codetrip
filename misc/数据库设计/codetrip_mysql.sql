@@ -123,6 +123,7 @@ create table if not exists Participant
 create table if not exists Rank
 (
 	rank_id integer not null primary key auto_increment,
+    team_id integer not null,
     contest_id integer not null,
     penalty integer not null
 );
