@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codetrip.dao.contestproblem.ContestProblemDao">
+    <resultMap id="ContestProblemResultMap" type="ContestProblemModel">
+        <result property="contestId" column="contest_id"/>
+        <result property="problemId" column="problem_id"/>
+    </resultMap>
+
+    <!-- select -->
+    <select id="queryByContestId" parameterType="int" resultMap="ContestProblemResultMap">
+        SELECT * FROM contestproblem where contest_id = #{contestId}
+    </select>
+
+    <select id="queryByProblemId" parameterType="int" resultMap="ContestProblemResultMap">
+        SELECT * FROM contestproblem WHERE problem_id = #{problemId}
+    </select>
+
+    <!-- insert -->
+    <insert id="insertNew" parameterType="ContestProblemModel">
+        INSERT INTO contestproblem
+        (
+          contest_id,
+          problem_id
+        )
+        VALUES
+        (
+          #{contestId},
+          #{problemId}
+        )
+    </insert>
+
+    <!-- delete -->
+    <delete id="deleteByContestIdAndProblemId" parameterType="map">
+        DELETE FROM contestproblem WHERE contest_id = #{contestId} AND problem_id = #{problemId}
+    </delete>
+</mapper>

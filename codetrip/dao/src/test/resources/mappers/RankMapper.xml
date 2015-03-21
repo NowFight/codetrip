@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codetrip.dao.rank.RankDao">
+    <resultMap id="RankResultMap" type="RankModel">
+        <id property="rankId" column="rank_id"/>
+        <result property="teamId" column="team_id"/>
+        <result property="contestId" column="contest_id"/>
+        <result property="penalty" column="penalty"/>
+    </resultMap>
+
+    <!-- insert -->
+    <insert id="insertNew" parameterType="RankModel" useGeneratedKeys="true" keyProperty="rankId">
+        INSERT INTO rank
+        (
+          team_id,
+          contest_id,
+          penalty
+        )
+        VALUES
+        (
+          #{teamId},
+          #{contestId},
+          #{penalty}
+        )
+    </insert>
+
+    <!-- select -->
+    <select id="queryByContestId" parameterType="int" resultMap="RankResultMap">
+        SELECT * FROM rank WHERE contest_id = #{contestId}
+    </select>
+
+    <select id="queryByTeamIdAndContestId" parameterType="map" resultMap="RankResultMap">
+        SELECT * FROM rank WHERE team_id = #{teamId} AND contest_id = #{contestId}
+    </select>
+
+    <!-- update -->
+    <update id="updateByTeamIdAndContestId" parameterType="RankModel">
+        UPDATE rank SET penalty = #{penalty} WHERE team_id = #{teamId} AND contest_id = #{contestId}
+    </update>
+</mapper>

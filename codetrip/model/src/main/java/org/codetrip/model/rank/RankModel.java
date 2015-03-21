@@ -13,6 +13,11 @@ public class RankModel extends BaseModel {
     private Integer rankId;
 
     /*
+    * team ID
+    * */
+    private Integer teamId;
+
+    /*
     * 比赛编号
     * */
     private Integer contestId;
@@ -47,5 +52,13 @@ public class RankModel extends BaseModel {
 
     public void setPenalty(Integer penalty) {
         this.penalty = penalty;
+    }
+
+    public Integer getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
     }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codetrip.dao.membership.MemberShipDao">
+    <resultMap id="MemberShipResultMap" type="MemberShipModel">
+        <result property="teamId" column="team_id"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
+    <!-- insert -->
+    <insert id="insertNew" parameterType="MemberShipModel">
+        INSERT INTO membership
+        (
+          team_id,
+          user_id
+        )
+        VALUES
+        (
+          #{teamId},
+          #{userId}
+        )
+    </insert>
+
+    <!-- select -->
+    <select id="queryByTeamId" parameterType="int" resultMap="MemberShipResultMap">
+        SELECT * FROM membership WHERE team_id = #{teamId}
+    </select>
+
+    <select id="queryByUserId" parameterType="int" resultMap="MemberShipResultMap">
+        SELECT * FROM membership WHERE user_id = #{userId}
+    </select>
+
+    <!-- delete -->
+    <delete id="deleteByMember" parameterType="MemberShipModel">
+        DELETE FROM membership WHERE user_id = #{userId} AND team_id = #{teamId}
+    </delete>
+</mapper>

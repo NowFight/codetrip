@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codetrip.dao.participant.ParticipantDao">
+    <resultMap id="ParticipantResultMap" type="ParticipantModel">
+        <id property="teamId" column="team_id"/>
+        <result property="contestId" column="contest_id"/>
+        <result property="teamName" column="team_name"/>
+        <result property="password" column="password"/>
+        <result property="registerDate" column="register_date"/>
+    </resultMap>
+
+    <!-- insert -->
+
+    <insert id="insertNew" parameterType="ParticipantModel" useGeneratedKeys="true" keyProperty="teamId">
+        INSERT INTO participant
+        (
+          contest_id,
+          team_name,
+          password,
+          register_date
+        )
+        VALUES
+        (
+          #{contestId},
+          #{teamName},
+          #{password},
+          #{registerDate}
+        )
+    </insert>
+
+    <!-- select -->
+    <select id="queryByTeamId" parameterType="int" resultMap="ParticipantResultMap">
+        SELECT * FROM participant WHERE team_id = #{teamId}
+    </select>
+
+    <select id="queryByContestId" parameterType="int" resultMap="ParticipantResultMap">
+        SELECT * FROM participant WHERE contest_id = #{contestId}
+    </select>
+
+    <!-- update -->
+    <update id="updateByTeamId" parameterType="ParticipantModel">
+        UPDATE participant
+        <set>
+            <if test="teamId != null">team_id = #{teamId},</if>
+            <if test="contestId != null">contest_id = #{contestId},</if>
+            <if test="teamName != null">team_name = #{teamName},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="registerDate != null">register_date = #{registerDate}</if>
+        </set>
+        WHERE team_id = #{teamId}
+    </update>
+</mapper>
