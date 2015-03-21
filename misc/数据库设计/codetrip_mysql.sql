@@ -56,7 +56,7 @@ create table if not exists Problem
 
 create table if not exists ContestProblem
 (
-    constest_id integer not null,
+    contest_id integer not null,
     problem_id integer not null
 );
 
