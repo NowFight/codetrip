@@ -5,48 +5,57 @@
 
     <!-- result map -->
     <resultMap id="TestCaseResultMap" type="TestCaseModel">
-        <result property="caseNumber" column="case_number"/>
+        <result property="id" column="id"/>
         <result property="problemId" column="problem_id"/>
         <result property="testData" column="test_data"/>
         <result property="standardOutput" column="standard_output"/>
     </resultMap>
 
     <!-- insert -->
-    <insert id="insertTestCase" parameterType="TestCaseModel">
+    <insert id="insert" parameterType="TestCaseModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO testcase
         (
-          case_number,
-          problem_id,
-          test_data,
-          standard_output
+        problem_id,
+        test_data,
+        standard_output
         )
         VALUES
         (
-          #{caseNumber},
-          #{problemId},
-          #{testData},
-          #{standardOutput}
+        #{problemId},
+        #{testData},
+        #{standardOutput}
         );
     </insert>
 
     <!-- select -->
-    <select id="queryTestCaseByProblemId" parameterType="map" resultMap="TestCaseResultMap">
-        SELECT * FROM testcase WHERE problem_id = #{problemId};
+    <select id="find" parameterType="Long" resultMap="TestCaseResultMap">
+        SELECT * FROM testcase WHERE id = #{id};
+    </select>
+
+    <select id="findBySO" parameterType="TestCaseSO" resultMap="TestCaseResultMap">
+        SELECT * FROM testcase
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="problemId != null">AND problem_id = #{problemId}</if>
+            <if test="testData != null">AND test_data = #{testData}</if>
+            <if test="standardOutput != null">AND standard_output = #{standardOutput}</if>
+        </where>
     </select>
 
     <!-- delete -->
-    <delete id="deleteTestCaseByProblemIdAndCaseId" parameterType="map">
-        DELETE FROM testcase WHERE case_number = #{caseId} AND problem_id = #{problemId};
+    <delete id="delete" parameterType="Long">
+        DELETE FROM testcase WHERE id = #{id};
     </delete>
 
     <!-- update -->
-    <update id="updateTestCaseByProblemIdAndCaseId" parameterType="TestCaseModel">
+    <update id="update" parameterType="TestCaseModel">
         UPDATE testcase
         <set>
             <if test="testData != null">test_data = #{testData},</if>
+            <if test="problemId != null">problem_id = #{problemId},</if>
             <if test="standardOutput != null">standard_output = #{standardOutput}</if>
         </set>
-        WHERE problem_id = #{problemId} AND case_number = #{caseNumber};
+        WHERE id = #{id};
     </update>
 
 </mapper>

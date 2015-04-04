@@ -1,12 +1,9 @@
-package org.codetrip.model.testcase;
-
-import org.codetrip.model.BaseModel;
+package org.codetrip.common.so;
 
 /**
- * Created by RuFeng on 2015/1/29.
+ * Created by RuFeng on 2015/4/4.
  */
-public class TestCaseModel extends BaseModel {
-
+public class TestCaseSO {
     /*
     * 案例编号
     * */

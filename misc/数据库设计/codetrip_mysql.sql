@@ -90,7 +90,7 @@ create table if not exists Solution
 
 create table if not exists TestCase
 (
-	case_number integer not null,
+    id integer primary key not null auto_increment,
     problem_id integer not null,
     test_data text not null,
     standard_output text not null
