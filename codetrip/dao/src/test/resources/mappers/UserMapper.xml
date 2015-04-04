@@ -5,7 +5,7 @@
 <mapper namespace="org.codetrip.dao.user.UserDao">
     <!-- result map -->
     <resultMap id="userResultMap" type="UserModel">
-        <id property="userId" column="user_id"/>
+        <id property="id" column="id"/>
         <result property="password" column="password"/>
         <result property="registerDate" column="register_date"/>
         <result property="nikeName" column="nike_name"/>
@@ -16,40 +16,111 @@
         <result property="sex" column="sex"/>
         <result property="age" column="age"/>
     </resultMap>
+
     <!-- insert -->
-    <insert id="insertUser" parameterType="UserModel" useGeneratedKeys="true" keyProperty="userId">
+    <insert id="insert" parameterType="UserModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user
         (
-          password,
-          nike_name,
-          register_date,
-          email,
-          role,
-          nationality,
-          public_info,
-          sex,
-          age
+        password,
+        nike_name,
+        register_date,
+        email,
+        role,
+        nationality,
+        public_info,
+        sex,
+        age
         )
         VALUES
         (
-          #{password},
-          #{nikeName},
-          #{registerDate},
-          #{email},
-          #{role},
-          #{nationality},
-          #{publicInfo},
-          #{sex},
-          #{age}
+        #{password},
+        #{nikeName},
+        #{registerDate},
+        #{email},
+        #{role},
+        #{nationality},
+        #{publicInfo},
+        #{sex},
+        #{age}
         );
     </insert>
 
     <!-- select -->
-    <select id="queryUserByEmailAndPassword" parameterType="map" resultMap="userResultMap">
-        SELECT * FROM user WHERE email = #{email} AND password = #{password};
+    <select id="find" parameterType="Long" resultMap="userResultMap">
+        SELECT * FROM user WHERE id = #{id}
     </select>
 
-    <select id="queryUserByEmail" parameterType="String" resultMap="userResultMap">
-        SELECT * FROM user WHERE email = #{email};
+    <select id="findBySO" parameterType="UserSO" resultMap="userResultMap">
+        SELECT * FROM user
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="password != null">
+                AND password = #{password}
+            </if>
+            <if test="registerDate != null">
+                AND register_date = #{registerDate}
+            </if>
+            <if test="nikeName != null">
+                AND nike_name = #{nikeName}
+            </if>
+            <if test="email != null">
+                AND email = #{email}
+            </if>
+            <if test="role != null">
+                AND role = #{role}
+            </if>
+            <if test="nationality != null">
+                AND nationality = #{nationality}
+            </if>
+            <if test="publicInfo != null">
+                AND public_info = #{publicInfo}
+            </if>
+            <if test="sex != null">
+                AND sex = #{sex}
+            </if>
+            <if test="age != null">
+                AND age = #{age}
+            </if>
+        </where>
     </select>
+
+    <!-- update -->
+    <update id="update" parameterType="UserModel">
+        UPDATE user
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="registerDate != null">
+                register_date = #{registerDate},
+            </if>
+            <if test="nikeName != null">
+                nike_name = #{nikeName},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="role != null">
+                role = #{role},
+            </if>
+            <if test="nationality != null">
+                nationality = #{nationality},
+            </if>
+            <if test="publicInfo != null">
+                public_info = #{publicInfo},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="age != null">
+                age = #{age}
+            </if>
+        </set>
+    </update>
 </mapper>
+

@@ -16,7 +16,7 @@ drop table if exists Membership;
 
 create table if not exists User
 (
-	user_id integer primary key not null auto_increment,
+    id integer primary key not null auto_increment,
     password varchar(100) not null,
     nike_name varchar(100),
     register_date varchar(100) not null,

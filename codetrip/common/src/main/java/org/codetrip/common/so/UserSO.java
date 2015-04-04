@@ -1,11 +1,9 @@
-package org.codetrip.model.user;
-
-import org.codetrip.model.BaseModel;
+package org.codetrip.common.so;
 
 /**
- * Created by RuFeng on 2015/1/29.
+ * Created by RuFeng on 2015/4/4.
  */
-public class UserModel extends BaseModel {
+public class UserSO {
     /*
     * 用户ID
     * */
@@ -57,7 +55,7 @@ public class UserModel extends BaseModel {
     * */
     private Integer age;
 
-    //setter 和 getter
+    //setter and getter
 
 
     public Long getId() {
@@ -72,14 +70,6 @@ public class UserModel extends BaseModel {
         return password;
     }
 
-    public String getNikeName() {
-        return nikeName;
-    }
-
-    public void setNikeName(String nikeName) {
-        this.nikeName = nikeName;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -90,6 +80,14 @@ public class UserModel extends BaseModel {
 
     public void setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public String getNikeName() {
+        return nikeName;
+    }
+
+    public void setNikeName(String nikeName) {
+        this.nikeName = nikeName;
     }
 
     public String getEmail() {

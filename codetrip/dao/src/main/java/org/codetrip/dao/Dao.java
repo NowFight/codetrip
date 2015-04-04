@@ -5,19 +5,33 @@ import java.io.Serializable;
 /**
  * Created by RuFeng on 2015/2/3.
  */
-public abstract class Dao<T> implements Serializable {
+public interface Dao<T> extends Serializable {
     /**
      * 通过ID查找
      *
-     * @param Id
+     * @param id
      * @return T
      * */
-    public abstract T find(Long Id);
+    public abstract T find(Long id);
 
     /**
      * 插入新记录
      *
      * @param record
      * */
-    public abstract void insertNew(T record);
+    public abstract void insert(T record);
+
+    /**
+     * 更新
+     *
+     * @param record
+     * */
+    public abstract void update(T record);
+
+    /**
+     * 删除
+     *
+     * @param id
+     * */
+    public abstract void delete(Long id);
 }
