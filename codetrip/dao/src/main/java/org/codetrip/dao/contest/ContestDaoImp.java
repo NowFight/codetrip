@@ -19,7 +19,7 @@ public class ContestDaoImp extends BaseDao implements ContestDao {
      */
     @Override
     public boolean insertContest(ContestModel contest) {
-        if (getSession().insert(getMapperPrefix() + ".insertContest", contest) == 1)
+        if (getSession().insert(getNamespace() + ".insertContest", contest) == 1)
             return true;
         return false;
     }
@@ -32,7 +32,7 @@ public class ContestDaoImp extends BaseDao implements ContestDao {
      */
     @Override
     public ContestModel queryContestByContestId(Integer contestId) {
-        return getSession().selectOne(getMapperPrefix() + ".queryContestByContestId", contestId);
+        return getSession().selectOne(getNamespace() + ".queryContestByContestId", contestId);
     }
 
     /**
@@ -42,7 +42,7 @@ public class ContestDaoImp extends BaseDao implements ContestDao {
      */
     @Override
     public List<ContestModel> queryAllContests() {
-        List<ContestModel> contests = getSession().selectList(getMapperPrefix() + ".queryAllContests");
+        List<ContestModel> contests = getSession().selectList(getNamespace() + ".queryAllContests");
         if (contests.size() == 0) {
             return null;
         } else {
@@ -60,7 +60,7 @@ public class ContestDaoImp extends BaseDao implements ContestDao {
     @Override
     public boolean updateContestByContestId(Integer contestId, ContestModel contest) {
         contest.setContestId(contestId);
-        if (getSession().update(getMapperPrefix() + ".updateContestByContestId", contest) == 1)
+        if (getSession().update(getNamespace() + ".updateContestByContestId", contest) == 1)
             return true;
         return false;
     }

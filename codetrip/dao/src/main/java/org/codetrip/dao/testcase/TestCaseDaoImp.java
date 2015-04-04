@@ -23,7 +23,7 @@ public class TestCaseDaoImp extends BaseDao implements TestCaseDao {
      */
     @Override
     public boolean insertTestCase(TestCaseModel testcase) {
-        if (getSession().insert(getMapperPrefix() + ".insertTestCase", testcase) == 1) {
+        if (getSession().insert(getNamespace() + ".insertTestCase", testcase) == 1) {
             return true;
         } else {
             return false;
@@ -42,7 +42,7 @@ public class TestCaseDaoImp extends BaseDao implements TestCaseDao {
     public boolean updateTestCaseByProblemIdAndCaseId(int problemId, int caseId, TestCaseModel testcase) {
         testcase.setProblemId(problemId);
         testcase.setCaseNumber(caseId);
-        if (getSession().update(getMapperPrefix() + ".updateTestCaseByProblemIdAndCaseId", testcase) == 1) {
+        if (getSession().update(getNamespace() + ".updateTestCaseByProblemIdAndCaseId", testcase) == 1) {
             return true;
         } else {
             return false;
@@ -62,7 +62,7 @@ public class TestCaseDaoImp extends BaseDao implements TestCaseDao {
         map.put("problemId", problemId);
 
         List<TestCaseModel> testcases = getSession().selectList(
-                getMapperPrefix() + ".queryTestCaseByProblemId",
+                getNamespace() + ".queryTestCaseByProblemId",
                 map
         );
 
@@ -86,7 +86,7 @@ public class TestCaseDaoImp extends BaseDao implements TestCaseDao {
         map.put("problemId", problemId);
         map.put("caseId", caseId);
 
-        if (getSession().delete(getMapperPrefix() + ".deleteTestCaseByProblemIdAndCaseId", map) == 1) {
+        if (getSession().delete(getNamespace() + ".deleteTestCaseByProblemIdAndCaseId", map) == 1) {
             return true;
         } else {
             return false;

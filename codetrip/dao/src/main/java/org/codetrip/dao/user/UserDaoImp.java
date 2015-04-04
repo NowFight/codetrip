@@ -22,7 +22,7 @@ public class UserDaoImp extends BaseDao implements UserDao {
      */
     @Override
     public boolean insertUser(UserModel user) {
-        int affect = getSession().insert(getMapperPrefix() + ".insertUser", user);
+        int affect = getSession().insert(getNamespace() + ".insertUser", user);
         if (affect == 1) {
             return true;
         } else {
@@ -44,7 +44,7 @@ public class UserDaoImp extends BaseDao implements UserDao {
         map.put("email", email);
         map.put("password", password);
 
-        List<UserModel> userList = getSession().selectList(getMapperPrefix() + ".queryUserByEmailAndPassword", map);
+        List<UserModel> userList = getSession().selectList(getNamespace() + ".queryUserByEmailAndPassword", map);
         if (userList.size() == 0) {
             return null;
         }
@@ -59,7 +59,7 @@ public class UserDaoImp extends BaseDao implements UserDao {
      * */
     @Override
     public UserModel queryUserByEmail(String email) {
-        List<UserModel> userList = getSession().selectList(getMapperPrefix() + ".queryUserByEmail", email);
+        List<UserModel> userList = getSession().selectList(getNamespace() + ".queryUserByEmail", email);
         if (userList.size() == 0) {
             return null;
         }
@@ -74,6 +74,6 @@ public class UserDaoImp extends BaseDao implements UserDao {
      */
     @Override
     public UserModel queryUserByUserId(int userId) {
-        return getSession().selectOne(getMapperPrefix() + ".queryUserByUserId", userId);
+        return getSession().selectOne(getNamespace() + ".queryUserByUserId", userId);
     }
 }

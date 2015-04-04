@@ -21,7 +21,7 @@ public class ContestProblemDaoImp extends BaseDao implements ContestProblemDao {
      */
     @Override
     public boolean insertNew(ContestProblemModel problems) {
-        if (getSession().insert(getMapperPrefix() + ".insertNew", problems) == 1) {
+        if (getSession().insert(getNamespace() + ".insertNew", problems) == 1) {
             return true;
         } else {
             return false;
@@ -40,7 +40,7 @@ public class ContestProblemDaoImp extends BaseDao implements ContestProblemDao {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("contestId", contestId);
         map.put("problemId", problemId);
-        if (getSession().delete(getMapperPrefix() + ".deleteByContestIdAndProblemId", map) == 1) {
+        if (getSession().delete(getNamespace() + ".deleteByContestIdAndProblemId", map) == 1) {
             return true;
         } else {
             return false;
@@ -56,7 +56,7 @@ public class ContestProblemDaoImp extends BaseDao implements ContestProblemDao {
     @Override
     public List<ContestProblemModel> queryByContestId(int contestId) {
         List<ContestProblemModel> contestProblems =
-                getSession().selectList(getMapperPrefix() + ".queryByContestId", contestId);
+                getSession().selectList(getNamespace() + ".queryByContestId", contestId);
         if (contestProblems.isEmpty()) {
             return null;
         }
@@ -72,7 +72,7 @@ public class ContestProblemDaoImp extends BaseDao implements ContestProblemDao {
     @Override
     public List<ContestProblemModel> queryByProblemId(int problemId) {
         List<ContestProblemModel> contestProblems =
-                getSession().selectList(getMapperPrefix() + ".queryByProblemId", problemId);
+                getSession().selectList(getNamespace() + ".queryByProblemId", problemId);
         if (contestProblems.isEmpty()) {
             return null;
         }

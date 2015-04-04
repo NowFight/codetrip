@@ -19,7 +19,7 @@ public class ParticipantDaoImp extends BaseDao implements ParticipantDao {
      */
     @Override
     public boolean insertNew(ParticipantModel participant) {
-        if (getSession().insert(getMapperPrefix() + ".insertNew", participant) == 1) {
+        if (getSession().insert(getNamespace() + ".insertNew", participant) == 1) {
             return true;
         } else {
             return false;
@@ -34,7 +34,7 @@ public class ParticipantDaoImp extends BaseDao implements ParticipantDao {
      */
     @Override
     public ParticipantModel queryByTeamId(int teamId) {
-        return getSession().selectOne(getMapperPrefix() + ".queryByTeamId", teamId);
+        return getSession().selectOne(getNamespace() + ".queryByTeamId", teamId);
     }
 
     /**
@@ -46,7 +46,7 @@ public class ParticipantDaoImp extends BaseDao implements ParticipantDao {
     @Override
     public List<ParticipantModel> queryByContestId(int contestId) {
         List<ParticipantModel> participants =
-                getSession().selectList(getMapperPrefix() + ".queryByContestId", contestId);
+                getSession().selectList(getNamespace() + ".queryByContestId", contestId);
         if (participants.isEmpty()) {
             return null;
         } else {
@@ -64,7 +64,7 @@ public class ParticipantDaoImp extends BaseDao implements ParticipantDao {
     @Override
     public boolean updateByTeamId(int teamId, ParticipantModel participant) {
         participant.setTeamId(teamId);
-        if (getSession().update(getMapperPrefix() + ".updateByTeamId", participant) == 1) {
+        if (getSession().update(getNamespace() + ".updateByTeamId", participant) == 1) {
             return true;
         } else {
             return false;

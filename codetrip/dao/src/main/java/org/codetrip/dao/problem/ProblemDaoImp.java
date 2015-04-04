@@ -18,7 +18,7 @@ public class ProblemDaoImp extends BaseDao implements ProblemDao {
      * */
     @Override
     public boolean insertProblem(ProblemModel problem) {
-        if (getSession().insert(getMapperPrefix() + ".insertProblem", problem) == 1) {
+        if (getSession().insert(getNamespace() + ".insertProblem", problem) == 1) {
             return true;
         } else {
             return false;
@@ -33,7 +33,7 @@ public class ProblemDaoImp extends BaseDao implements ProblemDao {
     @Override
     public List<ProblemModel> queryProblemsByUserId(int userId) {
         List<ProblemModel> problems = getSession()
-                .selectList(getMapperPrefix() + ".queryProblemsByUserId", userId);
+                .selectList(getNamespace() + ".queryProblemsByUserId", userId);
         if (problems.size() == 0) {
             return null;
         } else {
@@ -48,7 +48,7 @@ public class ProblemDaoImp extends BaseDao implements ProblemDao {
      * */
     @Override
     public ProblemModel queryProblemByProblemId(int problemId) {
-        return getSession().selectOne(getMapperPrefix() + ".queryProblemsByProblemId", problemId);
+        return getSession().selectOne(getNamespace() + ".queryProblemsByProblemId", problemId);
     }
 
     /**
@@ -59,7 +59,7 @@ public class ProblemDaoImp extends BaseDao implements ProblemDao {
     @Override
     public List<ProblemModel> queryProblemsByContestId(int contestId) {
         List<ProblemModel> problems = getSession()
-                .selectList(getMapperPrefix() + ".queryProblemsByContestId", contestId);
+                .selectList(getNamespace() + ".queryProblemsByContestId", contestId);
         if (problems.size() == 0) {
             return null;
         } else {
@@ -76,7 +76,7 @@ public class ProblemDaoImp extends BaseDao implements ProblemDao {
     @Override
     public boolean updateProblemByProblemId(int problemId, ProblemModel problem) {
         problem.setProblemId(problemId);
-        if (getSession().update(getMapperPrefix() + ".updateProblemByProblemId", problem) == 1) {
+        if (getSession().update(getNamespace() + ".updateProblemByProblemId", problem) == 1) {
             return true;
         } else {
             return false;
@@ -89,7 +89,7 @@ public class ProblemDaoImp extends BaseDao implements ProblemDao {
      * @return List
      * */
     public List<ProblemModel> listAllPublicProblem() {
-        List<ProblemModel> problems = getSession().selectList(getMapperPrefix() + ".listAllPublicProblem");
+        List<ProblemModel> problems = getSession().selectList(getNamespace() + ".listAllPublicProblem");
         if (problems.size() == 0) {
             return null;
         } else {

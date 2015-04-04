@@ -17,7 +17,7 @@ public class ProblemStatisticDaoImp extends BaseDao implements ProblemStatisticD
      */
     @Override
     public boolean insertStatistic(ProblemStatisticModel statistic) {
-        if (getSession().insert(getMapperPrefix() + ".insertStatistic", statistic) == 1) {
+        if (getSession().insert(getNamespace() + ".insertStatistic", statistic) == 1) {
             return true;
         } else {
             return false;
@@ -34,7 +34,7 @@ public class ProblemStatisticDaoImp extends BaseDao implements ProblemStatisticD
     @Override
     public boolean updateStatisticByProblemId(int problemId, ProblemStatisticModel statistic) {
         statistic.setProblemId(problemId);
-        if (getSession().update(getMapperPrefix() + ".updateStatisticByProblemId", statistic) == 1) {
+        if (getSession().update(getNamespace() + ".updateStatisticByProblemId", statistic) == 1) {
             return true;
         } else {
             return false;
@@ -49,7 +49,7 @@ public class ProblemStatisticDaoImp extends BaseDao implements ProblemStatisticD
      */
     @Override
     public ProblemStatisticModel queryStatisticByProblemId(int problemId) {
-        return getSession().selectOne(getMapperPrefix() + ".queryStatisticByProblemId", problemId);
+        return getSession().selectOne(getNamespace() + ".queryStatisticByProblemId", problemId);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ProblemStatisticDaoImp extends BaseDao implements ProblemStatisticD
      */
     @Override
     public boolean deleteStatisticByProblemId(int problemId) {
-        if (getSession().delete(getMapperPrefix() + ".deleteStatisticByProblemId", problemId) == 1) {
+        if (getSession().delete(getNamespace() + ".deleteStatisticByProblemId", problemId) == 1) {
             return true;
         } else {
             return false;

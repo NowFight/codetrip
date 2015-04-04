@@ -21,7 +21,7 @@ public class RankDaoImp extends BaseDao implements RankDao {
      */
     @Override
     public boolean insertNew(RankModel rank) {
-        if (getSession().insert(getMapperPrefix() + ".insertNew", rank) == 1) {
+        if (getSession().insert(getNamespace() + ".insertNew", rank) == 1) {
             return true;
         } else {
             return false;
@@ -40,7 +40,7 @@ public class RankDaoImp extends BaseDao implements RankDao {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("teamId", teamId);
         map.put("contestId", contestId);
-        return getSession().selectOne(getMapperPrefix() + ".queryByTeamIdAndContestId", map);
+        return getSession().selectOne(getNamespace() + ".queryByTeamIdAndContestId", map);
     }
 
     /**
@@ -51,7 +51,7 @@ public class RankDaoImp extends BaseDao implements RankDao {
      */
     @Override
     public List<RankModel> queryByContestId(int contestId) {
-        List<RankModel> ranks = getSession().selectList(getMapperPrefix() + ".queryByContestId", contestId);
+        List<RankModel> ranks = getSession().selectList(getNamespace() + ".queryByContestId", contestId);
         if (ranks.isEmpty()) {
             return null;
         } else {
@@ -71,7 +71,7 @@ public class RankDaoImp extends BaseDao implements RankDao {
     public boolean updateByTeamIdAndContestId(int teamId, int contestId, RankModel rank) {
         rank.setTeamId(teamId);
         rank.setContestId(contestId);
-        if (getSession().update(getMapperPrefix() + ".updateByTeamIdAndContestId", rank) == 1) {
+        if (getSession().update(getNamespace() + ".updateByTeamIdAndContestId", rank) == 1) {
             return true;
         } else {
             return false;

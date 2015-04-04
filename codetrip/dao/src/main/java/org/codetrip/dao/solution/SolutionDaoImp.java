@@ -20,7 +20,7 @@ public class SolutionDaoImp extends BaseDao implements SolutionDao {
      */
     @Override
     public boolean insertSolution(SolutionModel solution) {
-        if (getSession().insert(getMapperPrefix() + ".insertSolution", solution) == 1) {
+        if (getSession().insert(getNamespace() + ".insertSolution", solution) == 1) {
             return true;
         } else {
             return false;
@@ -35,7 +35,7 @@ public class SolutionDaoImp extends BaseDao implements SolutionDao {
      */
     @Override
     public SolutionModel querySolutionBySolutionId(int solutionId) {
-        return getSession().selectOne(getMapperPrefix() + ".querySolutionBySolutionId", solutionId);
+        return getSession().selectOne(getNamespace() + ".querySolutionBySolutionId", solutionId);
     }
 
     /**
@@ -46,7 +46,7 @@ public class SolutionDaoImp extends BaseDao implements SolutionDao {
      */
     @Override
     public List<SolutionModel> querySolutionByUserId(int userId) {
-        List<SolutionModel> solutions = getSession().selectList(getMapperPrefix() + ".querySolutionByUserId", userId);
+        List<SolutionModel> solutions = getSession().selectList(getNamespace() + ".querySolutionByUserId", userId);
         if (solutions.size() == 0) {
             return null;
         } else {
@@ -62,7 +62,7 @@ public class SolutionDaoImp extends BaseDao implements SolutionDao {
      */
     @Override
     public List<SolutionModel> querySolutionByProblemId(int problemId) {
-        List<SolutionModel> solutions = getSession().selectOne(getMapperPrefix() + ".querySolutionByProblemId", problemId);
+        List<SolutionModel> solutions = getSession().selectOne(getNamespace() + ".querySolutionByProblemId", problemId);
         if (solutions.size() == 0) {
             return null;
         } else {
@@ -78,7 +78,7 @@ public class SolutionDaoImp extends BaseDao implements SolutionDao {
      */
     @Override
     public List<SolutionModel> querySolutionByTeamId(int teamId) {
-        List<SolutionModel> solutions = getSession().selectOne(getMapperPrefix() + ".querySolutionByTeamId", teamId);
+        List<SolutionModel> solutions = getSession().selectOne(getNamespace() + ".querySolutionByTeamId", teamId);
         if (solutions.size() == 0) {
             return null;
         } else {
@@ -93,7 +93,7 @@ public class SolutionDaoImp extends BaseDao implements SolutionDao {
      */
     @Override
     public List<SolutionModel> queryAllSolutions() {
-        List<SolutionModel> solutions = getSession().selectList(getMapperPrefix() + ".queryAllSolutions");
+        List<SolutionModel> solutions = getSession().selectList(getNamespace() + ".queryAllSolutions");
         if (solutions.size() == 0) {
             return null;
         } else {
@@ -111,7 +111,7 @@ public class SolutionDaoImp extends BaseDao implements SolutionDao {
     @Override
     public boolean updateSolutionBySolutionId(int solutionId, SolutionModel solution) {
         solution.setSolutionId(solutionId);
-        if (getSession().update(getMapperPrefix() + ".updateSolutionBySolutionId", solution) == 1) {
+        if (getSession().update(getNamespace() + ".updateSolutionBySolutionId", solution) == 1) {
             return true;
         }
         return false;

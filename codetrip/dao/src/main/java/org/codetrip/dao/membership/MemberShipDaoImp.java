@@ -19,7 +19,7 @@ public class MemberShipDaoImp extends BaseDao implements MemberShipDao {
      */
     @Override
     public boolean insertNew(MembershipModel member) {
-        if (getSession().insert(getMapperPrefix() + ".insertNew", member) == 1) {
+        if (getSession().insert(getNamespace() + ".insertNew", member) == 1) {
             return true;
         } else {
             return false;
@@ -34,7 +34,7 @@ public class MemberShipDaoImp extends BaseDao implements MemberShipDao {
      */
     @Override
     public boolean deleteByMember(MembershipModel member) {
-        if (getSession().delete(getMapperPrefix() + ".deleteByMember", member) == 1) {
+        if (getSession().delete(getNamespace() + ".deleteByMember", member) == 1) {
             return true;
         } else {
             return false;
@@ -49,7 +49,7 @@ public class MemberShipDaoImp extends BaseDao implements MemberShipDao {
      */
     @Override
     public List<MembershipModel> queryByTeamId(int teamId) {
-        List<MembershipModel> members = getSession().selectList(getMapperPrefix() + ".queryByTeamId", teamId);
+        List<MembershipModel> members = getSession().selectList(getNamespace() + ".queryByTeamId", teamId);
         if (members.isEmpty()) {
             return null;
         } else {
@@ -65,7 +65,7 @@ public class MemberShipDaoImp extends BaseDao implements MemberShipDao {
      */
     @Override
     public List<MembershipModel> queryByUserId(int userId) {
-        List<MembershipModel> members = getSession().selectList(getMapperPrefix() + ".queryByTeamId", userId);
+        List<MembershipModel> members = getSession().selectList(getNamespace() + ".queryByTeamId", userId);
         if (members.isEmpty()) {
             return null;
         } else {
