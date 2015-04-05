@@ -1,5 +1,6 @@
 package org.codetrip.dao.participant;
 
+import org.codetrip.common.so.ParticipantSO;
 import org.codetrip.dao.BaseDao;
 import org.codetrip.model.participant.ParticipantModel;
 import org.springframework.stereotype.Repository;
@@ -9,65 +10,16 @@ import java.util.List;
 /**
  * Created by RuFeng on 2015/3/21.
  */
-@Repository("ParticipantDao")
-public class ParticipantDaoImp extends BaseDao implements ParticipantDao {
+@Repository
+public class ParticipantDaoImp extends BaseDao<ParticipantModel> implements ParticipantDao {
     /**
-     * 创建参赛队伍
+     * 条件查询
      *
-     * @param participant
-     * @return boolean
-     */
-    @Override
-    public boolean insertNew(ParticipantModel participant) {
-        if (getSession().insert(getNamespace() + ".insertNew", participant) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * 通过team ID查询参赛队伍
-     *
-     * @param teamId
-     * @return participant
-     */
-    @Override
-    public ParticipantModel queryByTeamId(int teamId) {
-        return getSession().selectOne(getNamespace() + ".queryByTeamId", teamId);
-    }
-
-    /**
-     * 通过比赛ID查询参赛队伍
-     *
-     * @param contestId
+     * @param so
      * @return List
      */
     @Override
-    public List<ParticipantModel> queryByContestId(int contestId) {
-        List<ParticipantModel> participants =
-                getSession().selectList(getNamespace() + ".queryByContestId", contestId);
-        if (participants.isEmpty()) {
-            return null;
-        } else {
-            return participants;
-        }
-    }
-
-    /**
-     * 通过team ID更新参赛队伍信息
-     *
-     * @param teamId
-     * @param participant
-     * @return boolean
-     */
-    @Override
-    public boolean updateByTeamId(int teamId, ParticipantModel participant) {
-        participant.setTeamId(teamId);
-        if (getSession().update(getNamespace() + ".updateByTeamId", participant) == 1) {
-            return true;
-        } else {
-            return false;
-        }
+    public List<ParticipantModel> findBySO(ParticipantSO so) {
+        return getSession().selectList(getNamespace() + ".findBySO", so);
     }
 }

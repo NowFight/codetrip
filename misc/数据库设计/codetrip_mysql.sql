@@ -113,11 +113,11 @@ create table if not exists ProblemStatistic
 
 create table if not exists Participant
 (
-	team_id	integer not null primary key auto_increment,
-	contest_id integer not null,
+    id integer not null primary key auto_increment,
+    contest_id integer not null,
     team_name varchar(50) not null,
     password varchar(100) not null,
-    register_date varchar(100) not null
+    registe_date varchar(100) not null
 );
 
 create table if not exists Rank

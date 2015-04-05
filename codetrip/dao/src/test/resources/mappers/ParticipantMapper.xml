@@ -4,51 +4,58 @@
 
 <mapper namespace="org.codetrip.dao.participant.ParticipantDao">
     <resultMap id="ParticipantResultMap" type="ParticipantModel">
-        <id property="teamId" column="team_id"/>
+        <id property="id" column="id"/>
         <result property="contestId" column="contest_id"/>
         <result property="teamName" column="team_name"/>
         <result property="password" column="password"/>
-        <result property="registerDate" column="register_date"/>
+        <result property="registeDate" column="registe_date"/>
     </resultMap>
 
     <!-- insert -->
 
-    <insert id="insertNew" parameterType="ParticipantModel" useGeneratedKeys="true" keyProperty="teamId">
+    <insert id="insert" parameterType="ParticipantModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO participant
         (
           contest_id,
           team_name,
           password,
-          register_date
+          registe_date
         )
         VALUES
         (
           #{contestId},
           #{teamName},
           #{password},
-          #{registerDate}
+          #{registeDate}
         )
     </insert>
 
     <!-- select -->
-    <select id="queryByTeamId" parameterType="int" resultMap="ParticipantResultMap">
-        SELECT * FROM participant WHERE team_id = #{teamId}
+    <select id="find" parameterType="Long" resultMap="ParticipantResultMap">
+        SELECT * FROM participant WHERE id = #{id}
     </select>
 
-    <select id="queryByContestId" parameterType="int" resultMap="ParticipantResultMap">
-        SELECT * FROM participant WHERE contest_id = #{contestId}
+    <select id="findBySO" parameterType="ParticipantSO" resultMap="ParticipantResultMap">
+        SELECT * FROM participant
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="contestId != null">AND contest_id = #{contestId}</if>
+            <if test="teamName != null">AND team_name = #{teamName}</if>
+            <if test="password != null">AND password = #{password}</if>
+            <if test="registeDate != null">AND registe_date = #{registeDate}</if>
+        </where>
     </select>
 
     <!-- update -->
-    <update id="updateByTeamId" parameterType="ParticipantModel">
+    <update id="update" parameterType="ParticipantModel">
         UPDATE participant
         <set>
-            <if test="teamId != null">team_id = #{teamId},</if>
+            <if test="id != null">id = #{id},</if>
             <if test="contestId != null">contest_id = #{contestId},</if>
             <if test="teamName != null">team_name = #{teamName},</if>
             <if test="password != null">password = #{password},</if>
-            <if test="registerDate != null">register_date = #{registerDate}</if>
+            <if test="registeDate != null">registe_date = #{registeDate}</if>
         </set>
-        WHERE team_id = #{teamId}
+        WHERE id = #{id}
     </update>
 </mapper>
