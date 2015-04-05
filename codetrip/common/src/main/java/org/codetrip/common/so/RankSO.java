@@ -1,12 +1,9 @@
-package org.codetrip.model.rank;
-
-import org.codetrip.model.BaseModel;
+package org.codetrip.common.so;
 
 /**
- * Created by RuFeng on 2015/1/29.
+ * Created by RuFeng on 2015/4/5.
  */
-public class RankModel extends BaseModel {
-
+public class RankSO {
     /*
     * rank ID
     * */
@@ -61,4 +58,3 @@ public class RankModel extends BaseModel {
         this.penalty = penalty;
     }
 }
-

@@ -1,63 +1,40 @@
 package org.codetrip.dao.rank;
 
+import org.codetrip.common.so.RankSO;
 import org.codetrip.model.rank.RankModel;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 /**
  * Created by RuFeng on 2015/3/21.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:SpringContext-core.xml", "classpath:SpringContext-mybatis.xml"})
 public class RankDaoImpTester {
+    @Autowired
     private RankDao rankDao;
 
-    @Before
-    public void init() {
-        BeanFactory factory = new ClassPathXmlApplicationContext(
-                "SpringContext-core.xml",
-                "SpringContext-mybatis.xml"
-        );
-
-        rankDao = (RankDao) factory.getBean("RankDao");
-    }
-
     @Test
-    public void testInsertNew() {
+    @Rollback(value = true)
+    public void test() {
         RankModel rank = new RankModel();
-        rank.setContestId(1);
-        rank.setTeamId(1);
-        rank.setPenalty(1);
-        if (rankDao.insertNew(rank)) {
-            System.out.println("new rank id = " + rank.getRankId());
-        }
-    }
-
-    @Test
-    public void testQueryByTeamIdAndContestId() {
-        if (rankDao.queryByTeamIdAndContestId(1, 1) != null) {
-            System.out.println("query ok");
-        }
-    }
-
-    @Test
-    public void testQueryByContestId() {
-        List<RankModel> ranks = rankDao.queryByContestId(1);
-        if (ranks != null) {
-            for (RankModel rank : ranks) {
-                System.out.println(rank.getRankId() + " : " + rank.getTeamId());
-            }
-        }
-    }
-
-    @Test
-    public void testUpdateByTeamIdAndRankId() {
-        RankModel rank = new RankModel();
-        rank.setPenalty(10);
-        if (rankDao.updateByTeamIdAndContestId(1, 1, rank)) {
-            System.out.println("update ok");
-        }
+        rank.setContestId(1L);
+        rank.setPenalty(1L);
+        rank.setTeamId(1L);
+        rankDao.insert(rank);
+        rankDao.find(rank.getId());
+        RankSO so = new RankSO();
+        so.setId(rank.getId());
+        rankDao.findBySO(so);
+        rankDao.update(rank);
     }
 }

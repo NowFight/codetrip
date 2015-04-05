@@ -1,5 +1,7 @@
 package org.codetrip.dao.rank;
 
+import org.codetrip.common.so.RankSO;
+import org.codetrip.dao.Dao;
 import org.codetrip.model.rank.RankModel;
 
 import java.util.List;
@@ -7,35 +9,12 @@ import java.util.List;
 /**
  * Created by RuFeng on 2015/3/21.
  */
-public interface RankDao {
+public interface RankDao extends Dao<RankModel> {
     /**
-     * 插入rank信息
-     * @param rank
-     * @return boolean
-     * */
-    public boolean insertNew(RankModel rank);
-
-    /**
-     * 通过team ID和比赛ID查询rank信息
-     * @param teamId
-     * @param contestId
-     * @return RankModel
-     * */
-    public RankModel queryByTeamIdAndContestId(int teamId, int contestId);
-
-    /**
-     * 通过contest ID来查询rank信息
-     * @param contestId
+     * 条件查询
+     *
+     * @param so
      * @return List
      * */
-    public List<RankModel> queryByContestId(int contestId);
-
-    /**
-     * 通过team ID和比赛ID更新rank信息
-     * @param teamId
-     * @param contestId
-     * @param rank
-     * @return boolean
-     * */
-    public boolean updateByTeamIdAndContestId(int teamId, int contestId, RankModel rank);
+    public List<RankModel> findBySO(RankSO so);
 }

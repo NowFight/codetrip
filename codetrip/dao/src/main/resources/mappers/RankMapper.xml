@@ -4,14 +4,14 @@
 
 <mapper namespace="org.codetrip.dao.rank.RankDao">
     <resultMap id="RankResultMap" type="RankModel">
-        <id property="rankId" column="rank_id"/>
+        <id property="id" column="id"/>
         <result property="teamId" column="team_id"/>
         <result property="contestId" column="contest_id"/>
         <result property="penalty" column="penalty"/>
     </resultMap>
 
     <!-- insert -->
-    <insert id="insertNew" parameterType="RankModel" useGeneratedKeys="true" keyProperty="rankId">
+    <insert id="insert" parameterType="RankModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO rank
         (
           team_id,
@@ -27,16 +27,29 @@
     </insert>
 
     <!-- select -->
-    <select id="queryByContestId" parameterType="int" resultMap="RankResultMap">
-        SELECT * FROM rank WHERE contest_id = #{contestId}
+    <select id="find" parameterType="Long" resultMap="RankResultMap">
+        SELECT * FROM rank WHERE id = #{id}
     </select>
 
-    <select id="queryByTeamIdAndContestId" parameterType="map" resultMap="RankResultMap">
-        SELECT * FROM rank WHERE team_id = #{teamId} AND contest_id = #{contestId}
+    <select id="findBySO" parameterType="RankSO" resultMap="RankResultMap">
+        SELECT * FROM rank
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="teamId != null">AND team_id = #{teamId}</if>
+            <if test="contestId != null">AND contest_id = #{contestId}</if>
+            <if test="penalty != null">AND penalty = #{penalty}</if>
+        </where>
     </select>
 
     <!-- update -->
-    <update id="updateByTeamIdAndContestId" parameterType="RankModel">
-        UPDATE rank SET penalty = #{penalty} WHERE team_id = #{teamId} AND contest_id = #{contestId}
+    <update id="update" parameterType="RankModel">
+        UPDATE rank
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="teamId != null">team_id = #{teamId},</if>
+            <if test="contestId != null">contest_id = #{contestId},</if>
+            <if test="penalty != null">penalty = #{penalty}</if>
+        </set>
+        WHERE id = #{id}
     </update>
 </mapper>

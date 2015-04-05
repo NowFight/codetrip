@@ -1,80 +1,25 @@
 package org.codetrip.dao.rank;
 
+import org.codetrip.common.so.RankSO;
 import org.codetrip.dao.BaseDao;
 import org.codetrip.model.rank.RankModel;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by RuFeng on 2015/3/21.
  */
 @Repository("RankDao")
-public class RankDaoImp extends BaseDao implements RankDao {
+public class RankDaoImp extends BaseDao<RankModel> implements RankDao {
     /**
-     * 插入rank信息
+     * 条件查询
      *
-     * @param rank
-     * @return boolean
-     */
-    @Override
-    public boolean insertNew(RankModel rank) {
-        if (getSession().insert(getNamespace() + ".insertNew", rank) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * 通过team ID和比赛ID查询rank信息
-     *
-     * @param teamId
-     * @param contestId
-     * @return RankModel
-     */
-    @Override
-    public RankModel queryByTeamIdAndContestId(int teamId, int contestId) {
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("teamId", teamId);
-        map.put("contestId", contestId);
-        return getSession().selectOne(getNamespace() + ".queryByTeamIdAndContestId", map);
-    }
-
-    /**
-     * 通过contest ID来查询rank信息
-     *
-     * @param contestId
+     * @param so
      * @return List
      */
     @Override
-    public List<RankModel> queryByContestId(int contestId) {
-        List<RankModel> ranks = getSession().selectList(getNamespace() + ".queryByContestId", contestId);
-        if (ranks.isEmpty()) {
-            return null;
-        } else {
-            return ranks;
-        }
-    }
-
-    /**
-     * 通过team ID和比赛ID更新rank信息
-     *
-     * @param teamId
-     * @param contestId
-     * @param rank
-     * @return boolean
-     */
-    @Override
-    public boolean updateByTeamIdAndContestId(int teamId, int contestId, RankModel rank) {
-        rank.setTeamId(teamId);
-        rank.setContestId(contestId);
-        if (getSession().update(getNamespace() + ".updateByTeamIdAndContestId", rank) == 1) {
-            return true;
-        } else {
-            return false;
-        }
+    public List<RankModel> findBySO(RankSO so) {
+        return getSession().selectList(getNamespace() + ".findBySO", so);
     }
 }
