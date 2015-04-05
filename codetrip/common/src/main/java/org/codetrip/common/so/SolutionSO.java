@@ -1,14 +1,12 @@
-package org.codetrip.model.solution;
+package org.codetrip.common.so;
 
 import org.codetrip.common.enumerate.JudgeResult;
 import org.codetrip.common.enumerate.Language;
-import org.codetrip.model.BaseModel;
 
 /**
- * Created by RuFeng on 2015/1/29.
+ * Created by RuFeng on 2015/4/5.
  */
-public class SolutionModel extends BaseModel {
-
+public class SolutionSO {
     /*
     * solution ID
     * */
@@ -67,9 +65,11 @@ public class SolutionModel extends BaseModel {
     /*
     * 代码文本
     * */
+
     private String codeContext;
 
     //setter & getter
+
 
     public Long getId() {
         return id;
@@ -167,4 +167,3 @@ public class SolutionModel extends BaseModel {
         this.codeContext = codeContext;
     }
 }
-

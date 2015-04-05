@@ -1,12 +1,14 @@
 package org.codetrip.dao.solution;
 
-import org.codetrip.common.enumerate.JudgeResult;
 import org.codetrip.common.enumerate.Language;
+import org.codetrip.common.so.SolutionSO;
 import org.codetrip.model.solution.SolutionModel;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,60 +16,26 @@ import java.util.Calendar;
 /**
  * Created by RuFeng on 2015/2/21.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:SpringContext-core.xml", "classpath:SpringContext-mybatis.xml"})
 public class SolutionDaoImpTester {
 
+    @Autowired
     private SolutionDao solutionDao;
 
-    @Before
-    public void init() {
-        BeanFactory beanFactory = new ClassPathXmlApplicationContext(
-                "SpringContext-core.xml",
-                "SpringContext-mybatis.xml"
-        );
-
-        solutionDao = (SolutionDao) beanFactory.getBean("SolutionDao");
-    }
-
-    //@Test
-    public void testInsertSolution() {
+    @Test
+    @Rollback(value = true)
+    public void test() {
         SolutionModel solution = new SolutionModel();
-        solution.setCodeContext("#include<stdio.h>");
+        solution.setProblemId(1L);
+        solution.setDate(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(System.currentTimeMillis()));
         solution.setLanguage(Language.C);
-        solution.setUserId(1);
-        solution.setProblemId(1);
-        solution.setDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-                .format(System.currentTimeMillis()));
-
-        if (solutionDao.insertSolution(solution)) {
-            System.out.println("插入成功");
-        } else {
-            System.out.println("插入失败");
-        }
-    }
-
-    //@Test
-    public void updateSolutionBySolutionId() {
-        SolutionModel solution = new SolutionModel();
-        if (solutionDao.updateSolutionBySolutionId(1, solution)) {
-            System.out.println("更新成功");
-        } else {
-            System.out.println("更新失败");
-        }
-        solution.setLanguage(Language.CPP);
-        if (solutionDao.updateSolutionBySolutionId(1, solution)) {
-            System.out.println("更新成功");
-        } else {
-            System.out.println("更新失败");
-        }
-    }
-
-    //@Test
-    public void testQuerySolutionBySolutionId() {
-        SolutionModel solution = solutionDao.querySolutionBySolutionId(1);
-        if (solution != null) {
-            System.out.println(solution.getLanguage());
-        } else {
-            System.out.println("查询失败");
-        }
+        solution.setCodeContext("balabala");
+        solutionDao.insert(solution);
+        solutionDao.find(solution.getId());
+        SolutionSO so = new SolutionSO();
+        so.setId(solution.getId());
+        solutionDao.findBySO(so);
+        solutionDao.update(solution);
     }
 }

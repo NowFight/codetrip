@@ -4,7 +4,7 @@
 <mapper namespace="org.codetrip.dao.solution.SolutionDao">
     <!-- result map-->
     <resultMap id="solutionResultMap" type="SolutionModel">
-        <id property="solutionId" column="solution_id"/>
+        <id property="id" column="id"/>
         <result property="teamId" column="team_id"/>
         <result property="userId" column="user_id"/>
         <result property="problemId" column="problem_id"/>
@@ -18,7 +18,7 @@
     </resultMap>
     
     <!-- insert -->
-    <insert id="insertSolution" parameterType="SolutionModel" useGeneratedKeys="true" keyProperty="solution_id">        
+    <insert id="insert" parameterType="SolutionModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO solution
         (
           team_id, 
@@ -50,31 +50,33 @@
     </insert>
     
     <!-- select -->
-    <select id="querySolutionBySolutionId" parameterType="int" resultMap="solutionResultMap">
-        SELECT * FROM solution WHERE solution_id = #{solutionId};
+    <select id="find" parameterType="Long" resultMap="solutionResultMap">
+        SELECT * FROM solution WHERE id = #{id};
     </select>
 
-    <select id="querySolutionByUserId" parameterType="int" resultMap="solutionResultMap">
-        SELECT * FROM solution WHERE user_id = #{userId};
+    <select id="findBySO" parameterType="SolutionSO" resultMap="solutionResultMap">
+        SELECT * FROM solution
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="teamId != null">AND team_id = #{teamId}</if>
+            <if test="userId != null">AND user_id = #{userId}</if>
+            <if test="problemId != null">AND problem_id = #{problemId}</if>
+            <if test="contestId != null">AND contest_id = #{contestId}</if>
+            <if test="useTime != null">AND use_time = #{useTime}</if>
+            <if test="useMemory != null">AND use_memory = #{useMemory}</if>
+            <if test="date != null">AND date = #{date}</if>
+            <if test="language != null">AND language = #{language}</if>
+            <if test="result != null">AND result = #{result}</if>
+            <if test="compileOutput != null">AND compile_output = #{compileOutput}</if>
+            <if test="codeContext != null">AND code_context = #{codeContext}</if>
+        </where>
     </select>
 
-    <select id="querySolutionByProblemId" parameterType="int" resultMap="solutionResultMap">
-        SELECT * FROM solution WHERE problem_id = #{problemId};
-    </select>
-
-    <select id="querySolutionByTeamId" parameterType="int" resultMap="solutionResultMap">
-        SELECT * FROM solution WHERE team_id = #{teamId};
-    </select>
-
-    <select id="queryAllSolutions" resultMap="solutionResultMap">
-        SELECT * FROM solution;
-    </select>
-    
     <!-- update -->
-    <update id="updateSolutionBySolutionId" parameterType="SolutionModel">
+    <update id="update" parameterType="SolutionModel">
         UPDATE solution
         <set>
-            <if test="solutionId != null">solution_id = #{solutionId},</if>
+            <if test="id != null">id = #{id},</if>
             <if test="teamId != null">team_id = #{teamId},</if>
             <if test="userId != null">user_id = #{userId},</if>
             <if test="problemId != null">problem_id = #{problemId},</if>
@@ -87,6 +89,6 @@
             <if test="compileOutput != null">compile_output = #{compileOutput},</if>
             <if test="codeContext != null">code_context = #{codeContext}</if>
         </set>
-        WHERE solution_id = #{solutionId};
+        WHERE id = #{id};
     </update>
 </mapper>

@@ -74,7 +74,7 @@ create table if not exists Contest
 
 create table if not exists Solution
 (
-	solution_id integer primary key not null auto_increment,
+    id integer primary key not null auto_increment,
     team_id integer,
     user_id integer,
     problem_id integer not null,
