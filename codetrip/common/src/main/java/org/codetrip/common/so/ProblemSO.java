@@ -1,11 +1,9 @@
-package org.codetrip.model.problem;
-
-import org.codetrip.model.BaseModel;
+package org.codetrip.common.so;
 
 /**
- * Created by RuFeng on 2015/1/29.
+ * Created by RuFeng on 2015/4/5.
  */
-public class ProblemModel extends BaseModel {
+public class ProblemSO {
     /*
     * 题目编号
     * */

@@ -4,8 +4,8 @@
 <mapper namespace="org.codetrip.dao.problem.ProblemDao">
 
     <!-- result map -->
-    <resultMap id="problemResultMap" type="ProblemModel">
-        <id property="problemId" column="problem_id"/>
+    <resultMap id="ProblemResultMap" type="ProblemModel">
+        <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="userId" column="user_id"/>
         <result property="contestId" column="contest_id"/>
@@ -17,68 +17,76 @@
         <result property="hint" column="hint"/>
         <result property="source" column="source"/>
         <result property="specialJudge" column="special_judge"/>
-        <result property="visiable" column="visiable"/>
+        <result property="visible" column="visible"/>
         <result property="timeLimit" column="time_limit"/>
         <result property="memoryLimit" column="memory_limit"/>
     </resultMap>
 
     <!-- insert -->
-    <insert id="insertProblem" parameterType="ProblemModel" useGeneratedKeys="true" keyProperty="problemId">
+    <insert id="insert" parameterType="ProblemModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO problem
         (
-          title,
-          user_id,
-          contest_id,
-          description,
-          input_description,
-          output_description,
-          sample_input,
-          sample_output,
-          hint,
-          source,
-          special_judge,
-          visiable,
-          time_limit,
-          memory_limit
+        title,
+        user_id,
+        contest_id,
+        description,
+        input_description,
+        output_description,
+        sample_input,
+        sample_output,
+        hint,
+        source,
+        special_judge,
+        visible,
+        time_limit,
+        memory_limit
         )
         VALUES
         (
-          #{title},
-          #{userId},
-          #{contestId},
-          #{description},
-          #{inputDescription},
-          #{outputDescription},
-          #{sampleInput},
-          #{sampleOutput},
-          #{hint},
-          #{source},
-          #{specialJudge},
-          #{visiable},
-          #{timeLimit},
-          #{memoryLimit}
+        #{title},
+        #{userId},
+        #{contestId},
+        #{description},
+        #{inputDescription},
+        #{outputDescription},
+        #{sampleInput},
+        #{sampleOutput},
+        #{hint},
+        #{source},
+        #{specialJudge},
+        #{visible},
+        #{timeLimit},
+        #{memoryLimit}
         );
     </insert>
 
     <!-- select -->
-    <select id="queryProblemsByUserId" parameterType="int" resultMap="problemResultMap">
-        SELECT * FROM problem WHERE user_id = #{userId};
+    <select id="find" parameterType="Long" resultMap="ProblemResultMap">
+        SELECT * FROM problem WHERE id = #{id};
     </select>
 
-    <select id="queryProblemsByProblemId" parameterType="int" resultMap="problemResultMap">
-        SELECT * FROM problem WHERE problem_id = #{problemId};
+    <select id="findBySO" parameterType="ProblemSO" resultMap="ProblemResultMap">
+        SELECT * FROM problem
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="title != null">AND title = #{title}</if>
+            <if test="userId != null">AND user_id = #{userId}</if>
+            <if test="contestId != null">AND contest_id = #{contestId}</if>
+            <if test="description != null">AND description = #{description}</if>
+            <if test="inputDescription != null">AND input_description = #{inputDescription}</if>
+            <if test="outputDescription != null">AND output_description = #{outputDescription}</if>
+            <if test="sampleInput != null">AND sample_input = #{sampleInput}</if>
+            <if test="sampleOutput != null">AND sample_output = #{sampleOutput}</if>
+            <if test="hint != null">AND hint = #{hint}</if>
+            <if test="source != null">AND source = #{source}</if>
+            <if test="specialJudge != null">AND special_judge = #{specialJudge}</if>
+            <if test="visible != null">AND visible = #{visible}</if>
+            <if test="timeLimit != null">AND time_limit = #{timeLimit}</if>
+            <if test="memoryLimit != null">AND memory_limit = #{memoryLimit}</if>
+        </where>
     </select>
-
-    <select id="queryProblemsByContestId" parameterType="int" resultMap="problemResultMap">
-        SELECT * FROM problem WHERE contest_id = #{contestId};
-    </select>
-
-    <select id="listAllPublicProblem" resultMap="problemResultMap">
-        SELECT * FROM problem WHERE visiable = "YES";
-    </select>
-
     <!-- update -->
-    <update id="updateProblemByProblemId" parameterType="ProblemModel">
+    <update id="update" parameterType="ProblemModel">
         UPDATE problem
         <set>
             <if test="title != null">title = #{title},</if>
@@ -92,11 +100,10 @@
             <if test="hint != null">hint = #{hint},</if>
             <if test="source != null">source = #{source},</if>
             <if test="specialJudge != null">special_judge = #{specialJudge},</if>
-            <if test="visiable != null">visiable = #{visiable},</if>
+            <if test="visible != null">visible = #{visible},</if>
             <if test="timeLimit != null">time_limit = #{timeLimit},</if>
             <if test="memoryLimit != null">memory_limit = #{memoryLimit}</if>
         </set>
-        WHERE
-        problem_id = #{problemId};
+        WHERE id = #{id}
     </update>
 </mapper>

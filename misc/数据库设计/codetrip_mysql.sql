@@ -37,7 +37,7 @@ create table if not exists Access
 
 create table if not exists Problem
 (
-	problem_id integer primary key not null auto_increment,
+    id integer primary key not null auto_increment,
     title varchar(100) not null,
     user_id integer not null,
     contest_id integer not null,
@@ -50,8 +50,8 @@ create table if not exists Problem
     memory_limit integer not null,
     hint text,
     source text,
-    special_judge varchar(10) not null,
-    visiable varchar(10) not null
+    special_judge integer not null,
+    visible integer not null
 );
 
 create table if not exists ContestProblem
