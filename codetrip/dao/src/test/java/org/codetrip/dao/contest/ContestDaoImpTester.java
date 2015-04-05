@@ -1,10 +1,16 @@
 package org.codetrip.dao.contest;
 
+import org.codetrip.common.so.ContestSO;
 import org.codetrip.model.contest.ContestModel;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -12,62 +18,29 @@ import java.util.List;
 /**
  * Created by RuFeng on 2015/3/14.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:SpringContext-core.xml", "classpath:SpringContext-mybatis.xml"})
 public class ContestDaoImpTester {
+    @Autowired
     private ContestDao contestDao;
 
-    @Before
-    public void init() {
-        BeanFactory beanFactory = new ClassPathXmlApplicationContext(
-                "SpringContext-core.xml",
-                "SpringContext-mybatis.xml"
-        );
-
-        contestDao = (ContestDao) beanFactory.getBean("ContestDao");
-    }
-
     @Test
-    public void testInsertContest() {
+    @Rollback(value = true)
+    public void test() {
         ContestModel contest = new ContestModel();
-        contest.setUserId(1);
-        contest.setTitle("C1");
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        contest.setCreateDate(formater.format(System.currentTimeMillis()));
-        contest.setStartTime(formater.format(System.currentTimeMillis()));
-        contest.setEndTime(formater.format(System.currentTimeMillis()));
-        contest.setPassword("123456");
-        contest.setPrivation("NO");
+        contest.setTitle("balabala");
+        contest.setPassword("balabala");
+        contest.setUserId(1L);
+        contest.setStartTime(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(System.currentTimeMillis()));
+        contest.setEndTime(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(System.currentTimeMillis()));
+        contest.setPrivatable(Boolean.FALSE);
+        contest.setCreateDate(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(System.currentTimeMillis()));
 
-        if (contestDao.insertContest(contest)) {
-            System.out.println("比赛添加成功 #" + contest.getContestId());
-        }
-    }
-
-    @Test
-    public void testQueryContestByContestId() {
-        ContestModel contest = contestDao.queryContestByContestId(2);
-        if (contest != null) {
-            System.out.println("题目ID = " + contest.getContestId());
-            System.out.println("题目标题 = " + contest.getTitle());
-        }
-    }
-
-    @Test
-    public void testUpdateContestByContestId() {
-        ContestModel contest = new ContestModel();
-        contest.setPassword("654321");
-        contest.setTitle("C2");
-        if (contestDao.updateContestByContestId(2, contest)) {
-            System.out.println("更新成功");
-        }
-    }
-
-    @Test
-    public void testQueryAllContests() {
-        List<ContestModel> contests = contestDao.queryAllContests();
-        if (contests != null) {
-            for (ContestModel contest : contests) {
-                System.out.println("比赛题目 = " + contest.getTitle());
-            }
-        }
+        contestDao.insert(contest);
+        contestDao.find(contest.getId());
+        ContestSO so = new ContestSO();
+        so.setPassword("balabala");
+        contestDao.findBySO(so);
+        contestDao.update(contest);
     }
 }

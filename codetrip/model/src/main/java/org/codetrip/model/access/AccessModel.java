@@ -7,9 +7,14 @@ import org.codetrip.model.BaseModel;
  */
 public class AccessModel extends BaseModel {
     /*
+    * 序号
+    * */
+    private Long id;
+
+    /*
     * 用户ID
     * */
-    private Integer userId;
+    private Long userId;
 
     /*
     * 用户的IP
@@ -26,11 +31,19 @@ public class AccessModel extends BaseModel {
     //setter & getter
 
 
-    public Integer getUserId() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

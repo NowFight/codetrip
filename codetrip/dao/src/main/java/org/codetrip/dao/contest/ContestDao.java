@@ -1,5 +1,7 @@
 package org.codetrip.dao.contest;
 
+import org.codetrip.common.so.ContestSO;
+import org.codetrip.dao.Dao;
 import org.codetrip.model.contest.ContestModel;
 
 import java.util.List;
@@ -7,36 +9,12 @@ import java.util.List;
 /**
  * Created by RuFeng on 2015/3/14.
  */
-public interface ContestDao {
+public interface ContestDao extends Dao<ContestModel> {
     /**
-     * 添加比赛
+     * 条件查询
      *
-     * @param contest
-     * @return boolean
-     * */
-    boolean insertContest(ContestModel contest);
-
-    /**
-     * 通过比赛ID查询比赛
-     *
-     * @param contestId
-     * @return ContestModel
-     * */
-    ContestModel queryContestByContestId(Integer contestId);
-
-    /**
-     * 列出所有比赛
-     *
+     * @param so
      * @return List
      * */
-    List<ContestModel> queryAllContests();
-
-    /**
-     * 通过比赛ID更新比赛
-     *
-     * @param contestId
-     * @param contest
-     * @return boolean
-     * */
-    boolean updateContestByContestId(Integer contestId, ContestModel contest);
+    public List<ContestModel> findBySO(ContestSO so);
 }

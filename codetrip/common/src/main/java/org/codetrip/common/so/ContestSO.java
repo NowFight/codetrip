@@ -1,12 +1,9 @@
-package org.codetrip.model.contest;
-
-import org.codetrip.model.BaseModel;
+package org.codetrip.common.so;
 
 /**
- * Created by RuFeng on 2015/1/29.
+ * Created by RuFeng on 2015/4/5.
  */
-public class ContestModel extends BaseModel {
-
+public class ContestSO {
     /*
     * 比赛编号
     * */

@@ -30,7 +30,8 @@ create table if not exists User
 
 create table if not exists Access
 (
-	user_id integer primary key not null,
+    id integer not null primary key auto_increment,
+    user_id integer not null,
     ip_addr varchar(40),
     access_time varchar(100) not null
 );
@@ -63,13 +64,13 @@ create table if not exists ContestProblem
 
 create table if not exists Contest
 (
-	contest_id integer primary key not null auto_increment,
+    id integer primary key not null auto_increment,
     user_id integer not null,
     title varchar(100) not null,
     create_date varchar(100) not null,
     start_time varchar(100) not null,
     end_time varchar(100) not null,
-    private varchar(10) not null,
+    private integer not null,
     password varchar(100)
 );
 

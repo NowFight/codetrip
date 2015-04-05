@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.codetrip.dao.contest.ContestDao">
     <resultMap id="contestResultMap" type="ContestModel">
-        <id property="contestId" column="contest_id"/>
+        <id property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="title" column="title"/>
         <result property="createDate" column="create_date"/>
@@ -14,50 +14,60 @@
     </resultMap>
 
     <!-- insert -->
-    <insert id="insertContest" parameterType="ContestModel" useGeneratedKeys="true" keyProperty="contestId">
+    <insert id="insert" parameterType="ContestModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO contest
         (
-          user_id,      <!-- 1 -->
-          title,        <!-- 2 -->
-          create_date,  <!-- 3 -->
-          start_time,   <!-- 4 -->
-          end_time,     <!-- 5 -->
-          private,      <!-- 6 -->
-          password      <!-- 7 -->
+        user_id,      <!-- 1 -->
+        title,        <!-- 2 -->
+        create_date,  <!-- 3 -->
+        start_time,   <!-- 4 -->
+        end_time,     <!-- 5 -->
+        private,      <!-- 6 -->
+        password      <!-- 7 -->
         )
         VALUES
         (
-          #{userId},    <!-- 1 -->
-          #{title},     <!-- 2 -->
-          #{createDate},<!-- 3 -->
-          #{startTime}, <!-- 4 -->
-          #{endTime},   <!-- 5 -->
-          #{privation}, <!-- 6 -->
-          #{password}   <!-- 7 -->
+        #{userId},    <!-- 1 -->
+        #{title},     <!-- 2 -->
+        #{createDate},<!-- 3 -->
+        #{startTime}, <!-- 4 -->
+        #{endTime},   <!-- 5 -->
+        #{privation}, <!-- 6 -->
+        #{password}   <!-- 7 -->
         )
     </insert>
 
     <!-- select -->
-    <select id="queryContestByContestId" parameterType="int" resultMap="contestResultMap">
-        SELECT * FROM contest WHERE contest_id = #{id}
+    <select id="find" parameterType="Long" resultMap="contestResultMap">
+        SELECT * FROM contest WHERE id = #{id}
     </select>
 
-    <select id="queryAllContests" resultMap="contestResultMap">
+    <select id="findBySO" parameterType="ContestSO" resultMap="contestResultMap">
         SELECT * FROM contest
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="userId != null">AND user_id = #{userId}</if>
+            <if test="createDate != null">AND create_date = #{createDate}</if>
+            <if test="startTime != null">AND start_time = #{startTime}</if>
+            <if test="endTime != null">AND end_time = #{endTime}</if>
+            <if test="privation != null">AND private = #{privation}</if>
+            <if test="password != null">AND password = #{password}</if>
+        </where>
     </select>
 
     <!-- update -->
-    <update id="updateContestByContestId" parameterType="ContestModel">
+    <update id="update" parameterType="ContestModel">
         UPDATE contest
         <set>
-            <if test="contestId != null">contest_id = #{contestId},</if>
+            <if test="id != null">id = #{id},</if>
             <if test="userId != null">user_id = #{userId},</if>
             <if test="createDate != null">create_date = #{createDate},</if>
             <if test="startTime != null">start_time = #{startTime},</if>
             <if test="endTime != null">end_time = #{endTime},</if>
-            <if test="privation != null">private = #{private},</if>
+            <if test="privation != null">private = #{privation},</if>
             <if test="password != null">password = #{password}</if>
         </set>
-        WHERE contest_id = #{contestId}
+        WHERE id = #{id}
     </update>
 </mapper>
+
