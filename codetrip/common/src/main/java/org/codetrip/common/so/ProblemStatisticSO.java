@@ -1,12 +1,9 @@
-package org.codetrip.model.statistic;
-
-import org.codetrip.model.BaseModel;
+package org.codetrip.common.so;
 
 /**
- * Created by RuFeng on 2015/1/29.
+ * Created by RuFeng on 2015/4/5.
  */
-public class ProblemStatisticModel extends BaseModel {
-
+public class ProblemStatisticSO {
     /*
     * 序号
     * */
@@ -81,20 +78,20 @@ public class ProblemStatisticModel extends BaseModel {
         this.problemId = problemId;
     }
 
-    public Integer getAccept() {
-        return accept;
-    }
-
-    public void setAccept(Integer accept) {
-        this.accept = accept;
-    }
-
     public Integer getSubmissions() {
         return submissions;
     }
 
     public void setSubmissions(Integer submissions) {
         this.submissions = submissions;
+    }
+
+    public Integer getAccept() {
+        return accept;
+    }
+
+    public void setAccept(Integer accept) {
+        this.accept = accept;
     }
 
     public Integer getCompileError() {

@@ -98,7 +98,8 @@ create table if not exists TestCase
 
 create table if not exists ProblemStatistic
 (
-	problem_id integer not null,
+    id integer primary key not null auto_increment,
+    problem_id integer not null,
     submissions integer not null,
     accept integer not null,
     compile_error integer not null,
@@ -107,8 +108,7 @@ create table if not exists ProblemStatistic
     mem_limit_error integer not null,
     presentation_error integer not null,
     runtime_error integer not null,
-    output_limit_error integer not null,
-    system_error integer not null
+    output_limit_error integer not null
 );
 
 create table if not exists Participant

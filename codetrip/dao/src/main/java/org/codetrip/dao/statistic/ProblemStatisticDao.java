@@ -1,43 +1,20 @@
 package org.codetrip.dao.statistic;
 
+import org.codetrip.common.so.ProblemStatisticSO;
+import org.codetrip.dao.Dao;
 import org.codetrip.model.statistic.ProblemStatisticModel;
+
+import java.util.List;
 
 /**
  * Created by RuFeng on 2015/2/20.
  */
-public interface ProblemStatisticDao {
-
+public interface ProblemStatisticDao extends Dao<ProblemStatisticModel> {
     /**
-     * 插入统计信息
+     * 条件查询
      *
-     * @param statistic
-     * @return boolean
-     */
-    public boolean insertStatistic(ProblemStatisticModel statistic);
-
-    /**
-     * 通过题目ID更新统计信息
-     *
-     * @param problemId
-     * @param statistic
-     * @return boolean
+     * @param so
+     * @return List
      * */
-    public boolean updateStatisticByProblemId(int problemId, ProblemStatisticModel statistic);
-
-    /**
-     * 通过题目ID查询统计信息
-     *
-     * @param problemId
-     * @return ProblemStatisticModel
-     */
-    public ProblemStatisticModel queryStatisticByProblemId(int problemId);
-
-    /**
-     *
-     * 通过题目ID删除统计信息
-     *
-     * @param problemId
-     * @return boolean
-     * */
-    public boolean deleteStatisticByProblemId(int problemId);
+    public List<ProblemStatisticModel> findBySO(ProblemStatisticSO so);
 }

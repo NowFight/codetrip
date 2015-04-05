@@ -3,7 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.codetrip.dao.statistic.ProblemStatisticDao">
     <!-- result map -->
-    <resultMap id="statisticResultMap" type="ProblemStatisticModel">
+    <resultMap id="StatisticResultMap" type="ProblemStatisticModel">
+        <id property="id" column="id"/>
         <result property="problemId" column="problem_id"/>
         <result property="submissions" column="submissions"/>
         <result property="accept" column="accept"/>
@@ -17,7 +18,7 @@
     </resultMap>
 
     <!-- insert -->
-    <insert id="insertStatistic" parameterType="ProblemStatisticModel">
+    <insert id="insert" parameterType="ProblemStatisticModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO problemstatistic
         (
           problem_id,
@@ -29,8 +30,7 @@
           mem_limit_error,
           presentation_error,
           runtime_error,
-          output_limit_error,
-          system_error
+          output_limit_error
         )
         VALUES
         (
@@ -43,13 +43,12 @@
           #{memLimitError},
           #{presentationError},
           #{runtimeError},
-          #{outputLimitError},
-          #{systemError}
+          #{outputLimitError}
         );
     </insert>
 
     <!-- update -->
-    <update id="updateStatisticByProblemId" parameterType="ProblemStatisticModel">
+    <update id="update" parameterType="ProblemStatisticModel">
         UPDATE problemstatistic
         <set>
             <if test="problemId != null">problem_id = #{problemId},</if>
@@ -63,16 +62,33 @@
             <if test="runtimeError != null">runtime_error = #{runtimeError},</if>
             <if test="outputLimitError != null">output_limit_error = #{outputLimitError}</if>
         </set>
-        WHERE problem_id = #{problemId};
+        WHERE id = #{id};
     </update>
 
     <!-- select -->
-    <select id="queryStatisticByProblemId" parameterType="int" resultMap="statisticResultMap">
-        SELECT * FROM problemstatistic WHERE problem_id = #{problemId};
+    <select id="find" parameterType="Long" resultMap="StatisticResultMap">
+        SELECT * FROM problemstatistic WHERE id = #{id};
+    </select>
+
+    <select id="findBySO" parameterType="ProblemStatisticSO" resultMap="StatisticResultMap">
+        SELECT * FROM problemstatistic
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="problemId != null">AND problem_id = #{id}</if>
+            <if test="submissions != null">AND submissions = #{submissions}</if>
+            <if test="accept != null">AND accept = #{accept}</if>
+            <if test="compileError != null">AND compile_error = #{compileError}</if>
+            <if test="wrongAnswer != null">AND wrong_answer = #{wrongAnswer}</if>
+            <if test="timeLimitError != null">AND time_limit_error = #{timeLimitError}</if>
+            <if test="memLimitError != null">AND mem_limit_error = #{memLimitError}</if>
+            <if test="presentationError != null">AND presentation_error = #{presentationError}</if>
+            <if test="runtimeError != null">AND runtime_error = #{runtimeError}</if>
+            <if test="outputLimitError != null">AND output_limit_error = #{outputLimitError}</if>
+        </where>
     </select>
 
     <!-- delete -->
-    <delete id="deleteStatisticByProblemId" parameterType="int">
-        DELETE FROM problemstatistic WHERE problem_id = #{problemId};
+    <delete id="delete" parameterType="Long">
+        DELETE FROM problemstatistic WHERE id = #{id};
     </delete>
 </mapper>
