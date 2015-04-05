@@ -56,6 +56,7 @@ create table if not exists Problem
 
 create table if not exists ContestProblem
 (
+    id integer not null primary key auto_increment,
     contest_id integer not null,
     problem_id integer not null
 );

@@ -4,35 +4,51 @@
 
 <mapper namespace="org.codetrip.dao.contestproblem.ContestProblemDao">
     <resultMap id="ContestProblemResultMap" type="ContestProblemModel">
+        <id property="id" column="id"/>
         <result property="contestId" column="contest_id"/>
         <result property="problemId" column="problem_id"/>
     </resultMap>
 
     <!-- select -->
-    <select id="queryByContestId" parameterType="int" resultMap="ContestProblemResultMap">
-        SELECT * FROM contestproblem where contest_id = #{contestId}
+    <select id="find" parameterType="Long" resultMap="ContestProblemResultMap">
+        SELECT * FROM contestproblem where id = #{id}
     </select>
 
-    <select id="queryByProblemId" parameterType="int" resultMap="ContestProblemResultMap">
-        SELECT * FROM contestproblem WHERE problem_id = #{problemId}
+    <select id="findBySO" parameterType="ContestProblemSO" resultMap="ContestProblemResultMap">
+        SELECT * FROM contestproblem
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="contestId != null">AND contest_id = #{contestId}</if>
+            <if test="problemId != null">AND problem_id = #{problemId}</if>
+        </where>
     </select>
 
     <!-- insert -->
-    <insert id="insertNew" parameterType="ContestProblemModel">
+    <insert id="insert" parameterType="ContestProblemModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO contestproblem
         (
-          contest_id,
-          problem_id
+        contest_id,
+        problem_id
         )
         VALUES
         (
-          #{contestId},
-          #{problemId}
+        #{contestId},
+        #{problemId}
         )
     </insert>
 
     <!-- delete -->
-    <delete id="deleteByContestIdAndProblemId" parameterType="map">
-        DELETE FROM contestproblem WHERE contest_id = #{contestId} AND problem_id = #{problemId}
+    <delete id="delete" parameterType="Long">
+        DELETE FROM contestproblem WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteBySO" parameterType="ContestProblemSO">
+        DELETE FROM contestproblem
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="contestId != null">AND contest_id = #{contestId}</if>
+            <if test="problemId != null">AND problem_id = #{problemId}</if>
+        </where>
     </delete>
 </mapper>
+

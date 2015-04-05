@@ -1,5 +1,7 @@
 package org.codetrip.dao.contestproblem;
 
+import org.codetrip.common.so.ContestProblemSO;
+import org.codetrip.dao.Dao;
 import org.codetrip.model.contestproblem.ContestProblemModel;
 
 import java.util.List;
@@ -7,37 +9,19 @@ import java.util.List;
 /**
  * Created by RuFeng on 2015/3/21.
  */
-public interface ContestProblemDao {
+public interface ContestProblemDao extends Dao<ContestProblemModel> {
     /**
-     * 添加比赛题目
+     * 条件查询
      *
-     * @param problems
-     * @return boolean
-     * */
-    public boolean insertNew(ContestProblemModel problems);
-
-    /**
-     * 通过题目ID和比赛ID删除比赛题目
-     *
-     * @param contestId
-     * @param problemId
-     * @return boolean
-     * */
-    public boolean deleteByContestIdAndProblemId(int contestId, int problemId);
-
-    /**
-     * 通过比赛ID查找题目
-     *
-     * @param contestId
+     * @param so
      * @return List
      * */
-    public List<ContestProblemModel> queryByContestId(int contestId);
+    public List<ContestProblemModel> findBySO(ContestProblemSO so);
 
     /**
-     * 通过题目ID查找关联的比赛
+     * 条件删除
      *
-     * @param problemId
-     * @return List
+     * @param so
      * */
-    public List<ContestProblemModel> queryByProblemId(int problemId);
+    public void deleteBySO(ContestProblemSO so);
 }
