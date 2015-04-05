@@ -4,12 +4,13 @@
 
 <mapper namespace="org.codetrip.dao.membership.MemberShipDao">
     <resultMap id="MemberShipResultMap" type="MemberShipModel">
+        <id property="id" column="id"/>
         <result property="teamId" column="team_id"/>
         <result property="userId" column="user_id"/>
     </resultMap>
 
     <!-- insert -->
-    <insert id="insertNew" parameterType="MemberShipModel">
+    <insert id="insert" parameterType="MemberShipModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO membership
         (
           team_id,
@@ -23,16 +24,41 @@
     </insert>
 
     <!-- select -->
-    <select id="queryByTeamId" parameterType="int" resultMap="MemberShipResultMap">
-        SELECT * FROM membership WHERE team_id = #{teamId}
+    <select id="find" parameterType="Long" resultMap="MemberShipResultMap">
+        SELECT * FROM membership WHERE id = #{id}
     </select>
 
-    <select id="queryByUserId" parameterType="int" resultMap="MemberShipResultMap">
-        SELECT * FROM membership WHERE user_id = #{userId}
+    <select id="findBySO" parameterType="MemberShipSO" resultMap="MemberShipResultMap">
+        SELECT * FROM membership
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="teamId != null">AND team_id = #{teamId}</if>
+            <if test="userId != null">AND user_id = #{userId}</if>
+        </where>
     </select>
 
     <!-- delete -->
-    <delete id="deleteByMember" parameterType="MemberShipModel">
-        DELETE FROM membership WHERE user_id = #{userId} AND team_id = #{teamId}
+    <delete id="delete" parameterType="Long">
+        DELETE FROM membership WHERE id = #{id}
     </delete>
+
+    <delete id="deleteBySO" parameterType="MemberShipSO">
+        DELETE FROM membership
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="teamId != null">AND team_id = #{teamId}</if>
+            <if test="userId != null">AND user_id = #{userId}</if>
+        </where>
+    </delete>
+
+    <!-- update -->
+    <update id="update" parameterType="MemberShipModel">
+        UPDATE membership
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="teamId != null">team_id = #{teamId},</if>
+            <if test="userId != null">user_id = #{userId}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
 </mapper>

@@ -1,5 +1,7 @@
 package org.codetrip.dao.membership;
 
+import org.codetrip.common.so.MemberShipSO;
+import org.codetrip.dao.Dao;
 import org.codetrip.model.membership.MembershipModel;
 
 import java.util.List;
@@ -7,36 +9,19 @@ import java.util.List;
 /**
  * Created by RuFeng on 2015/3/21.
  */
-public interface MemberShipDao {
+public interface MemberShipDao extends Dao<MembershipModel> {
     /**
-     * 添加关系
+     * 条件查询
      *
-     * @param member
-     * @return boolean
-     * */
-    public boolean insertNew(MembershipModel member);
-
-    /**
-     * 解除关系
-     *
-     * @param member
-     * @return boolean
-     * */
-    public boolean deleteByMember(MembershipModel member);
-
-    /**
-     * 通过team ID查询成员
-     *
-     * @param teamId
+     * @param so
      * @return List
      * */
-    public List<MembershipModel> queryByTeamId(int teamId);
+    public List<MembershipModel> findBySO(MemberShipSO so);
 
     /**
-     * 通过user ID查询成员
+     * 条件删除
      *
-     * @param userId
-     * @return List
+     * @param so
      * */
-    public List<MembershipModel> queryByUserId(int userId);
+    public void deleteBySO(MemberShipSO so);
 }

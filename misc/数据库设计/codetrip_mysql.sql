@@ -130,6 +130,7 @@ create table if not exists Rank
 
 create table if not exists Membership
 (
-	team_id integer not null,
+    id integer not null primary key auto_increment,
+    team_id integer not null,
     user_id integer not null
 );

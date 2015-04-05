@@ -1,75 +1,41 @@
 package org.codetrip.dao.membership;
 
+import org.codetrip.common.so.MemberShipSO;
 import org.codetrip.dao.BaseDao;
 import org.codetrip.model.membership.MembershipModel;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by RuFeng on 2015/3/21.
  */
-@Repository("MemberShipDao")
-public class MemberShipDaoImp extends BaseDao implements MemberShipDao {
-    /**
-     * 添加关系
-     *
-     * @param member
-     * @return boolean
-     */
-    @Override
-    public boolean insertNew(MembershipModel member) {
-        if (getSession().insert(getNamespace() + ".insertNew", member) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+@Repository
+public class MemberShipDaoImp extends BaseDao<MembershipModel> implements MemberShipDao {
+    private final static Logger LOG = Logger.getLogger(MemberShipDao.class.getName());
 
     /**
-     * 解除关系
+     * 条件查询
      *
-     * @param member
-     * @return boolean
-     */
-    @Override
-    public boolean deleteByMember(MembershipModel member) {
-        if (getSession().delete(getNamespace() + ".deleteByMember", member) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * 通过team ID查询成员
-     *
-     * @param teamId
+     * @param so
      * @return List
      */
     @Override
-    public List<MembershipModel> queryByTeamId(int teamId) {
-        List<MembershipModel> members = getSession().selectList(getNamespace() + ".queryByTeamId", teamId);
-        if (members.isEmpty()) {
-            return null;
-        } else {
-            return members;
-        }
+    public List<MembershipModel> findBySO(MemberShipSO so) {
+        return getSession().selectList(getNamespace() + ".findBySO", so);
     }
 
     /**
-     * 通过user ID查询成员
+     * 条件删除
      *
-     * @param userId
-     * @return List
+     * @param so
      */
     @Override
-    public List<MembershipModel> queryByUserId(int userId) {
-        List<MembershipModel> members = getSession().selectList(getNamespace() + ".queryByTeamId", userId);
-        if (members.isEmpty()) {
-            return null;
-        } else {
-            return members;
+    public void deleteBySO(MemberShipSO so) {
+        int row = getSession().delete(getNamespace() + ".deleteBySO", so);
+        if (row == 0) {
+            LOG.warning("no row deleted!");
         }
     }
 }

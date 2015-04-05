@@ -1,55 +1,36 @@
 package org.codetrip.dao.membership;
 
+import org.codetrip.common.so.MemberShipSO;
 import org.codetrip.model.membership.MembershipModel;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Created by RuFeng on 2015/3/21.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:SpringContext-core.xml", "classpath:SpringContext-mybatis.xml"})
 public class MemberShipDaoImpTester {
+    @Autowired
     private MemberShipDao memberShipDao;
 
-    @Before
-    public void init() {
-        BeanFactory factory = new ClassPathXmlApplicationContext(
-                "SpringContext-core.xml",
-                "SpringContext-mybatis.xml"
-        );
-
-        memberShipDao = (MemberShipDao) factory.getBean("MemberShipDao");
-    }
-
     @Test
-    public void testInsertNew() {
+    @Rollback(value = true)
+    public void test() {
         MembershipModel member = new MembershipModel();
-        member.setTeamId(1);
-        member.setUserId(1);
-        if (memberShipDao.insertNew(member)) {
-            System.out.println("insert ok");
-        }
-    }
+        member.setTeamId(1L);
+        member.setUserId(1L);
 
-    @Test
-    public void testDeleteByMember() {
-        MembershipModel member = new MembershipModel();
-        member.setTeamId(1);
-        member.setUserId(1);
-
-        if (memberShipDao.deleteByMember(member)) {
-            System.out.println("delete ok");
-        }
-    }
-
-    @Test
-    public void testQueryByTeamId() {
-        List<MembershipModel> members = memberShipDao.queryByTeamId(1);
-        if (members != null) {
-            System.out.println(members.size());
-        }
+        memberShipDao.insert(member);
+        memberShipDao.find(member.getId());
+        memberShipDao.update(member);
+        memberShipDao.delete(member.getId());
+        MemberShipSO so = new MemberShipSO();
+        so.setUserId(1L);
+        memberShipDao.deleteBySO(so);
     }
 }
