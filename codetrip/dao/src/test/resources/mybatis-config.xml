@@ -13,5 +13,11 @@
                      javaType="org.codetrip.common.enumerate.JudgeResult"/>
         <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
                      javaType="org.codetrip.common.enumerate.Language"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="org.codetrip.common.enumerate.Nationality"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="org.codetrip.common.enumerate.Role"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="org.codetrip.common.enumerate.Gender"/>
     </typeHandlers>
 </configuration>

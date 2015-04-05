@@ -1,5 +1,8 @@
 package org.codetrip.model.user;
 
+import org.codetrip.common.enumerate.Gender;
+import org.codetrip.common.enumerate.Nationality;
+import org.codetrip.common.enumerate.Role;
 import org.codetrip.model.BaseModel;
 
 /**
@@ -19,7 +22,7 @@ public class UserModel extends BaseModel {
     /*
     * 注册日期，日期格式：YYYY-MM-DD
     * */
-    private String registerDate;
+    private String registeDate;
 
     /*
     * 昵称
@@ -35,22 +38,22 @@ public class UserModel extends BaseModel {
     * 角色，不同的角色有不同的权限
     * 角色分为：ADMIN，MEMBER，CAPTAIN
     * */
-    private String role;
+    private Role role;
 
     /*
     * 国籍
     * */
-    private String nationality;
+    private Nationality nationality;
 
     /*
     * 是否公开信息，YES / NO
     * */
-    private String publicInfo;
+    private Boolean publication;
 
     /*
     * 性别
     * */
-    private String sex;
+    private Gender sex;
 
     /*
     * 年龄
@@ -72,24 +75,24 @@ public class UserModel extends BaseModel {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRegisteDate() {
+        return registeDate;
+    }
+
+    public void setRegisteDate(String registeDate) {
+        this.registeDate = registeDate;
+    }
+
     public String getNikeName() {
         return nikeName;
     }
 
     public void setNikeName(String nikeName) {
         this.nikeName = nikeName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
     }
 
     public String getEmail() {
@@ -100,35 +103,35 @@ public class UserModel extends BaseModel {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public String getNationality() {
+    public Nationality getNationality() {
         return nationality;
     }
 
-    public void setNationality(String nationality) {
+    public void setNationality(Nationality nationality) {
         this.nationality = nationality;
     }
 
-    public String getPublicInfo() {
-        return publicInfo;
+    public Boolean getPublication() {
+        return publication;
     }
 
-    public void setPublicInfo(String publicInfo) {
-        this.publicInfo = publicInfo;
+    public void setPublication(Boolean publication) {
+        this.publication = publication;
     }
 
-    public String getSex() {
+    public Gender getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Gender sex) {
         this.sex = sex;
     }
 

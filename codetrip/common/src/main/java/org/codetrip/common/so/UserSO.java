@@ -1,5 +1,9 @@
 package org.codetrip.common.so;
 
+import org.codetrip.common.enumerate.Gender;
+import org.codetrip.common.enumerate.Nationality;
+import org.codetrip.common.enumerate.Role;
+
 /**
  * Created by RuFeng on 2015/4/4.
  */
@@ -17,7 +21,7 @@ public class UserSO {
     /*
     * 注册日期，日期格式：YYYY-MM-DD
     * */
-    private String registerDate;
+    private String registeDate;
 
     /*
     * 昵称
@@ -33,29 +37,29 @@ public class UserSO {
     * 角色，不同的角色有不同的权限
     * 角色分为：ADMIN，MEMBER，CAPTAIN
     * */
-    private String role;
+    private Role role;
 
     /*
     * 国籍
     * */
-    private String nationality;
+    private Nationality nationality;
 
     /*
     * 是否公开信息，YES / NO
     * */
-    private String publicInfo;
+    private Boolean publication;
 
     /*
     * 性别
     * */
-    private String sex;
+    private Gender sex;
 
     /*
     * 年龄
     * */
     private Integer age;
 
-    //setter and getter
+    //setter 和 getter
 
 
     public Long getId() {
@@ -74,12 +78,12 @@ public class UserSO {
         this.password = password;
     }
 
-    public String getRegisterDate() {
-        return registerDate;
+    public String getRegisteDate() {
+        return registeDate;
     }
 
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
+    public void setRegisteDate(String registeDate) {
+        this.registeDate = registeDate;
     }
 
     public String getNikeName() {
@@ -98,35 +102,35 @@ public class UserSO {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public String getNationality() {
+    public Nationality getNationality() {
         return nationality;
     }
 
-    public void setNationality(String nationality) {
+    public void setNationality(Nationality nationality) {
         this.nationality = nationality;
     }
 
-    public String getPublicInfo() {
-        return publicInfo;
+    public Boolean getPublication() {
+        return publication;
     }
 
-    public void setPublicInfo(String publicInfo) {
-        this.publicInfo = publicInfo;
+    public void setPublication(Boolean publication) {
+        this.publication = publication;
     }
 
-    public String getSex() {
+    public Gender getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Gender sex) {
         this.sex = sex;
     }
 

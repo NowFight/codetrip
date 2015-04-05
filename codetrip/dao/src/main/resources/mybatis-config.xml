@@ -3,15 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-        <typeAliases>
-                <package name="org.codetrip.model"/>
-                <package name="org.codetrip.common.so"/>
-        </typeAliases>
+    <typeAliases>
+        <package name="org.codetrip.model"/>
+        <package name="org.codetrip.common.so"/>
+    </typeAliases>
 
-        <typeHandlers>
-                <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
-                             javaType="org.codetrip.common.enumerate.JudgeResult"/>
-                <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
-                             javaType="org.codetrip.common.enumerate.Language"/>
-        </typeHandlers>
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="org.codetrip.common.enumerate.JudgeResult"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="org.codetrip.common.enumerate.Language"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="org.codetrip.common.enumerate.Nationality"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="org.codetrip.common.enumerate.Role"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler"
+                     javaType="org.codetrip.common.enumerate.Gender"/>
+    </typeHandlers>
 </configuration>

@@ -19,11 +19,11 @@ create table if not exists User
     id integer primary key not null auto_increment,
     password varchar(100) not null,
     nike_name varchar(100),
-    register_date varchar(100) not null,
+    registe_date varchar(100) not null,
     email varchar(100) not null,
     role varchar(20),
     nationality varchar(100),
-    public_info varchar(10) not null,
+    publication integer not null,
     sex varchar(10) not null,
     age integer not null
 );

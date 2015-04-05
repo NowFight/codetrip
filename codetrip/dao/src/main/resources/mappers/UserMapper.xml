@@ -7,12 +7,12 @@
     <resultMap id="UserResultMap" type="UserModel">
         <id property="id" column="id"/>
         <result property="password" column="password"/>
-        <result property="registerDate" column="register_date"/>
+        <result property="registeDate" column="registe_date"/>
         <result property="nikeName" column="nike_name"/>
         <result property="email" column="email"/>
         <result property="role" column="role"/>
         <result property="nationality" column="nationality"/>
-        <result property="publicInfo" column="public_info"/>
+        <result property="publication" column="publication"/>
         <result property="sex" column="sex"/>
         <result property="age" column="age"/>
     </resultMap>
@@ -23,11 +23,11 @@
         (
           password,
           nike_name,
-          register_date,
+          registe_date,
           email,
           role,
           nationality,
-          public_info,
+          publication,
           sex,
           age
         )
@@ -35,11 +35,11 @@
         (
           #{password},
           #{nikeName},
-          #{registerDate},
+          #{registeDate},
           #{email},
           #{role},
           #{nationality},
-          #{publicInfo},
+          #{publication},
           #{sex},
           #{age}
         );
@@ -59,8 +59,8 @@
             <if test="password != null">
                 AND password = #{password}
             </if>
-            <if test="registerDate != null">
-                AND register_date = #{registerDate}
+            <if test="registeDate != null">
+                AND registe_date = #{registeDate}
             </if>
             <if test="nikeName != null">
                 AND nike_name = #{nikeName}
@@ -74,8 +74,8 @@
             <if test="nationality != null">
                 AND nationality = #{nationality}
             </if>
-            <if test="publicInfo != null">
-                AND public_info = #{publicInfo}
+            <if test="publication != null">
+                AND publication = #{publication}
             </if>
             <if test="sex != null">
                 AND sex = #{sex}
@@ -96,8 +96,8 @@
             <if test="password != null">
                 password = #{password},
             </if>
-            <if test="registerDate != null">
-                 register_date = #{registerDate},
+            <if test="registeDate != null">
+                 registe_date = #{registeDate},
             </if>
             <if test="nikeName != null">
                  nike_name = #{nikeName},
@@ -111,8 +111,8 @@
             <if test="nationality != null">
                  nationality = #{nationality},
             </if>
-            <if test="publicInfo != null">
-                 public_info = #{publicInfo},
+            <if test="publication != null">
+                 publication = #{publication},
             </if>
             <if test="sex != null">
                  sex = #{sex},

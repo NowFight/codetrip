@@ -4,15 +4,15 @@
 
 <mapper namespace="org.codetrip.dao.user.UserDao">
     <!-- result map -->
-    <resultMap id="userResultMap" type="UserModel">
+    <resultMap id="UserResultMap" type="UserModel">
         <id property="id" column="id"/>
         <result property="password" column="password"/>
-        <result property="registerDate" column="register_date"/>
+        <result property="registeDate" column="registe_date"/>
         <result property="nikeName" column="nike_name"/>
         <result property="email" column="email"/>
         <result property="role" column="role"/>
         <result property="nationality" column="nationality"/>
-        <result property="publicInfo" column="public_info"/>
+        <result property="publication" column="publication"/>
         <result property="sex" column="sex"/>
         <result property="age" column="age"/>
     </resultMap>
@@ -21,36 +21,36 @@
     <insert id="insert" parameterType="UserModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user
         (
-        password,
-        nike_name,
-        register_date,
-        email,
-        role,
-        nationality,
-        public_info,
-        sex,
-        age
+          password,
+          nike_name,
+          registe_date,
+          email,
+          role,
+          nationality,
+          publication,
+          sex,
+          age
         )
         VALUES
         (
-        #{password},
-        #{nikeName},
-        #{registerDate},
-        #{email},
-        #{role},
-        #{nationality},
-        #{publicInfo},
-        #{sex},
-        #{age}
+          #{password},
+          #{nikeName},
+          #{registeDate},
+          #{email},
+          #{role},
+          #{nationality},
+          #{publication},
+          #{sex},
+          #{age}
         );
     </insert>
 
     <!-- select -->
-    <select id="find" parameterType="Long" resultMap="userResultMap">
+    <select id="find" parameterType="Long" resultMap="UserResultMap">
         SELECT * FROM user WHERE id = #{id}
     </select>
 
-    <select id="findBySO" parameterType="UserSO" resultMap="userResultMap">
+    <select id="findBySO" parameterType="UserSO" resultMap="UserResultMap">
         SELECT * FROM user
         <where>
             <if test="id != null">
@@ -59,8 +59,8 @@
             <if test="password != null">
                 AND password = #{password}
             </if>
-            <if test="registerDate != null">
-                AND register_date = #{registerDate}
+            <if test="registeDate != null">
+                AND registe_date = #{registeDate}
             </if>
             <if test="nikeName != null">
                 AND nike_name = #{nikeName}
@@ -74,8 +74,8 @@
             <if test="nationality != null">
                 AND nationality = #{nationality}
             </if>
-            <if test="publicInfo != null">
-                AND public_info = #{publicInfo}
+            <if test="publication != null">
+                AND publication = #{publication}
             </if>
             <if test="sex != null">
                 AND sex = #{sex}
@@ -96,31 +96,30 @@
             <if test="password != null">
                 password = #{password},
             </if>
-            <if test="registerDate != null">
-                register_date = #{registerDate},
+            <if test="registeDate != null">
+                 registe_date = #{registeDate},
             </if>
             <if test="nikeName != null">
-                nike_name = #{nikeName},
+                 nike_name = #{nikeName},
             </if>
             <if test="email != null">
-                email = #{email},
+                 email = #{email},
             </if>
             <if test="role != null">
-                role = #{role},
+                 role = #{role},
             </if>
             <if test="nationality != null">
-                nationality = #{nationality},
+                 nationality = #{nationality},
             </if>
-            <if test="publicInfo != null">
-                public_info = #{publicInfo},
+            <if test="publication != null">
+                 publication = #{publication},
             </if>
             <if test="sex != null">
-                sex = #{sex},
+                 sex = #{sex},
             </if>
             <if test="age != null">
-                age = #{age}
+                 age = #{age}
             </if>
         </set>
     </update>
 </mapper>
-
