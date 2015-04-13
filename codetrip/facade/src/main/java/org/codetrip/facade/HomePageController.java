@@ -1,5 +1,6 @@
 package org.codetrip.facade;
 
+import org.codetrip.common.vo.UserVO;
 import org.codetrip.model.user.UserModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +21,9 @@ public class HomePageController {
      * */
     @RequestMapping(value = {"/", "/index"})
     public String homePage(HttpServletRequest request, Model model) {
-        UserModel user = (UserModel) request.getSession().getAttribute("currentUser");
+        UserVO user = (UserVO) request.getSession().getAttribute("currentUser");
         if (user != null) {
-            model.addAttribute("hasLogined", true);
+            model.addAttribute("logined", true);
             model.addAttribute("nikename", user.getNikeName());
         }
         return "index";

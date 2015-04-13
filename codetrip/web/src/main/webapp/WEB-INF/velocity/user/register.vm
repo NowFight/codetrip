@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+    #parse("/common/head.vm")
+
+<body>
+
+#parse("/common/navigator.vm")
+
+<div class="container">
+
+    #parse("/common/spacebar.vm")
+    #if($registefault)
+        <div class="row">
+            <div class="alert alert-danger" role="alert">
+                用户名已存在，请重新注册!
+            </div>
+        </div>
+    #end
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">注册</div>
+                <div class="panel-body">
+                    <form action="$root/user/register" method="post">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Repeat Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nikename</label>
+                            <input type="text" class="form-control" name="nikename">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="publication" value="true"> 公开个人信息（默认不公开）
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-success"> 注册 </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    #parse("/common/footer")
+</div> <!-- /container -->
+</body>
+</html>

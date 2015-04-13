@@ -1,5 +1,6 @@
 package org.codetrip.service.user;
 
+import org.codetrip.common.vo.UserVO;
 import org.codetrip.model.user.UserModel;
 
 /**
@@ -7,32 +8,18 @@ import org.codetrip.model.user.UserModel;
  */
 public interface UserService {
     /**
-     * 添加用户
-     * @param user
-     * @return boolean
-     * */
-    public boolean insertUser(UserModel user);
-
-    /**
-     * 通过email和password查询用户
-     * @param email
-     * @param password
-     * @return UserModel
-     * */
-    public UserModel queryUserByEmailAndPassword(String email, String password);
-
-    /**
-     * 通过email查询用户
-     * @param email
-     * @return UserModel
-     * */
-    public UserModel queryUserByEmail(String email);
-
-    /**
-     * 通过UserId查询user
+     * 登录
      *
-     * @param userId
-     * @return UserModel
+     * @param user
+     * @return UserVO
      * */
-    public UserModel queryUserByUserId(int userId);
+    public UserVO login(UserModel user);
+
+    /**
+     * 注册
+     *
+     * @param user
+     * @return UserVO
+     * */
+    public UserVO registe(UserModel user);
 }

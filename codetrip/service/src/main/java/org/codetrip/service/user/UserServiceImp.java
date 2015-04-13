@@ -1,62 +1,103 @@
 package org.codetrip.service.user;
 
+import org.codetrip.common.so.UserSO;
+import org.codetrip.common.vo.UserVO;
 import org.codetrip.dao.user.UserDao;
 import org.codetrip.model.user.UserModel;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.logging.Logger;
+
 /**
  * Created by RuFeng on 2015/2/10.
  */
-@Service("UserService")
+@Service
 public class UserServiceImp implements UserService {
+    private final static Logger LOG = Logger.getLogger(UserService.class.getName());
+
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private Mapper dozerMapper;
+
     /**
-     * 添加用户
+     * 登录
+     *
      * @param user
-     * @retuan boolean
-     * */
+     * @return UserVO
+     */
     @Override
-    public boolean insertUser(UserModel user) {
-        if (userDao.insertUser(user)) {
-            return true;
+    public UserVO login(UserModel user) {
+        if (user == null) {
+            LOG.warning("login - user is null");
+            return null;
+        }
+        UserSO so = new UserSO();
+        so.setEmail(user.getEmail());
+        so.setPassword(user.getPassword());
+        List<UserModel> users = userDao.findBySO(so);
+
+        if (users != null && !users.isEmpty()) {
+            UserVO userVO = dozerMapper.map(users.get(0), UserVO.class);
+            userVO.setLogined(Boolean.TRUE);
+            return userVO;
         } else {
-            return false;
+            LOG.warning(String.format("login - login failed with email = {0}", user.getEmail()));
+            UserVO userVO = new UserVO();
+            userVO.setLogined(Boolean.FALSE);
+            return userVO;
         }
     }
 
     /**
-     * 通过email和password查询用户
-     * @param email
-     * @param password
-     * @return UserModel
-     * */
-    @Override
-    public UserModel queryUserByEmailAndPassword(String email, String password) {
-        return userDao.queryUserByEmailAndPassword(email, password);
-    }
-
-    /**
-     * 通过email查询用户
-     * @param email
-     * @return UserModel
-     * */
-    @Override
-    public UserModel queryUserByEmail(String email) {
-        return userDao.queryUserByEmail(email);
-    }
-
-    /**
-     * 通过UserId查询user
+     * 注册
      *
-     * @param userId
-     * @return UserModel
+     * @param user
+     * @return UserVO
      */
     @Override
-    public UserModel queryUserByUserId(int userId) {
-        return userDao.queryUserByUserId(userId);
+    public UserVO registe(UserModel user) {
+        if (user == null) {
+            LOG.warning("registe - user is null");
+            return null;
+        }
+
+        UserVO userVO = dozerMapper.map(user, UserVO.class);
+        if (checkUser(user)) {
+            userDao.insert(user);
+            userVO.setLogined(Boolean.TRUE);
+            userVO.setRegisteSuccess(Boolean.TRUE);
+        } else {
+            userVO.setLogined(Boolean.FALSE);
+            userVO.setRegisteSuccess(Boolean.FALSE);
+        }
+        return userVO;
+    }
+
+    /**
+     * 检查用户是否已经存在
+     *
+     * true - 用户不存在
+     * false - 用户存在
+     *
+     * @param user
+     * @return boolean
+     * */
+    public boolean checkUser(UserModel user) {
+        UserSO so = new UserSO();
+        so.setEmail(user.getEmail());
+
+        List<UserModel> users = userDao.findBySO(so);
+
+        if (users.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

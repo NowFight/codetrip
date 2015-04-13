@@ -14,44 +14,11 @@
 <div class="jumbotron">
     <div class="container">
         <div class="row">
-            <div #if($hasLogined)class="col-md-12"#{else}class="col-md-8"#end>
+            <div class="col-md-12">
                 <h1>Hello, world!</h1>
                 <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
                 <p><a class="btn btn-primary btn-lg" href="#" role="button">来一发 &raquo;</a></p>
             </div>
-            #if(!$hasLogined)
-            <div class="col-md-4">
-                #if($loginFault)
-                    <div class="row">
-                        <div class="alert alert-danger" role="alert">
-                            #if($usernameError)
-                                用户名错误
-                            #elseif($passwordError)
-                                密码错误
-                            #end
-                        </div>
-                    </div>
-                #end
-                <div class="well">
-                    <form role="form" action="$root/login" method="post">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" name="email" placeholder="Enter email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Password" required>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="remember-me"> 记住我 </input>
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-success"> 登录 </button>
-                    </form>
-                </div>
-            </div>
-            #end
         </div>
     </div>
 </div>

@@ -7,4 +7,6 @@
     <context:component-scan base-package="org.codetrip.dao"/>
     <context:component-scan base-package="org.codetrip.service"/>
 
+    <!-- dozer -->
+    <bean class="org.dozer.spring.DozerBeanMapperFactoryBean"/>
 </beans>

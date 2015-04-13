@@ -35,7 +35,7 @@
                 #end
             </ul>
 
-            #if($hasLogined == true)
+            #if($logined == true)
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -45,15 +45,14 @@
                             <li><a href="$root/profile/sidebar/overview"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 个人中心 </a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 设置 </a></li>
                             <li class="divider"></li>
-                            <li><a href="$root/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> 退出 </a></li>
+                            <li><a href="$root/user/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> 退出 </a></li>
                         </ul>
                     </li>
                 </ul>
-            #end
-            #if (!$hasLogined)
+            #else
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">登录</a></li>
-                    <li><a href="$root/register">注册</a></li>
+                    <li><a href="$root/user/login">登录</a></li>
+                    <li><a href="$root/user/register">注册</a></li>
                 </ul>
             #end
         </div>

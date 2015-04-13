@@ -25,6 +25,12 @@
       <artifactId>junit</artifactId>
     </dependency>
 
+    <!-- dozer -->
+    <dependency>
+      <groupId>net.sf.dozer</groupId>
+      <artifactId>dozer</artifactId>
+    </dependency>
+
     <!-- local -->
     <dependency>
       <groupId>org.codetrip</groupId>
