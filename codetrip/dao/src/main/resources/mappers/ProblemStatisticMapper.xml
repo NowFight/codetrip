@@ -74,7 +74,7 @@
         SELECT * FROM problemstatistic
         <where>
             <if test="id != null">id = #{id}</if>
-            <if test="problemId != null">AND problem_id = #{id}</if>
+            <if test="problemId != null">AND problem_id = #{problemId}</if>
             <if test="submissions != null">AND submissions = #{submissions}</if>
             <if test="accept != null">AND accept = #{accept}</if>
             <if test="compileError != null">AND compile_error = #{compileError}</if>

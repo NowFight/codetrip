@@ -80,7 +80,7 @@
             <if test="hint != null">AND hint = #{hint}</if>
             <if test="source != null">AND source = #{source}</if>
             <if test="specialJudge != null">AND special_judge = #{specialJudge}</if>
-            <if test="visiable != null">AND visible = #{visible}</if>
+            <if test="visible != null">AND visible = #{visible}</if>
             <if test="timeLimit != null">AND time_limit = #{timeLimit}</if>
             <if test="memoryLimit != null">AND memory_limit = #{memoryLimit}</if>
         </where>
@@ -100,7 +100,7 @@
             <if test="hint != null">hint = #{hint},</if>
             <if test="source != null">source = #{source},</if>
             <if test="specialJudge != null">special_judge = #{specialJudge},</if>
-            <if test="visiable != null">visible = #{visible},</if>
+            <if test="visible != null">visible = #{visible},</if>
             <if test="timeLimit != null">time_limit = #{timeLimit},</if>
             <if test="memoryLimit != null">memory_limit = #{memoryLimit}</if>
         </set>

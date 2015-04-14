@@ -9,6 +9,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 /**
  * Created by RuFeng on 2015/2/20.
  */
@@ -22,14 +24,9 @@ public class ProblemStatisticDaoImpTester {
     @Test
     @Rollback(value = true)
     public void test() {
-        ProblemStatisticModel statistic = new ProblemStatisticModel();
-        statistic.setProblemId(1L);
-        problemStatisticDao.insert(statistic);
         ProblemStatisticSO so = new ProblemStatisticSO();
-        so.setAccept(0);
-        problemStatisticDao.findBySO(so);
-        problemStatisticDao.find(statistic.getId());
-        problemStatisticDao.update(statistic);
-        problemStatisticDao.delete(statistic.getId());
+        so.setProblemId(1L);
+        List<ProblemStatisticModel> statisticModelList = problemStatisticDao.findBySO(so);
+        System.out.println(statisticModelList.isEmpty());
     }
 }
