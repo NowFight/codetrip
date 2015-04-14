@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -42,8 +42,11 @@
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> $nikename<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="$root/profile/sidebar/overview"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 个人中心 </a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 个人中心 </a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 设置 </a></li>
+                            <li class="divider"></li>
+                            <li><a href="$root/profile/myproblems/"><span class="">题目</span></a></li>
+                            <li><a href="#"><span class="">比赛</span></a></li>
                             <li class="divider"></li>
                             <li><a href="$root/user/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> 退出 </a></li>
                         </ul>

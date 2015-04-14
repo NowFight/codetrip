@@ -1,5 +1,6 @@
 package org.codetrip.service.testcase;
 
+import org.codetrip.common.vo.TestCaseVO;
 import org.codetrip.model.testcase.TestCaseModel;
 
 import java.util.List;
@@ -12,35 +13,15 @@ public interface TestCaseService {
     /**
      * 添加测试数据
      *
-     * @return boolean
-     * @paran testcase
-     */
-    public boolean insertTestCase(TestCaseModel testcase);
-
-    /**
-     * 通过测试数据ID和题目ID更新测试数据
-     *
-     * @param problemId
-     * @param caseId
      * @param testcase
-     * @return boolean
-     */
-    public boolean updateTestCaseByProblemIdAndCaseId(int problemId, int caseId, TestCaseModel testcase);
+     * */
+    public void addTestCase(TestCaseModel testcase);
 
     /**
-     * 通过题目ID查询测试数据
+     * 列出当前题目的所有testcase
      *
      * @param problemId
      * @return List
-     */
-    public List<TestCaseModel> queryTestCaseByProblemId(int problemId);
-
-    /**
-     * 通过测试数据ID和题目ID删除测试数据
-     *
-     * @param problemId
-     * @param caseId
-     * @return boolean
      * */
-    public boolean deleteTestCaseByProblemIdAndCaseId(int problemId, int caseId);
+    public List<TestCaseVO> listAllTestCases(Long problemId);
 }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    #parse("/common/head.vm")
+
+<body>
+
+<!-- navigator -->
+
+    #parse("/common/navigator.vm")
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            #parse("/common/spacebar.vm")
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel">
+                <div class="panel-heading">
+                    添加测试数据
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="$root/profile/testcase/$pid/add" method="post">
+                                <div class="form-group">
+                                    <label>输入数据</label>
+                                    <textarea class="form-control" rows="3" name="testcase"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>输出数据</label>
+                                    <textarea class="form-control" rows="3" name="stdoutput"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">添加</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">TEST DATA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #set($index = $testcases.size())
+                        #foreach($testcase in $testcases)
+                            <td class="text-center">$index</td>
+                            <td class="text-center"><a href="#">view </a>
+                                <span class="glyphicon glyphicon-eye-open"/>
+                            </td>
+                        </tr>
+                            #set($index = $index - 1)
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,16 +1,25 @@
 package org.codetrip.service.problem;
 
+import org.codetrip.common.so.ProblemSO;
+import org.codetrip.common.so.ProblemStatisticSO;
+import org.codetrip.common.so.TestCaseSO;
+import org.codetrip.common.vo.ProblemVO;
 import org.codetrip.dao.problem.ProblemDao;
 import org.codetrip.dao.statistic.ProblemStatisticDao;
+import org.codetrip.dao.testcase.TestCaseDao;
 import org.codetrip.model.problem.ProblemModel;
 import org.codetrip.model.statistic.ProblemStatisticModel;
 import org.codetrip.service.BaseService;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by RuFeng on 2015/2/13.
@@ -24,86 +33,66 @@ public class ProblemServiceImp extends BaseService implements ProblemService {
     @Autowired
     private ProblemStatisticDao statisticDao;
 
+    @Autowired
+    private TestCaseDao testCaseDao;
+
+    @Autowired
+    private Mapper dozerMapper;
+
+    private final static Logger LOG = Logger.getLogger(ProblemService.class.getName());
+
     /**
      * 添加题目
+     *
      * @param problem
-     * @return boolean
-     * */
+     */
     @Override
-    public boolean insertProblem(ProblemModel problem) {
-        if (problemDao.insertProblem(problem)) {
-            ProblemStatisticModel statisticModel = new ProblemStatisticModel();
-            statisticModel.setProblemId(problem.getProblemId());
-            if (statisticDao.insertStatistic(statisticModel)) {
-                return true;
+    @Transactional
+    public void addProblem(ProblemModel problem) {
+        if (problem == null) {
+            LOG.warning("problem is null when add problem");
+            return;
+        }
+
+        problemDao.insert(problem);
+
+        //init the statistic
+        ProblemStatisticModel statistic = new ProblemStatisticModel();
+        statistic.setProblemId(problem.getId());
+
+        statisticDao.insert(statistic);
+    }
+
+    /**
+     * 获得用户拥有的所有题目
+     *
+     * @param userId
+     * @return List
+     */
+    @Override
+    @Transactional
+    public List<ProblemVO> getCurrentUsersAllProblems(Long userId) {
+        List<ProblemVO> problemVOs = new ArrayList<ProblemVO>();
+        ProblemSO so = new ProblemSO();
+        so.setUserId(userId);
+        List<ProblemModel> problems = problemDao.findBySO(so);
+
+        if (!problems.isEmpty()) {
+            for (ProblemModel problem : problems) {
+                ProblemVO vo = dozerMapper.map(problem, ProblemVO.class);
+                TestCaseSO testCaseSO = new TestCaseSO();
+                testCaseSO.setProblemId(problem.getId());
+                vo.setCaseNumber(testCaseDao.findBySO(testCaseSO).size());
+                ProblemStatisticSO statisticSO = new ProblemStatisticSO();
+                statisticSO.setProblemId(problem.getId());
+                List<ProblemStatisticModel> statistics = statisticDao.findBySO(statisticSO);
+                if (!statistics.isEmpty()) {
+                    vo.setAccept(statistics.get(0).getAccept());
+                    vo.setSubmissions(statistics.get(0).getSubmissions());
+                }
+                problemVOs.add(vo);
             }
         }
-        return false;
-    }
-
-    /**
-     * 根据题目ID查询题目
-     * @param problemId
-     * @return List
-     * */
-    @Override
-    public ProblemModel queryProblemByProblemId(int problemId) {
-        ProblemModel problem = problemDao.queryProblemByProblemId(problemId);
-        return problem;
-    }
-
-    /**
-     * 根据用户ID查询题目
-     * @param userId
-     * @return List
-     * */
-    @Override
-    public List<ProblemModel> queryProblemsByUserId(int userId) {
-        List<ProblemModel> problems = problemDao.queryProblemsByUserId(userId);
-        return problems;
-    }
-
-    /**
-     * 根据题目ID更新题目
-     *
-     * @param problemId
-     * @param problem
-     */
-    @Override
-    public boolean updateProblemByProblemId(int problemId, ProblemModel problem) {
-        return problemDao.updateProblemByProblemId(problemId, problem);
-    }
-
-    /**
-     * 列出所有公开的题目
-     *
-     * @return List
-     */
-    @Override
-    public List<ProblemModel> listAllPublicProblem() {
-        return problemDao.listAllPublicProblem();
-    }
-
-    /**
-     * 查找属于当前用户的最新的题目ID
-     *
-     * @param userId
-     * @return int
-     */
-    @Override
-    public int queryLatestProblemIdByUserId(int userId) {
-        List<ProblemModel> problems = problemDao.queryProblemsByUserId(userId);
-        if (problems != null) {
-            Collections.sort(problems, new Comparator<ProblemModel>() {
-                @Override
-                public int compare(ProblemModel o1, ProblemModel o2) {
-                    return o1.getProblemId() > o2.getProblemId() ? -1 :
-                            (o1.getProblemId() < o2.getProblemId() ? 1 : 0);
-                }
-            });
-            return problems.get(0).getProblemId();
-        } else {
-            return -1;  //代表没有题目
-        }
+        return problemVOs;
     }
 }

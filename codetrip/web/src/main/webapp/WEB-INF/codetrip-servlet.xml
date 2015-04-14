@@ -5,7 +5,7 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
@@ -38,6 +38,18 @@
             <value>text/html;charset=UTF-8</value>
         </property>
     </bean>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.codetrip.facade.interceptors.CheckLoginInterceptor"></bean>
+        </mvc:interceptor>
+        
+        <mvc:interceptor>
+            <mvc:mapping path="/profile/**"/>
+            <bean class="org.codetrip.facade.interceptors.SecurityInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <mvc:resources mapping="/resources/css/**" location="/WEB-INF/resources/css/"/>
     <mvc:resources mapping="/resources/image/**" location="WEB-INF/resources/image/"/>
