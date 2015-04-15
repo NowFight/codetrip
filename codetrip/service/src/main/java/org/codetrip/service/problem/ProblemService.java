@@ -24,4 +24,19 @@ public interface ProblemService {
      * @return List
      * */
     public List<ProblemVO> getCurrentUsersAllProblems(Long userId);
+
+    /**
+     * 列出所有的题目
+     *
+     * @return List
+     * */
+    public List<ProblemVO> listAllProblems();
+
+    /**
+     * 浏览题目
+     *
+     * @param id
+     * @return ProblemVO
+     * */
+    public ProblemVO viewProblem(Long id);
 }

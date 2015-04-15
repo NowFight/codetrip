@@ -18,9 +18,9 @@
                 #end
 
                 #if($nav_active_item == "ProblemSet")
-                    <li class="active"><a href="$root/problemset/view/0">题目</a></li>
+                    <li class="active"><a href="$root/problemset/">题目</a></li>
                 #else
-                    <li><a href="$root/problemset/view/0">题目</a></li>
+                    <li><a href="$root/problemset/">题目</a></li>
                 #end
 
                 #if($nav_active_item == "Contests")
@@ -45,7 +45,7 @@
                             <li><a href="#"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 个人中心 </a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 设置 </a></li>
                             <li class="divider"></li>
-                            <li><a href="$root/profile/myproblems/"><span class="">题目</span></a></li>
+                            <li><a href="$root/profile/problems/"><span class="">题目</span></a></li>
                             <li><a href="#"><span class="">比赛</span></a></li>
                             <li class="divider"></li>
                             <li><a href="$root/user/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> 退出 </a></li>

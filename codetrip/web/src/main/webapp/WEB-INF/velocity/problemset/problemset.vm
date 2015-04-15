@@ -13,13 +13,6 @@
     #parse("/common/spacebar.vm")
     <div class="row">
         <div class="col-md-12">
-            <ul class="nav nav-pills" role="tablist">
-                #foreach($i in [0 .. $pages])
-                    #set($start = $i * $pagediv + 1)
-                    #set($end = ($i + 1) * $pagediv)
-                    <li role="presentation" #if($i == $currentPage) class="active"#end><a href="$root/problemset/view/$i">$start ~ $end</a></li>
-                #end
-            </ul>
         </div>
     </div>
 
@@ -39,12 +32,10 @@
                 <tbody>
                 #foreach($problem in $problems)
                 <tr>
-                    <td class="text-center">$problem.problemId</td>
-                    <td class="text-center"><a href="$root/problemset/problem/$problem.problemId">$problem.title</a></td>
-                    <td class="text-center"><a href="$root/commit/problem/$problem.problemId" class="black-icon"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></a></td>
-                    <td class="text-center">
-                        $statistics.get($problem.problemId).accept / $statistics.get($problem.problemId).submissions
-                    </td>
+                    <td class="text-center">$problem.id</td>
+                    <td class="text-center"><a href="$root/problemset/view/$problem.id">$problem.title</a></td>
+                    <td class="text-center"><a href="#" class="black-icon"><span class="glyphicon glyphicon-send"></span></a></td>
+                    <td class="text-center">$problem.accept / $problem.submissions</td>
                 </tr>
                 #end
                 </tbody>

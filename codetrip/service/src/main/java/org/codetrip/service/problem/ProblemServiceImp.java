@@ -95,4 +95,61 @@ public class ProblemServiceImp extends BaseService implements ProblemService {
         }
         return problemVOs;
     }
+
+    /**
+     * 列出所有的题目
+     *
+     * @param id
+     * @return ProblemVO
+     */
+    @Override
+    @Transactional
+    public ProblemVO viewProblem(Long id) {
+        ProblemModel problem = problemDao.find(id);
+        if (problem != null) {
+            ProblemVO vo = dozerMapper.map(problem, ProblemVO.class);
+
+            ProblemStatisticSO sso = new ProblemStatisticSO();
+            sso.setProblemId(id);
+            List<ProblemStatisticModel> statistic = statisticDao.findBySO(sso);
+            vo.setAccept(statistic.get(0).getAccept());
+            vo.setSubmissions(statistic.get(0).getSubmissions());
+
+            return vo;
+        }
+        return null;
+    }
+
+    /**
+     * 列出所有的题目
+     *
+     * @return List
+     */
+    @Override
+    public List<ProblemVO> listAllProblems() {
+        ProblemSO so = new ProblemSO();
+        so.setVisible(Boolean.TRUE);
+        List<ProblemModel> problems = problemDao.findBySO(so);
+        List<ProblemVO> problemVOs = new ArrayList<ProblemVO>();
+
+        if (!problems.isEmpty()) {
+            for (ProblemModel problem : problems) {
+                ProblemVO vo = dozerMapper.map(problem, ProblemVO.class);
+                ProblemStatisticSO sso = new ProblemStatisticSO();
+                sso.setProblemId(problem.getId());
+                List<ProblemStatisticModel> statistic = statisticDao.findBySO(sso);
+                vo.setAccept(statistic.get(0).getAccept());
+                vo.setSubmissions(statistic.get(0).getSubmissions());
+                problemVOs.add(vo);
+            }
+            // sort by id
+            Collections.sort(problemVOs, new Comparator<ProblemVO>() {
+                @Override
+                public int compare(ProblemVO o1, ProblemVO o2) {
+                    return o1.getId() > o2.getId() ? 1 : (o1.getId() == o2.getId() ? 0 : -1);
+                }
+            });
+        }
+        return problemVOs;
+    }
 }

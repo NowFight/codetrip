@@ -10,112 +10,94 @@
     #set($nav_active_item = "ProblemSet")
     #parse("/common/navigator.vm")
 
+<!-- modal -->
+<div class="modal fade" id="commitDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">$problem.title</h4>
+            </div>
+            <form action="#" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select class="form-control" name="language">
+                                <option value="gcc">gcc</option>
+                                <option value="g++">g++</option>
+                                <option value="java">java</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="10" name="codecontext"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">提交</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div class="container">
 
     #parse("/common/spacebar.vm")
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-3">
-            <!-- title -->
-            <div class="page-header">
-                <h1>$problem.title</h1>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">属性</div>
+                <div class="panel-heading"><h2>$problem.title</h2></div>
+
                 <div class="panel-body">
-                    <p><span class="label label-info">时间限制 : $problem.timeLimit MS</span></p>
-                    <p><span class="label label-info">内存限制 : $problem.memoryLimit KB</span></p>
-                    #if($problem.specialJudge == "YES")
-                        <p><span class="label label-danger">Special Judge</span></p>
-                    #else
-                        <p><span class="label label-info">Normal Judge</span></p>
-                    #end
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
                     <div class="row">
-                        <div class="col-md-6">统计</div>
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-info-sign"/> TimeLimit:${problem.timeLimit}MS
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-info-sign"/> MemoryLimit:${problem.memoryLimit}KB
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="glyphicon glyphicon-ok"/> Accepted:$problem.accept
+                        </div>
+                        <div class="col-md-3">
+                            <span class="glyphicon glyphicon-open"/> Submissions:$problem.submissions
+                        </div>
+                    </div>
+
+                    #parse("/common/spacebar.vm")
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>描述</h4>
+                            <pre>$problem.description</pre>
+                            <h4>输入描述</h4>
+                            <pre>$problem.inputDescription</pre>
+                            <h4>输出描述</h4>
+                            <pre>$problem.outputDescription</pre>
+                            <h4>输入样例</h4>
+                            <pre>$problem.sampleInput</pre>
+                            <h4>输出样例</h4>
+                            <pre>$problem.sampleOutput</pre>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#commitDialog">
+                                提交
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <p><span class="label label-default">总提交数 : $statistic.submissions</span></p>
-                    <p><span class="label label-primary">通过提交数 : $statistic.accept</span></p>
-                    <p><span class="label label-danger">Wrong Answer : $statistic.wrongAnswer</span></p>
-                    <p><span class="label label-success">Compile Error : $statistic.compileError</span></p>
-                    <p><span class="label label-success">Time Limit Error : $statistic.timeLimitError</span></p>
-                    <p><span class="label label-success">Memory Limit Error : $statistic.memLimitError</span></p>
-                    <p><span class="label label-warning">Presentation Error : $statistic.presentationError</span></p>
-                    <p><span class="label label-success">Runtime Error : $statistic.runtimeError</span></p>
-                    <p><span class="label label-success">Output Limit Error : $statistic.outputLimitError</span></p>
-                </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">文件提交</div>
-                <div class="panel-body">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-8">
-            <!-- problem description -->
-            <div class="panel panel-default">
-                <div class="panel-heading">描述</div>
-                <div class="panel-body">
-                    #foreach($line in $problem.description.split("\n"))
-                        <p class="form-control-static">$line</p>
-                    #end
-                </div>
-            </div>
-
-            <!-- input description -->
-            <div class="panel panel-default">
-                <div class="panel-heading">输入描述</div>
-                <div class="panel-body">
-                    #foreach($line in $problem.inputDescription.split("\n"))
-                        <p class="form-control-static">$line</p>
-                    #end
-                </div>
-            </div>
-
-            <!-- ouput description -->
-            <div class="panel panel-default">
-                <div class="panel-heading">输出描述</div>
-                <div class="panel-body">
-                    #foreach($line in $problem.outputDescription.split("\n"))
-                        <p class="form-control-static">$line</p>
-                    #end
-                </div>
-            </div>
-
-            <!-- Sample input -->
-            <div class="panel panel-default">
-                <div class="panel-heading">输入例子</div>
-                <div class="panel-body">
-                    <pre>$problem.sampleInput</pre>
-                </div>
-            </div>
-
-            <!-- Sample output -->
-            <div class="panel panel-default">
-                <div class="panel-heading">输出例子</div>
-                <div class="panel-body">
-                    <pre>$problem.sampleOutput</pre>
-                </div>
-            </div>
-
-            #if($hasLogined == true)
-                <!-- submit -->
-                <div class="row">
-                    <p class="text-center">
-                        <a href="$root/commit/problem/$problem.problemId" class="btn btn-default btn-md" role="button">Commit</a>
-                    </p>
-                </div>
-            #end
         </div>
     </div>
 </div>

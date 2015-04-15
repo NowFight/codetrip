@@ -46,7 +46,7 @@
                             #foreach($problem in $problems)
                             <tr #if($problem.caseNumber == 0)class="danger" #end>
                                 <td class="text-center">$index</td>
-                                <td class="text-center"><a href="#">$problem.title</a></td>
+                                <td class="text-center">$problem.title</td>
                                 <td class="text-center">Undefined</td>
                                 <td class="text-center">$problem.accept / $problem.submissions</td>
                                 <td class="text-center">

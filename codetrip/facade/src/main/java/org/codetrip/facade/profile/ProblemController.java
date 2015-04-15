@@ -27,13 +27,13 @@ public class ProblemController {
      *
      * @return String
      * */
-    @RequestMapping(value = "/myproblems")
+    @RequestMapping(value = "/problems")
     public String problemPage(HttpServletRequest request, Model model) {
         UserVO user = (UserVO)request.getSession().getAttribute("currentUser");
         if (user != null) {
             List<ProblemVO> voList = problemService.getCurrentUsersAllProblems(user.getId());
             model.addAttribute("problems", voList);
         }
-        return "profile/myproblems";
+        return "profile/problems";
     }
 }

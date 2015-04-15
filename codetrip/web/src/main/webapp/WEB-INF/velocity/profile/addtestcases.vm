@@ -18,9 +18,9 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    添加测试数据
+                    <h3>添加测试数据</h3>
                 </div>
 
                 <div class="panel-body">
@@ -46,26 +46,26 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">TEST DATA</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        #set($index = $testcases.size())
-                        #foreach($testcase in $testcases)
-                            <td class="text-center">$index</td>
-                            <td class="text-center"><a href="#">view </a>
-                                <span class="glyphicon glyphicon-eye-open"/>
-                            </td>
-                        </tr>
-                            #set($index = $index - 1)
-                        #end
-                    </tbody>
-                </table>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                #set($index = 1)
+                #foreach($testcase in $testcases)
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="heading$index">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#$index" aria-expanded="true" aria-controls="collapseOne">
+                                    Test Case #$index
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="$index" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <pre>$testcase.testData</pre>
+                                <pre>$testcase.standardOutput</pre>
+                            </div>
+                        </div>
+                    </div>
+                    #set($index = $index + 1)
+                #end
             </div>
         </div>
     </div>

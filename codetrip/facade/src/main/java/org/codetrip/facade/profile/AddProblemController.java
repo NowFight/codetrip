@@ -79,6 +79,6 @@ public class AddProblemController {
 
             problemService.addProblem(problem);
         }
-        return "redirect:/profile/myproblems";
+        return "redirect:/profile/problems";
     }
 }

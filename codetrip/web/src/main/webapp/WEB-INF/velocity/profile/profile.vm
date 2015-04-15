@@ -11,22 +11,8 @@
 
     <div class="container">
         <div class="row">
-            <!-- sidebar -->
-            <div class="col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li #if($sidebarItem == "overview") class="active" #end><a href="$root/profile/sidebar/overview">Overview</a></li>
-                    <li #if($sidebarItem == "report") class="active" #end><a href="$root/profile/sidebar/report">Report</a></li>
-                    <li #if($sidebarItem == "myproblem") class="active" #end><a href="$root/profile/sidebar/myproblem">我的题目</a></li>
-                    <li #if($sidebarItem == "mycontest") class="active" #end><a href="$root/profile/sidebar/mycontest">我的比赛</a></li>
-                </ul>
-            </div>
-
             <!-- content -->
-
-            #if($sidebarItem == "myproblem")
-                #parse("/profile/myproblems.vm")
-            #end
-
+            #parse("/profile/problem/addproblems.vm")
         </div>
         #parse("/common/footer")
     </div>
