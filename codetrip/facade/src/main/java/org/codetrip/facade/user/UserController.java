@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -76,8 +77,13 @@ public class UserController {
         UserVO userVO = userService.registe(user);
         if (userVO.isRegisteSuccess()) {
             if (userVO.isLogined()) {
-                request.getSession().setAttribute("currentUser", user);
-                return "redirect:/index";
+                request.getSession().setAttribute("currentUser", userVO);
+                String preRequestPath = (String)request.getSession().getAttribute("preRequestPath");
+                if (preRequestPath == null) {
+                    return "redirect:/index";
+                } else {
+                    return "redirect:" + preRequestPath;
+                }
             } else {
                 model.addAttribute("registefault", true);
                 return "user/register";
@@ -95,7 +101,7 @@ public class UserController {
      * @return String
      * */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String loginAction(HttpServletRequest request, Model model) {
+    public String loginAction(HttpServletRequest request, Model model) throws Exception {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         UserModel user = new UserModel();
@@ -104,7 +110,12 @@ public class UserController {
         UserVO userVO = userService.login(user);
         if (userVO.isLogined()) {
             request.getSession().setAttribute("currentUser", userVO);
-            return "redirect:/index";
+            String preRequestPath = (String)request.getSession().getAttribute("preRequestPath");
+            if (preRequestPath == null) {
+                return "redirect:/index";
+            } else {
+                return "redirect:" + preRequestPath;
+            }
         } else {
             model.addAttribute("loginFault", true);
             return "user/login";

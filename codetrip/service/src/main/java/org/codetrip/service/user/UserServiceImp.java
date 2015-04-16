@@ -67,9 +67,10 @@ public class UserServiceImp implements UserService {
             return null;
         }
 
-        UserVO userVO = dozerMapper.map(user, UserVO.class);
+        UserVO userVO = new UserVO();
         if (checkUser(user)) {
             userDao.insert(user);
+            userVO = dozerMapper.map(user, UserVO.class);
             userVO.setLogined(Boolean.TRUE);
             userVO.setRegisteSuccess(Boolean.TRUE);
         } else {

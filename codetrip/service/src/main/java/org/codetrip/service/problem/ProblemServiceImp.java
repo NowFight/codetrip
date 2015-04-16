@@ -59,7 +59,7 @@ public class ProblemServiceImp extends BaseService implements ProblemService {
         //init the statistic
         ProblemStatisticModel statistic = new ProblemStatisticModel();
         statistic.setProblemId(problem.getId());
-
+        statistic.init();
         statisticDao.insert(statistic);
     }
 
@@ -89,6 +89,8 @@ public class ProblemServiceImp extends BaseService implements ProblemService {
                 if (!statistics.isEmpty()) {
                     vo.setAccept(statistics.get(0).getAccept());
                     vo.setSubmissions(statistics.get(0).getSubmissions());
+                } else {
+                    LOG.warning(String.format("problem ID = %d has no statistic", problem.getId()));
                 }
                 problemVOs.add(vo);
             }
@@ -111,9 +113,13 @@ public class ProblemServiceImp extends BaseService implements ProblemService {
 
             ProblemStatisticSO sso = new ProblemStatisticSO();
             sso.setProblemId(id);
-            List<ProblemStatisticModel> statistic = statisticDao.findBySO(sso);
-            vo.setAccept(statistic.get(0).getAccept());
-            vo.setSubmissions(statistic.get(0).getSubmissions());
+            List<ProblemStatisticModel> statistics = statisticDao.findBySO(sso);
+            if (!statistics.isEmpty()) {
+                vo.setAccept(statistics.get(0).getAccept());
+                vo.setSubmissions(statistics.get(0).getSubmissions());
+            } else {
+                LOG.warning(String.format("problem ID = %d has no statistic", problem.getId()));
+            }
 
             return vo;
         }
@@ -126,6 +132,7 @@ public class ProblemServiceImp extends BaseService implements ProblemService {
      * @return List
      */
     @Override
+    @Transactional
     public List<ProblemVO> listAllProblems() {
         ProblemSO so = new ProblemSO();
         so.setVisible(Boolean.TRUE);
@@ -137,9 +144,13 @@ public class ProblemServiceImp extends BaseService implements ProblemService {
                 ProblemVO vo = dozerMapper.map(problem, ProblemVO.class);
                 ProblemStatisticSO sso = new ProblemStatisticSO();
                 sso.setProblemId(problem.getId());
-                List<ProblemStatisticModel> statistic = statisticDao.findBySO(sso);
-                vo.setAccept(statistic.get(0).getAccept());
-                vo.setSubmissions(statistic.get(0).getSubmissions());
+                List<ProblemStatisticModel> statistics = statisticDao.findBySO(sso);
+                if (!statistics.isEmpty()) {
+                    vo.setAccept(statistics.get(0).getAccept());
+                    vo.setSubmissions(statistics.get(0).getSubmissions());
+                } else {
+                    LOG.warning(String.format("problem ID = %d has no statistic", problem.getId()));
+                }
                 problemVOs.add(vo);
             }
             // sort by id

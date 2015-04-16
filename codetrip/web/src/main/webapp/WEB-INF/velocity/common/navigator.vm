@@ -29,9 +29,9 @@
                     <li><a href="#">比赛 <span class="badge">4</span></a></li>
                 #end
                 #if($nav_active_item == "Status")
-                    <li class="active"><a href="$root/status/global">STATUS</a></li>
+                    <li class="active"><a href="$root/status/">STATUS</a></li>
                 #else
-                    <li><a href="$root/status/global">STATUS</a></li>
+                    <li><a href="$root/status/">STATUS</a></li>
                 #end
             </ul>
 

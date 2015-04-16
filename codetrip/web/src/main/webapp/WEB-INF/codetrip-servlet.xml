@@ -44,6 +44,11 @@
             <mvc:mapping path="/**"/>
             <bean class="org.codetrip.facade.interceptors.CheckLoginInterceptor"></bean>
         </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.codetrip.facade.interceptors.JumpTraceInterceptor"></bean>
+        </mvc:interceptor>
         
         <mvc:interceptor>
             <mvc:mapping path="/profile/**"/>

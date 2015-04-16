@@ -1,6 +1,8 @@
 package org.codetrip.facade.solution;
 
+import org.codetrip.common.enumerate.JudgeResult;
 import org.codetrip.common.enumerate.Language;
+import org.codetrip.common.vo.UserVO;
 import org.codetrip.model.problem.ProblemModel;
 import org.codetrip.model.solution.SolutionModel;
 import org.codetrip.model.statistic.ProblemStatisticModel;
@@ -19,73 +21,71 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Created by RuFeng on 2015/2/21.
  */
-@Controller("CommitController")
+@Controller
 @RequestMapping(value = "commit")
 public class CommitController {
-    @Autowired
-    private ProblemService problemService;
+
+    private static final Logger LOG = Logger.getLogger(CommitController.class.getName());
 
     @Autowired
     private SolutionService solutionService;
 
-    @Autowired
-    private ProblemStatisticService statisticService;
-
     /**
-     * 跳转到提交界面
+     * 提交代码
      *
      * @param request
      * @param model
      * @param problemId
      * @return String
      * */
-    @RequestMapping(value = "problem/{problemId}", method = RequestMethod.GET)
-    public String commitPage(HttpServletRequest request, Model model,
-                             @PathVariable(value = "problemId") int problemId) {
-        model.addAttribute("hasLogined", true);
-        model.addAttribute("nikename", ((UserModel) request
-                .getSession()
-                .getAttribute("currentUser"))
-                .getNikeName());
-        ProblemModel problem = problemService.queryProblemByProblemId(problemId);
-        if (problem != null) {
-            model.addAttribute("title", problem.getTitle());
-            model.addAttribute("problemId", problem.getProblemId());
-            return "solution/commit";
+    @RequestMapping(value = "/pid/{pid}", method = RequestMethod.POST)
+    public String doCommit(HttpServletRequest request, Model model, @PathVariable(value = "pid")Long problemId) {
+
+        UserVO user = (UserVO)request.getSession().getAttribute("currentUser");
+
+        if (user != null) {
+            String codeContent = request.getParameter("codecontext");
+            String language = request.getParameter("language");
+
+            SolutionModel solution = new SolutionModel();
+            solution.setCodeContext(codeContent);
+            solution.setProblemId(problemId);
+            solution.setDate(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(System.currentTimeMillis()));
+            solution.setUserId(user.getId());
+            solution.setLanguage(getLanguageType(language));
+            solution.setResult(JudgeResult.QUEUE);
+
+            solutionService.commit(solution);
         } else {
-            return "problemset/problemset";
+            LOG.warning("user is null when commit");
         }
+
+        return "redirect:/status/";
     }
 
     /**
-     * 提交代码
-     * @param request
-     * @param model
-     * @param problemId
-     * @return String
+     * 获得language类型
+     *
+     * @param language
+     * @return Language
      * */
-    @RequestMapping(value = "problem/{problemId}", method = RequestMethod.POST)
-    public String commitCode(HttpServletRequest request, Model model,
-                             @PathVariable(value = "problemId") int problemId) {
-        SolutionModel solution = new SolutionModel();
-        solution.setProblemId(problemId);
-        Map<String, Language> map = new HashMap();
-        map.put("GCC", Language.C);
-        map.put("G++", Language.CPP);
-        map.put("Java", Language.JAVA);
-        solution.setLanguage(map.get(request.getParameter("language")));
-        solution.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
-        solution.setUserId(((UserModel) request.getSession().getAttribute("currentUser")).getUserId());
-        solution.setCodeContext(request.getParameter("codecontext"));
-        if (solutionService.insertSolution(solution)) {
-            ProblemStatisticModel statistic = statisticService.queryStatisticByProblemId(problemId);
-            statistic.setSubmissions(statistic.getSubmissions() + 1);
-            statisticService.updateStatisticByProblemId(problemId, statistic);
+    private Language getLanguageType(String language) {
+        if (language.equals("gcc")) {
+            return Language.C;
         }
-        return "redirect:/status/personal";
+        else if(language.equals("g++")) {
+            return Language.CPP;
+        }
+        else if (language.equals("java")) {
+            return Language.JAVA;
+        } else {
+            LOG.warning("unexpected language type " + language);
+            return Language.UNKNOWN;
+        }
     }
 }

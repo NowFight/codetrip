@@ -1,5 +1,6 @@
 package org.codetrip.service.solution;
 
+import org.codetrip.common.vo.SolutionVO;
 import org.codetrip.model.solution.SolutionModel;
 
 import java.util.List;
@@ -10,58 +11,24 @@ import java.util.List;
 public interface SolutionService {
 
     /**
-     * 添加solution
+     * 提交代码, 并更新题目的提交次数
+     *
      * @param solution
-     * @return boolean
      * */
-    public boolean insertSolution(SolutionModel solution);
-
-    /**
-     * 通过solutionId查找solution记录
-     *
-     * @param solutionId
-     * @return SolutionModel
-     * */
-    public SolutionModel querySolutionBySolutionId(int solutionId);
-
-    /**
-     * 通过用户ID查询solution记录
-     *
-     * @param userId
-     * @return List
-     * */
-    public List<SolutionModel> querySolutionByUserId(int userId);
-
-    /**
-     * 通过problemId查询solution记录
-     *
-     * @param problemId
-     * @return List
-     * */
-    public List<SolutionModel> querySolutionByProblemId(int problemId);
-
-    /**
-     * 通过teamId查询solution记录
-     *
-     * @param teamId
-     * @return List
-     * */
-    public List<SolutionModel> querySolutionByTeamId(int teamId);
+    public void commit(SolutionModel solution);
 
     /**
      * 列出所有的solution记录
      *
      * @return List
      * */
-    public List<SolutionModel> queryAllSolutions();
-
+    public List<SolutionVO> listAllSolutions();
 
     /**
-     * 通过solutionId更新solution
+     * 获取单个solution记录
      *
-     * @param solutionId
-     * @param solution
-     * @return boolean
+     * @param id
+     * @return String
      * */
-    public boolean updateSolutionBySolutionId(int solutionId, SolutionModel solution);
+    public SolutionVO getCodeContent(Long id);
 }

@@ -20,47 +20,60 @@ public class ProblemStatisticModel extends BaseModel {
     /*
     * 总提交数
     * */
-    private Integer submissions = 0;
+    private Integer submissions;
 
     /*
     * 通过提交数
     * */
-    private Integer accept = 0;
+    private Integer accept;
 
     /*
     * 编译错误数
     * */
-    private Integer compileError = 0;
+    private Integer compileError;
 
     /*
     * WA次数
     * */
-    private Integer wrongAnswer = 0;
+    private Integer wrongAnswer;
 
     /*
     * 超时数
     * */
-    private Integer timeLimitError = 0;
+    private Integer timeLimitError;
 
     /*
     * 超内存数
     * */
-    private Integer memLimitError = 0;
+    private Integer memLimitError;
 
     /*
     * 格式错误数
     * */
-    private Integer presentationError = 0;
+    private Integer presentationError;
 
     /*
     * 运行时错误数
     * */
-    private Integer runtimeError = 0;
+    private Integer runtimeError;
 
     /*
     * 输出受限数
     * */
-    private Integer outputLimitError = 0;
+    private Integer outputLimitError;
+
+    //统计值初始化为0
+    public void init() {
+        submissions = 0;
+        accept = 0;
+        compileError = 0;
+        wrongAnswer = 0;
+        timeLimitError = 0;
+        memLimitError = 0;
+        presentationError = 0;
+        runtimeError = 0;
+        outputLimitError = 0;
+    }
 
     //setter & getter
 

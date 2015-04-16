@@ -18,28 +18,48 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">$problem.title</h4>
             </div>
-            <form action="#" method="post">
+            #if($logined)
+                <form action="$root/commit/pid/$problem.id" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <select class="form-control" name="language">
+                                    <option value="gcc">gcc</option>
+                                    <option value="g++">g++</option>
+                                    <option value="java">java</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea class="form-control" rows="10" name="codecontext"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">提交</button>
+                    </div>
+                </form>
+            #else
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <select class="form-control" name="language">
-                                <option value="gcc">gcc</option>
-                                <option value="g++">g++</option>
-                                <option value="java">java</option>
-                            </select>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <textarea class="form-control" rows="10" name="codecontext"></textarea>
+                            <div class="alert alert-danger" role="alert">
+                                <p><span class="glyphicon glyphicon-alert"/> 当前您没有登录，请登录后再提交！</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">提交</button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a class="btn btn-success" href="$root/user/login" role="button">登录</a>
+                            <a class="btn btn-success" href="$root/user/register" role="button">注册</a>
+                        </div>
+                    </div>
                 </div>
-            </form>
+            #end
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
