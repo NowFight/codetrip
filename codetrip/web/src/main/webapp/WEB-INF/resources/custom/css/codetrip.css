@@ -2,3 +2,7 @@ a.black-icon, a:visited.black-icon, a:hover.black-icon {
     color: black;
     font-style: normal;
 }
+
+body {
+    padding-top: 50px;
+}

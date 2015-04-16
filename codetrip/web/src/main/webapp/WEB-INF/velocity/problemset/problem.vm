@@ -93,7 +93,7 @@
                         </div>
                     </div>
 
-                    #parse("/common/spacebar.vm")
+                    #parse("common/spacebar.vm")
 
                     <div class="row">
                         <div class="col-md-12">
@@ -120,11 +120,7 @@
             </div>
         </div>
     </div>
+    #parse("/common/footer.vm")
 </div>
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>

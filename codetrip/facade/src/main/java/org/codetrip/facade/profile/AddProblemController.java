@@ -28,10 +28,6 @@ public class AddProblemController {
     @Autowired
     private ProblemService problemService;
 
-
-    @Autowired
-    private TestCaseService testCaseService;
-
     /**
      * 添加题目页面
      *

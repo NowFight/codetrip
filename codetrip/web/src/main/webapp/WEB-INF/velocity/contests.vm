@@ -6,10 +6,10 @@
 <body>
 <!-- navigator -->
     #set($nav_active_item = "Contests")
-    #parse("com/navigator.vm")
+    #parse("common/navigator.vm")
 
     <div class="container">
-        #parse("com/spacebar.vm")
+        #parse("common/spacebar.vm")
         <div class="alert alert-success" role="alert">
             <p>New Mission</p>
         </div>
@@ -137,12 +137,7 @@
             </div>
         </div>
         #end
-        #parse("common/footer")
+        #parse("common/footer.vm")
     </div>
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>

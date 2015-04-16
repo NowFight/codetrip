@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-#parse("/common/footer")
+#parse("/common/footer.vm")
 </div> <!-- /container -->
 </body>
 </html>
