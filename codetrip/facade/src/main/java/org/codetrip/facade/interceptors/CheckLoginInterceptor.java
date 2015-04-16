@@ -18,7 +18,7 @@ public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         //如果是将被重定向，则不进行处理
-        if (modelAndView != null && modelAndView.getViewName().startsWith("redirect:")) {
+        if (modelAndView == null || modelAndView.getViewName().startsWith("redirect:")) {
             return;
         }
         //检查用户是否已经存在
