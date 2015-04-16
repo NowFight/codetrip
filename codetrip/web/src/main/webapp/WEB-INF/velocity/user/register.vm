@@ -50,7 +50,8 @@
             </div>
         </div>
     </div>
-    #parse("/common/footer.vm")
+
 </div> <!-- /container -->
+    #parse("/common/footer.vm")
 </body>
 </html>

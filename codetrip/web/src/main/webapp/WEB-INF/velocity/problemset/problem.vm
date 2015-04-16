@@ -120,7 +120,8 @@
             </div>
         </div>
     </div>
-    #parse("/common/footer.vm")
+
 </div>
+    #parse("/common/footer.vm")
 </body>
 </html>

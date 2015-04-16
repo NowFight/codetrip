@@ -13,6 +13,8 @@
     <!-- Bootstrap core CSS -->
     <link href="$root/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="$root/resources/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="$root/resources/custom/css/codetrip.css" rel="stylesheet"/>
 
