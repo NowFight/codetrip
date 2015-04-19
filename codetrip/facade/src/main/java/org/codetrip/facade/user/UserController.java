@@ -59,7 +59,7 @@ public class UserController {
         String publication = request.getParameter("publication");
 
         UserModel user = new UserModel();
-        user.setRegisteDate(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(System.currentTimeMillis()));
+        user.setRegisteDate(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(System.currentTimeMillis()));
         user.setNikeName(nikename);
         user.setSex(Gender.MALE);
         user.setAge(0);

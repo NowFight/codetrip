@@ -55,7 +55,7 @@ public class CommitController {
             SolutionModel solution = new SolutionModel();
             solution.setCodeContext(codeContent);
             solution.setProblemId(problemId);
-            solution.setDate(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").format(System.currentTimeMillis()));
+            solution.setDate(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(System.currentTimeMillis()));
             solution.setUserId(user.getId());
             solution.setLanguage(getLanguageType(language));
             solution.setResult(JudgeResult.QUEUE);
