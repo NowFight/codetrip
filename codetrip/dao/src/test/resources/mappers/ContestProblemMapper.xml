@@ -50,5 +50,10 @@
             <if test="problemId != null">AND problem_id = #{problemId}</if>
         </where>
     </delete>
+
+    <!-- count -->
+    <select id="count" parameterType="Long" resultType="Integer">
+        SELECT COUNT(*) FROM contestproblem WHERE contest_id = #{contestId}
+    </select>
 </mapper>
 

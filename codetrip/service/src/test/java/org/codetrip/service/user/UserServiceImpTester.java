@@ -13,6 +13,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import org.codetrip.common.util.DateUtil;
 
 /**
  * Created by RuFeng on 2015/2/10.
@@ -23,8 +26,8 @@ public class UserServiceImpTester {
     @Autowired
     private UserService userService;
 
-    @Test
-    @Rollback(value = true)
+    //@Test
+    //@Rollback(value = true)
     public void test() {
         UserModel user = new UserModel();
         user.setEmail("email");
@@ -43,5 +46,10 @@ public class UserServiceImpTester {
         if (userVO != null && userVO.isLogined()) {
             System.out.println("登录成功!");
         }
+    }
+
+    @Test
+    public void tt() throws Exception {
+        System.out.println(DateUtil.DateParser("4/19/2015 5:29 PM", "MM/dd/yyyy h:mm").getTime());
     }
 }

@@ -18,8 +18,8 @@ public class ContestProblemDaoImpTester {
     @Autowired
     private ContestProblemDao contestProblemDao;
 
-    @Test
-    @Rollback(value = true)
+    //@Test
+    //@Rollback(value = true)
     public void test() {
         ContestProblemModel contestProblem = new ContestProblemModel();
         contestProblem.setContestId(1L);
@@ -31,5 +31,10 @@ public class ContestProblemDaoImpTester {
         contestProblemDao.findBySO(so);
         contestProblemDao.delete(1L);
         contestProblemDao.deleteBySO(so);
+    }
+
+    @Test
+    public void count() {
+        System.out.println(contestProblemDao.count(1L));
     }
 }

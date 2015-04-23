@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    #parse("/common/head.vm")
+<body>
+<!-- navigator -->
+
+    #parse("/common/navigator.vm")
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            #parse("/common/spacebar.vm")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>比赛题目</h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Title</th>
+                                    <th class="text-center">Class</th>
+                                    <th class="text-center">Ratio</th>
+                                    <th class="text-center">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    #foreach($problem in $inContestProblems)
+                                    <tr>
+                                        <td class="text-center">$problem.title</td>
+                                        <td class="text-center">Not Defiend</td>
+                                        <td class="text-center">$problem.accept / $problem.submissions</td>
+                                        <td class="text-center text-info"><span class="glyphicon glyphicon-ok"/></td>
+                                    </tr>
+                                    #end
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>添加比赛题目</h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Title</th>
+                                    <th class="text-center">Class</th>
+                                    <th class="text-center">Ratio</th>
+                                    <th class="text-center">Operate</th>
+                                </tr>
+                                </thead>
+                                <tbody class="add-problem-table">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="$root/profile/addcontest/addproblem" method="post">
+                                        <input class="submit" type="hidden" name="problemIds">
+                                        <input type="hidden" name="contestId" value="$contestId">
+                                        <button class="btn btn-success submit" type="submit">提交</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>题目集</h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="panel-body">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Title</th>
+                                <th class="text-center">Class</th>
+                                <th class="text-center">Ratio</th>
+                                <th class="text-center">Operate</th>
+                            </tr>
+                            </thead>
+                            <tbody class="all-problem-table">
+                                #set($index = 1)
+                                #foreach($problem in $problems)
+                                <tr>
+                                    <td class="text-center pid" pid="$problem.id">$index</td>
+                                    <td class="text-center title">$problem.title</td>
+                                    <td class="text-center sort">Not Defined</td>
+                                    <td class="text-center ratio">$problem.accept / $problem.submissions</td>
+                                    <td class="text-center text-success operate"><span class="glyphicon glyphicon-plus-sign add-operate"/></td>
+                                    #set($index = $index + 1)
+                                </tr>
+                                #end
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+
+</div>
+    #parse("/common/footer.vm")
+</body>
+</html>
+
+<script>
+    problemArray = [];
+    $(function() {
+        $(".all-problem-table").on('click', '.add-operate',
+                function() {
+                    var node = $(this);
+                    var parent = $(this).parent().parent();
+                    var pid = parent.children(".pid").attr("pid");
+                    var title = parent.children(".title").text();
+                    var sort = parent.children(".sort").text();
+                    var ratio = parent.children(".ratio").text();
+                    var html = "<tr><td class='text-center'>"
+                            + title
+                            + "</td><td class='text-center'>"
+                            + sort
+                            + "</td><td class='text-center'>"
+                            + ratio
+                            + "</td><td class='text-center text-danger'><span class='glyphicon glyphicon-minus-sign remove-operate' pid=" + pid + "/></td></tr>"
+                    $(".add-problem-table").append(html);
+                    problemArray.push(pid);
+                }
+        );
+        $(".add-problem-table").on('click', '.remove-operate',
+                function() {
+                    var pid = $(this).attr("pid");
+                    $(this).parent().parent().remove();
+                    delete problemArray[problemArray.indexOf(pid)];
+                }
+        );
+
+        $("button.submit").click(
+                function() {
+                    var problems = "";
+                    for (var i = 0; i < problemArray.length; i++) {
+                        problems = problems + problemArray[i] + ";";
+                    }
+                    $("input.submit").attr("value",problems);
+                }
+        );
+    });
+</script>

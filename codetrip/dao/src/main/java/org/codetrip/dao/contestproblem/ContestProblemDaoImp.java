@@ -37,4 +37,15 @@ public class ContestProblemDaoImp extends BaseDao<ContestProblemModel> implement
             LOG.warning("no row deleted!");
         }
     }
+
+    /**
+     * 统计记录数
+     *
+     * @param contestId
+     * @return Integer
+     */
+    @Override
+    public Integer count(Long contestId) {
+        return getSession().selectOne(getNamespace() + ".count", contestId);
+    }
 }

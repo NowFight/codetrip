@@ -24,4 +24,12 @@ public interface ContestProblemDao extends Dao<ContestProblemModel> {
      * @param so
      * */
     public void deleteBySO(ContestProblemSO so);
+
+    /**
+     * 统计记录数
+     *
+     * @param contestId
+     * @return Integer
+     * */
+    public Integer count(Long contestId);
 }

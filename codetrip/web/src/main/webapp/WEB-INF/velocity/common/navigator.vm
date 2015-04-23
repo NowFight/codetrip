@@ -24,9 +24,9 @@
                 #end
 
                 #if($nav_active_item == "Contests")
-                    <li class="active"><a href="$root/contests">比赛</a></li>
+                    <li class="active"><a href="$root/contests/show">比赛</a></li>
                 #else
-                    <li><a href="#">比赛 <span class="badge">4</span></a></li>
+                    <li><a href="$root/contests/show">比赛</a></li>
                 #end
                 #if($nav_active_item == "Status")
                     <li class="active"><a href="$root/status/">STATUS</a></li>

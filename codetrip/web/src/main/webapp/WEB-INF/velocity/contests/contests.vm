@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    #parse("common/head.vm")
+
+<body>
+<!-- navigator -->
+    #set($nav_active_item = "Contests")
+    #parse("/common/navigator.vm")
+
+    <div class="container">
+        #parse("/common/spacebar.vm")
+        <div class="alert alert-success" role="alert">
+            <p>New Mission</p>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Contests</div>
+
+                    <!-- Table -->
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Title</th>
+                            <th class="text-center">Start Time</th>
+                            <th class="text-center">End Time</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Participantor</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            #set($id = 1)
+                            #foreach($contest in $contests)
+                            <tr class="text-muted">
+                                <td class="text-center">$id</td>
+                                <td class="text-center">$contest.title</td>
+                                <td class="text-center text-info">$contest.startTime</td>
+                                <td class="text-center text-danger">$contest.endTime</td>
+                                #if($contest.isRunning() == true)
+                                    <td class="text-center text-success"><span class="glyphicon glyphicon-play-circle"/></td>
+                                #elseif($contest.notStart() == true)
+                                    <td class="text-center text-warning"><span class="glyphicon glyphicon-time"/></td>
+                                #else
+                                    <td class="text-center text-danger"><span class="glyphicon glyphicon-ok-circle"/></td>
+                                #end
+                                <td class="text-center">$contest.participators <span class="glyphicon glyphicon-user"/></td>
+                            </tr>
+                                #set($id = $id + 1)
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    #parse("/common/footer.vm")
+</body>
+</html>
