@@ -2,15 +2,11 @@ package org.codetrip.facade.status;
 
 import org.codetrip.common.vo.SolutionVO;
 import org.codetrip.common.vo.UserVO;
-import org.codetrip.model.problem.ProblemModel;
-import org.codetrip.model.solution.SolutionModel;
-import org.codetrip.model.user.UserModel;
-import org.codetrip.service.problem.ProblemService;
 import org.codetrip.service.solution.SolutionService;
-import org.codetrip.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,5 +41,17 @@ public class StatusController {
         }
         model.addAttribute("solutions", solutionVOs);
         return "status/status";
+    }
+
+    /**
+     * 查看代码
+     * */
+    @RequestMapping(value = "viewcode/{SID}")
+    public String viewCode(Model model, @PathVariable(value = "SID") Long solutionId) {
+        SolutionVO vo = solutionService.getCodeContent(solutionId);
+        if (vo != null) {
+            model.addAttribute("code", vo.getCodeContext());
+        }
+        return "status/viewcode";
     }
 }

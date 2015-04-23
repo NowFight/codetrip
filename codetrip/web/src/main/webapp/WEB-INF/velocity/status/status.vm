@@ -11,12 +11,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">title</h4>
+                <h4 class="modal-title">代码</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <pre>code...</pre>
+                    <div class="col-md-12 code">
                     </div>
                 </div>
             </div>
@@ -63,7 +62,7 @@
                             </td>
                             <td class="text-center">
                                 #if($solution.accessable == true)
-                                    <a href="#" data-toggle="modal" data-target="#codeDialog">$solution.language</a>
+                                    <a href="#" data-toggle="modal" data-target="#codeDialog" class="code" sid="$solution.id">$solution.language</a>
                                 #else
                                     $solution.language
                                 #end
@@ -89,3 +88,17 @@
     #parse("/common/footer.vm")
 </body>
 </html>
+<script>
+    #set($dollar = "$")
+    #set($comma = ",")
+    $("a.code").click(
+            function() {
+                $("div.code").html("");
+                var sid = $(this).attr("sid");
+                var url = "http://localhost:8080/codetrip/status/viewcode/" + sid;
+                ${dollar}.get(url ${comma} function(data ${comma} status) {
+                    $("div.code").html(data);
+                });
+            }
+    );
+</script>
