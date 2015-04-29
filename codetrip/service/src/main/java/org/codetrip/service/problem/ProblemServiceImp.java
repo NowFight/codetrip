@@ -60,6 +60,7 @@ public class ProblemServiceImp extends BaseService implements ProblemService {
         ProblemStatisticModel statistic = new ProblemStatisticModel();
         statistic.setProblemId(problem.getId());
         statistic.init();
+        statistic.setContestId(0L);
         statisticDao.insert(statistic);
     }
 

@@ -1,7 +1,10 @@
 package org.codetrip.service.contestproblem;
 
+import org.codetrip.common.vo.ContestProblemVO;
+import org.codetrip.common.vo.ContestVO;
 import org.codetrip.common.vo.ProblemVO;
 import org.codetrip.model.problem.ProblemModel;
+import org.springframework.beans.factory.parsing.Problem;
 
 import java.util.List;
 
@@ -24,4 +27,28 @@ public interface ContestProblemService {
      * @return List
      * */
     public List<ProblemVO> listContestProblems(Long contestId);
+
+    /**
+     * 取得比赛中的题目
+     *
+     * @param contestProblemId
+     * @return ProblemVO
+     * */
+    public ProblemVO getProblem(Long contestProblemId);
+
+    /**
+     * 获得比赛信息
+     *
+     * @param contestProblemId
+     * @return ContestVO
+     * */
+    public ContestVO getContest(Long contestProblemId);
+
+    /**
+     * 获得比赛题目的关系
+     *
+     * @param contestProblemId
+     * @return ContestProblemVO
+     * */
+    public ContestProblemVO getContestProblem(Long contestProblemId);
 }

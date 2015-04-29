@@ -16,123 +16,124 @@ drop table if exists Membership;
 
 create table if not exists User
 (
-    id integer primary key not null auto_increment,
-    password varchar(100) not null,
-    nike_name varchar(100),
-    registe_date varchar(100) not null,
-    email varchar(100) not null,
-    role varchar(20),
-    nationality varchar(100),
-    publication integer not null,
-    sex varchar(10) not null,
-    age integer not null
+  id integer primary key not null auto_increment,
+  password varchar(100) not null,
+  nike_name varchar(100),
+  registe_date varchar(100) not null,
+  email varchar(100) not null,
+  role varchar(20),
+  nationality varchar(100),
+  publication integer not null,
+  sex varchar(10) not null,
+  age integer not null
 );
 
 create table if not exists Access
 (
-    id integer not null primary key auto_increment,
-    user_id integer not null,
-    ip_addr varchar(40),
-    access_time varchar(100) not null
+  id integer not null primary key auto_increment,
+  user_id integer not null,
+  ip_addr varchar(40),
+  access_time varchar(100) not null
 );
 
 create table if not exists Problem
 (
-    id integer primary key not null auto_increment,
-    title varchar(100) not null,
-    user_id integer not null,
-    contest_id integer not null,
-    description text not null,
-    input_description text not null,
-    output_description text not null,
-    sample_input text not null,
-    sample_output text not null,
-    time_limit integer not null,
-    memory_limit integer not null,
-    hint text,
-    source text,
-    special_judge integer not null,
-    visible integer not null
+  id integer primary key not null auto_increment,
+  title varchar(100) not null,
+  user_id integer not null,
+  contest_id integer not null,
+  description text not null,
+  input_description text not null,
+  output_description text not null,
+  sample_input text not null,
+  sample_output text not null,
+  time_limit integer not null,
+  memory_limit integer not null,
+  hint text,
+  source text,
+  special_judge integer not null,
+  visible integer not null
 );
 
 create table if not exists ContestProblem
 (
-    id integer not null primary key auto_increment,
-    contest_id integer not null,
-    problem_id integer not null
+  id integer not null primary key auto_increment,
+  contest_id integer not null,
+  problem_id integer not null
 );
 
 create table if not exists Contest
 (
-    id integer primary key not null auto_increment,
-    user_id integer not null,
-    title varchar(100) not null,
-    create_date varchar(100) not null,
-    start_time varchar(100) not null,
-    end_time varchar(100) not null,
-    private integer not null,
-    password varchar(100)
+  id integer primary key not null auto_increment,
+  user_id integer not null,
+  title varchar(100) not null,
+  create_date varchar(100) not null,
+  start_time varchar(100) not null,
+  end_time varchar(100) not null,
+  private integer not null,
+  password varchar(100)
 );
 
 create table if not exists Solution
 (
-    id integer primary key not null auto_increment,
-    team_id integer,
-    user_id integer,
-    problem_id integer not null,
-    contest_id integer,
-    use_time integer,
-    use_memory integer,
-    date varchar(100) not null,
-    language varchar(20) not null,
-    result varchar(20),
-    compile_output text,
-    code_context text not null
+  id integer primary key not null auto_increment,
+  team_id integer,
+  user_id integer,
+  problem_id integer not null,
+  contest_id integer,
+  use_time integer,
+  use_memory integer,
+  date varchar(100) not null,
+  language varchar(20) not null,
+  result varchar(20),
+  compile_output text,
+  code_context text not null
 );
 
 create table if not exists TestCase
 (
-    id integer primary key not null auto_increment,
-    problem_id integer not null,
-    test_data text not null,
-    standard_output text not null
+  id integer primary key not null auto_increment,
+  problem_id integer not null,
+  test_data text not null,
+  standard_output text not null
 );
 
 create table if not exists ProblemStatistic
 (
-    id integer primary key not null auto_increment,
-    problem_id integer not null,
-    submissions integer not null,
-    accept integer not null,
-    compile_error integer not null,
-    wrong_answer integer not null,
-    time_limit_error integer not null,
-    mem_limit_error integer not null,
-    presentation_error integer not null,
-    runtime_error integer not null,
-    output_limit_error integer not null
+  id integer primary key not null auto_increment,
+  problem_id integer not null,
+  contest_id integer,
+  submissions integer not null,
+  accept integer not null,
+  compile_error integer not null,
+  wrong_answer integer not null,
+  time_limit_error integer not null,
+  mem_limit_error integer not null,
+  presentation_error integer not null,
+  runtime_error integer not null,
+  output_limit_error integer not null
 );
 
 create table if not exists Participant
 (
-    id integer not null primary key auto_increment,
-    contest_id integer not null,
-    team_name varchar(50) not null,
-    password varchar(100) not null,
-    registe_date varchar(100) not null
+  id integer not null primary key auto_increment,
+  contest_id integer not null,
+  team_name varchar(50),
+  password varchar(100),
+  registe_date varchar(100) not null
 );
 
 create table if not exists Rank
 (
-    id integer not null primary key auto_increment,
-    team_id integer not null,
-    contest_id integer not null,
-    penalty integer not null
+  id integer not null primary key auto_increment,
+  team_id integer not null,
+  contest_id integer not null,
+  penalty integer not null
 );
 
 create table if not exists Membership
 (
-    id integer not null primary key auto_increment,
-    team_id integer not null,
-    user_id integer not null
+  id integer not null primary key auto_increment,
+  team_id integer not null,
+  user_id integer not null
 );

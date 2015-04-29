@@ -52,7 +52,7 @@
                             #if($contest.isRunning() == true)
                                 <td class="text-center text-success"><span class="glyphicon glyphicon-play-circle"/></td>
                                 <td class="text-center"><a href="#">$contest.participators</a></td>
-                                <td class="text-center">$contest.problems</td>
+                                <td class="text-center"><a href="$root/profile/addcontest/$contest.id/addproblem">$contest.problems</a></td>
                             #elseif($contest.notStart() == true)
                                 <td class="text-center text-warning"><span class="glyphicon glyphicon-time"/></td>
                                 <td class="text-center"><a href="#">$contest.participators</a></td>

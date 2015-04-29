@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    #parse("common/head.vm")
+
+<body>
+<!-- navigator -->
+    #set($nav_active_item = "Contests")
+    #parse("/common/navigator.vm")
+
+<div class="container">
+    #parse("/common/spacebar.vm")
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-success" role="alert">
+                <p>New Mission</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    $title
+                </div>
+
+                <!-- Table -->
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Title</th>
+                        <th class="text-center">Ratio</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        #set($id = 1)
+                        #foreach($problem in $problems)
+                        <tr class="text-muted">
+                            <td class="text-center">$id</td>
+                            <td class="text-center"><a href="$root/contest/problem/view/$problem.contestProblemId">$problem.title</a></td>
+                            <td class="text-center">$problem.accept / $problem.submissions</td>
+                            <td class="text-center"><span class="glyphicon glyphicon-send"/></td>
+                        </tr>
+                            #set($id = $id + 1)
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    #parse("/common/footer.vm")
+</body>
+</html>

@@ -5,24 +5,6 @@
 
 <body>
 
-<!-- modal -->
-<div class="modal fade" id="codeDialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">代码</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 code">
-                    </div>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 <!-- navigator -->
     #parse("/common/navigator.vm")
 
@@ -88,19 +70,3 @@
     #parse("/common/footer.vm")
 </body>
 </html>
-<script>
-    #set($dollar = "$")
-    #set($comma = ",")
-    $(function() {
-        $("a.code").click(
-                function() {
-                    $("div.code").html("");
-                    var sid = $(this).attr("sid");
-                    var url = "http://localhost:8080/codetrip/status/viewcode/" + sid;
-                    ${dollar}.get(url ${comma} function(data ${comma} status) {
-                        $("div.code").html(data);
-                    });
-                }
-        );
-    });
-</script>

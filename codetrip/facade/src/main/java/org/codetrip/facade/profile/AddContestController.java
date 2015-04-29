@@ -119,7 +119,6 @@ public class AddContestController {
             }
         }
         if (Numeric.isInteger(contestId)) {
-            System.out.println(pIds);
             contestProblemService.batchAddProblem(Long.parseLong(contestId), pIds);
         } else {
             LOG.warning("contest id : " + contestId + " is not a number");

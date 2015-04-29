@@ -1,0 +1,139 @@
+#set($contest = false)
+
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
+
+    #parse("/common/head.vm")
+
+<body>
+<!-- navigator -->
+    #set($nav_active_item = "ProblemSet")
+    #parse("/common/navigator.vm")
+
+<!-- modal -->
+<div class="modal fade" id="commitDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">$problem.title</h4>
+            </div>
+            #if($logined)
+                <form action="$root/commit/contest/$problem.contestProblemId" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <select class="form-control" name="language">
+                                    <option value="gcc">gcc</option>
+                                    <option value="g++">g++</option>
+                                    <option value="java">java</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea class="form-control" rows="10" name="codecontext"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">提交</button>
+                    </div>
+                </form>
+            #else
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger" role="alert">
+                                <p><span class="glyphicon glyphicon-alert"/> 当前您没有登录，请登录后再提交！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a class="btn btn-success" href="$root/user/login" role="button">登录</a>
+                            <a class="btn btn-success" href="$root/user/register" role="button">注册</a>
+                        </div>
+                    </div>
+                </div>
+            #end
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="container">
+
+    #parse("/common/spacebar.vm")
+
+    #if($done == true)
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="alert alert-danger" role="alert">
+                    <p><span class="glyphicon glyphicon-alert"/>&nbsp;比赛已经结束，您不能再进行提交</p>
+                </div>
+            </div>
+        </div>
+    #end
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h2>$problem.title</h2></div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-info-sign"/> TimeLimit:${problem.timeLimit}MS
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-info-sign"/> MemoryLimit:${problem.memoryLimit}KB
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="glyphicon glyphicon-ok"/> Accepted:$problem.accept
+                        </div>
+                        <div class="col-md-3">
+                            <span class="glyphicon glyphicon-open"/> Submissions:$problem.submissions
+                        </div>
+                    </div>
+
+                    #parse("common/spacebar.vm")
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>描述</h4>
+                            <pre>$problem.description</pre>
+                            <h4>输入描述</h4>
+                            <pre>$problem.inputDescription</pre>
+                            <h4>输出描述</h4>
+                            <pre>$problem.outputDescription</pre>
+                            <h4>输入样例</h4>
+                            <pre>$problem.sampleInput</pre>
+                            <h4>输出样例</h4>
+                            <pre>$problem.sampleOutput</pre>
+                        </div>
+                    </div>
+                    #if($done == false)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#commitDialog">
+                                    提交
+                                </button>
+                            </div>
+                        </div>
+                    #end
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    #parse("/common/footer.vm")
+</body>
+</html>

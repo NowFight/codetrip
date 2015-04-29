@@ -18,6 +18,11 @@ public class ProblemStatisticModel extends BaseModel {
     private Long problemId;
 
     /*
+    * 比赛编号
+    * */
+    private Long contestId;
+
+    /*
     * 总提交数
     * */
     private Integer submissions;
@@ -77,6 +82,14 @@ public class ProblemStatisticModel extends BaseModel {
 
     //setter & getter
 
+
+    public Long getContestId() {
+        return contestId;
+    }
+
+    public void setContestId(Long contestId) {
+        this.contestId = contestId;
+    }
 
     public Long getId() {
         return id;

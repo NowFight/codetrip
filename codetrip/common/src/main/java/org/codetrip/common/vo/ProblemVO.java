@@ -98,8 +98,21 @@ public class ProblemVO {
     * */
     private Integer caseNumber;
 
+    /*
+    * 题目在比赛中的编号
+    * */
+    private Long contestProblemId;
+
     //getter & setter
 
+
+    public Long getContestProblemId() {
+        return contestProblemId;
+    }
+
+    public void setContestProblemId(Long contestProblemId) {
+        this.contestProblemId = contestProblemId;
+    }
 
     public Integer getSubmissions() {
         return submissions;

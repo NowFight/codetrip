@@ -30,4 +30,12 @@ public interface ContestService {
      * @return List
      * */
     public List<ContestVO> listAllPublicContests();
+
+    /**
+     * 找出指定比赛ID的比赛
+     *
+     * @param contestId
+     * @return ContestVO
+     * */
+    public ContestVO listSpecificContest(Long contestId);
 }

@@ -143,4 +143,17 @@ public class ContestServiceImp extends BaseService implements ContestService {
         }
         return contestVOs;
     }
+
+    /**
+     * 找出指定比赛ID的比赛
+     *
+     * @param contestId
+     * @return ContestVO
+     */
+    @Override
+    public ContestVO listSpecificContest(Long contestId) {
+        ContestModel contest = contestDao.find(contestId);
+        ContestVO vo = dozerMapper.map(contest, ContestVO.class);
+        return vo;
+    }
 }

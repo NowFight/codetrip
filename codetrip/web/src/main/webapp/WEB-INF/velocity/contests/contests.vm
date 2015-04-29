@@ -10,9 +10,6 @@
 
     <div class="container">
         #parse("/common/spacebar.vm")
-        <div class="alert alert-success" role="alert">
-            <p>New Mission</p>
-        </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
@@ -35,7 +32,11 @@
                             #foreach($contest in $contests)
                             <tr class="text-muted">
                                 <td class="text-center">$id</td>
-                                <td class="text-center">$contest.title</td>
+                                #if($contest.accessable == true)
+                                    <td class="text-center"><a href="$root/contests/view/$contest.id">$contest.title</a></td>
+                                #else
+                                    <td class="text-center">$contest.title</td>
+                                #end
                                 <td class="text-center text-info">$contest.startTime</td>
                                 <td class="text-center text-danger">$contest.endTime</td>
                                 #if($contest.isRunning() == true)
@@ -45,7 +46,7 @@
                                 #else
                                     <td class="text-center text-danger"><span class="glyphicon glyphicon-ok-circle"/></td>
                                 #end
-                                <td class="text-center">$contest.participators <span class="glyphicon glyphicon-user"/></td>
+                                <td class="text-center"><a href="$root/contest/participant/$contest.id">$contest.participators <span class="glyphicon glyphicon-user"/></a></td>
                             </tr>
                                 #set($id = $id + 1)
                             #end

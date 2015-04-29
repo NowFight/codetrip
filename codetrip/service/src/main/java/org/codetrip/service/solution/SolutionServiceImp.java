@@ -2,6 +2,7 @@ package org.codetrip.service.solution;
 
 import org.codetrip.common.so.ProblemStatisticSO;
 import org.codetrip.common.so.SolutionSO;
+import org.codetrip.common.vo.ParticipantVO;
 import org.codetrip.common.vo.SolutionVO;
 import org.codetrip.common.vo.UserVO;
 import org.codetrip.dao.problem.ProblemDao;
@@ -13,6 +14,7 @@ import org.codetrip.model.solution.SolutionModel;
 import org.codetrip.model.statistic.ProblemStatisticModel;
 import org.codetrip.model.user.UserModel;
 import org.codetrip.service.BaseService;
+import org.codetrip.service.participator.ParticipatorService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -43,6 +45,9 @@ public class SolutionServiceImp extends BaseService implements SolutionService {
     private ProblemDao problemDao;
 
     @Autowired
+    private ParticipatorService participatorService;
+
+    @Autowired
     private Mapper dozerMapper;
 
     private final static Logger LOG = Logger.getLogger(SolutionService.class.getName());
@@ -61,9 +66,14 @@ public class SolutionServiceImp extends BaseService implements SolutionService {
         }
 
         solutionDao.insert(solution);
-
         ProblemStatisticSO so = new ProblemStatisticSO();
         so.setProblemId(solution.getProblemId());
+
+        //如果contestId不为null，则表示这是一次来自比赛的提交
+        if (solution.getContestId() != null) {
+            so.setContestId(solution.getContestId());
+        }
+
         List<ProblemStatisticModel> statistics = statisticDao.findBySO(so);
         if (statistics != null) {
             ProblemStatisticModel statistic = new ProblemStatisticModel();
@@ -106,7 +116,8 @@ public class SolutionServiceImp extends BaseService implements SolutionService {
                     UserModel user = userDao.find(solution.getUserId());
                     vo.setNikeName(user.getNikeName());
                 } else if (solution.getTeamId() != null) {
-                    //TODO if team id is not null, should set team name
+                    ParticipantVO pvo = participatorService.getparticipator(solution.getTeamId());
+                    vo.setNikeName(pvo.getTeamName());
                 }
                 solutionVOs.add(vo);
             }

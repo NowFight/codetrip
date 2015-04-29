@@ -22,6 +22,7 @@
         INSERT INTO problemstatistic
         (
         problem_id,
+          contest_id,
         submissions,
         accept,
         compile_error,
@@ -35,6 +36,7 @@
         VALUES
         (
         #{problemId},
+        #{contestId},
         #{submissions},
         #{accept},
         #{compileError},
@@ -52,6 +54,7 @@
         UPDATE problemstatistic
         <set>
             <if test="problemId != null">problem_id = #{problemId},</if>
+            <if test="contestId != null">contest_id = #{contestId},</if>
             <if test="submissions != null">submissions = #{submissions},</if>
             <if test="accept != null">accept = #{accept},</if>
             <if test="compileError != null">compile_error = #{compileError},</if>
@@ -75,6 +78,7 @@
         <where>
             <if test="id != null">id = #{id}</if>
             <if test="problemId != null">AND problem_id = #{problemId}</if>
+            <if test="contestId != null">AND contest_id = #{contestId}</if>
             <if test="submissions != null">AND submissions = #{submissions}</if>
             <if test="accept != null">AND accept = #{accept}</if>
             <if test="compileError != null">AND compile_error = #{compileError}</if>

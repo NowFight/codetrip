@@ -61,6 +61,8 @@ public class ContestVO {
     * */
     private Long participators;
 
+    private boolean accessable;
+
     /*
     * 比赛是否已经开始
     * */
@@ -86,6 +88,14 @@ public class ContestVO {
 
     //setter & getter
 
+
+    public boolean isAccessable() {
+        return accessable;
+    }
+
+    public void setAccessable(boolean accessable) {
+        this.accessable = accessable;
+    }
 
     public ContestStatus getStatus() {
         return status;
