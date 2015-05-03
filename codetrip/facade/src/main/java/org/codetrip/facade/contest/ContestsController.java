@@ -49,6 +49,7 @@ public class ContestsController {
         for (ContestVO vo : contestVOList) {
             if (user != null) {
                 vo.setAccessable(participatorService.checkParticipator(user.getId(), vo.getId()));
+                request.setAttribute("currentTeam", participatorService.getParticipator(user.getId(), vo.getId()));
             } else {
                 vo.setAccessable(false);
             }
@@ -72,6 +73,8 @@ public class ContestsController {
         ContestVO contestVO = contestService.listSpecificContest(contestId);
         model.addAttribute("problems", problemVOs);
         model.addAttribute("title", contestVO.getTitle());
+        model.addAttribute("in_contest", true);
+        model.addAttribute("contest_id", contestId);
         return "contests/viewcontest";
     }
 }

@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -88,6 +90,13 @@ public class ContestProblemServiceImp implements ContestProblemService {
         ContestProblemSO so = new ContestProblemSO();
         so.setContestId(contestId);
         List<ContestProblemModel> contestProblems = contestProblemDao.findBySO(so);
+
+        Collections.sort(contestProblems, new Comparator<ContestProblemModel>() {
+            @Override
+            public int compare(ContestProblemModel o1, ContestProblemModel o2) {
+                return o1.getId() < o2.getId() ? -1 : (o1.getId() == o2.getId() ? 0 : 1);
+            }
+        });
 
         if (!contestProblems.isEmpty()) {
             List<ProblemVO> problemVOs = new ArrayList<ProblemVO>();

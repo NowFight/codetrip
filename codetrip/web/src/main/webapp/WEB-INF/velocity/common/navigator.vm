@@ -33,6 +33,13 @@
                 #else
                     <li><a href="$root/status/">STATUS</a></li>
                 #end
+                #if($in_contest == true)
+                    #if($nav_active_item == "Rank")
+                        <li class="active"><a href="#">RANK</a></li>
+                    #else
+                        <li><a href="$root/rank/rankpage/$contest_id">RANK</a></li>
+                    #end
+                #end
             </ul>
 
             #if($logined == true)

@@ -38,6 +38,8 @@ public class ContestProblemController {
         }
         vo.setContestProblemId(contestProblemId);
         model.addAttribute("problem", vo);
+        model.addAttribute("in_contest", true);
+        model.addAttribute("contest_id", cvo.getId());
         return "contests/contestproblem";
     }
 }

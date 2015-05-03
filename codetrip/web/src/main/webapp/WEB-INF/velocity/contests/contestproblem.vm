@@ -7,7 +7,7 @@
 
 <body>
 <!-- navigator -->
-    #set($nav_active_item = "ProblemSet")
+    #set($nav_active_item = "Contests")
     #parse("/common/navigator.vm")
 
 <!-- modal -->
