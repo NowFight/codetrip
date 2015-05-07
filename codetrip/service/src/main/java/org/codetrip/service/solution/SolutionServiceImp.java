@@ -1,5 +1,6 @@
 package org.codetrip.service.solution;
 
+import org.codetrip.common.enumerate.JudgeResult;
 import org.codetrip.common.so.ProblemStatisticSO;
 import org.codetrip.common.so.SolutionSO;
 import org.codetrip.common.vo.ParticipantVO;
@@ -151,5 +152,37 @@ public class SolutionServiceImp extends BaseService implements SolutionService {
             LOG.warning("can't find solution with solution id = " + id);
             return null;
         }
+    }
+
+    /**
+     * 获得没有被判断过的solution记录
+     *
+     * @return List
+     */
+    @Override
+    public List<SolutionVO> getQueueSolutions() {
+        SolutionSO so = new SolutionSO();
+        so.setResult(JudgeResult.QUEUE);
+        List<SolutionModel> solutions = solutionDao.findBySO(so);
+        List<SolutionVO> solutionVOs = new ArrayList<SolutionVO>();
+        for (SolutionModel solution : solutions) {
+            SolutionVO vo = dozerMapper.map(solution, SolutionVO.class);
+            solutionVOs.add(vo);
+        }
+        return solutionVOs;
+    }
+
+    /**
+     * 更新solution记录
+     *
+     * @param solution
+     */
+    @Override
+    public void updateSolution(SolutionModel solution) {
+        SolutionModel oldSolution = solutionDao.find(solution.getId());
+        oldSolution.setResult(solution.getResult());
+        oldSolution.setUseTime(solution.getUseTime());
+        oldSolution.setUseMemory(solution.getUseMemory());
+        solutionDao.update(oldSolution);
     }
 }

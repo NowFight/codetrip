@@ -31,4 +31,18 @@ public interface SolutionService {
      * @return String
      * */
     public SolutionVO getCodeContent(Long id);
+
+    /**
+     * 获得没有被判断过的solution记录
+     *
+     * @return List
+     * */
+    public List<SolutionVO> getQueueSolutions();
+
+    /**
+     * 更新solution记录
+     *
+     * @param solution
+     * */
+    public void updateSolution(SolutionModel solution);
 }
